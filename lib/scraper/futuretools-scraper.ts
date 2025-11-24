@@ -115,15 +115,6 @@ export async function scrapeFutureTools(
         }
       });
     }
-      try {
-        const tool = extractToolData($, $(element), finalConfig.baseUrl);
-        if (tool) {
-          tools.push(tool);
-        }
-      } catch (error) {
-        errors.push(`Error extracting tool ${index}: ${error instanceof Error ? error.message : String(error)}`);
-      }
-    });
 
     // Determine total pages (if pagination exists)
     const totalPages = extractTotalPages($);
