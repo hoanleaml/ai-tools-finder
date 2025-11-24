@@ -49,7 +49,8 @@ detection_hints:
     level_1: ["simple", "basic", "small feature", "add", "minor"]
     level_2: ["dashboard", "several features", "admin panel", "medium"]
     level_3: ["platform", "integration", "complex", "system", "architecture"]
-    level_4: ["enterprise", "multi-tenant", "multiple products", "ecosystem", "scale"]
+    level_4:
+      ["enterprise", "multi-tenant", "multiple products", "ecosystem", "scale"]
 
   story_counts:
     level_0: [1, 1]

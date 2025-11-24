@@ -37,6 +37,7 @@ AI Tools Finder là một website tổng hợp các công cụ AI giúp người
 - Real-time updates và automation
 
 Hệ thống không yêu cầu domain-specific compliance như healthcare hay fintech, nhưng cần đảm bảo:
+
 - Web scraping tuân thủ robots.txt và rate limiting
 - Content generation tuân thủ copyright và quality standards
 - Affiliate tracking tuân thủ privacy regulations
@@ -49,7 +50,7 @@ Hệ thống không yêu cầu domain-specific compliance như healthcare hay fi
 
 1. **Tool Coverage**: Index được 1000+ công cụ AI từ FutureTools.io và các nguồn khác
 2. **Daily Updates**: Hệ thống tự động phát hiện và thêm công cụ mới hàng ngày với accuracy > 95%
-3. **Traffic Growth**: 
+3. **Traffic Growth**:
    - AI News section tạo 50+ articles/tháng
    - AI Blog section tạo 8-12 posts/tháng
    - Organic traffic tăng 20% mỗi tháng trong 6 tháng đầu
@@ -267,19 +268,21 @@ Hệ thống không yêu cầu domain-specific compliance như healthcare hay fi
 **FR2.2**: Người dùng có thể search công cụ theo tên, description, hoặc keywords
 
 **FR2.3**: Người dùng có thể filter công cụ theo:
-   - Categories (text generation, image generation, code, etc.)
-   - Pricing model (free, freemium, paid, one-time)
-   - Features (API access, browser extension, mobile app, etc.)
-   - Launch date range
+
+- Categories (text generation, image generation, code, etc.)
+- Pricing model (free, freemium, paid, one-time)
+- Features (API access, browser extension, mobile app, etc.)
+- Launch date range
 
 **FR2.4**: Người dùng có thể view tool detail page với đầy đủ thông tin:
-   - Tool name và logo
-   - Description
-   - Key features
-   - Pricing information
-   - Screenshots/demos
-   - Website link
-   - Affiliate link (nếu có)
+
+- Tool name và logo
+- Description
+- Key features
+- Pricing information
+- Screenshots/demos
+- Website link
+- Affiliate link (nếu có)
 
 **FR2.5**: Người dùng có thể click affiliate link để redirect với tracking
 
@@ -292,18 +295,20 @@ Hệ thống không yêu cầu domain-specific compliance như healthcare hay fi
 **FR3.1**: Admin có thể đăng nhập vào dashboard với authentication
 
 **FR3.2**: Admin có thể view dashboard overview với statistics:
-   - Total tools count
-   - New tools today/this week
-   - Tools với affiliate programs
-   - Pending reviews
+
+- Total tools count
+- New tools today/this week
+- Tools với affiliate programs
+- Pending reviews
 
 **FR3.3**: Admin có thể view danh sách tất cả công cụ trong table format
 
 **FR3.4**: Admin có thể filter tools theo:
-   - Có/không có affiliate program
-   - Categories
-   - Status (active, pending, archived)
-   - Date range
+
+- Có/không có affiliate program
+- Categories
+- Status (active, pending, archived)
+- Date range
 
 **FR3.5**: Admin có thể create tool mới manually với form input
 
@@ -340,11 +345,12 @@ Hệ thống không yêu cầu domain-specific compliance như healthcare hay fi
 **FR5.1**: Hệ thống có thể auto-generate blog posts sử dụng AI (OpenAI/Anthropic APIs)
 
 **FR5.2**: Hệ thống có thể generate blog posts về các topics:
-   - Tool reviews
-   - Best practices khi sử dụng công cụ AI
-   - Tool comparisons
-   - Industry trends
-   - How-to guides
+
+- Tool reviews
+- Best practices khi sử dụng công cụ AI
+- Tool comparisons
+- Industry trends
+- How-to guides
 
 **FR5.3**: Hệ thống có thể schedule blog posts (2-3 posts/tuần)
 
@@ -501,32 +507,38 @@ Hệ thống không yêu cầu domain-specific compliance như healthcare hay fi
 ## Technical Stack
 
 ### Frontend & Backend
+
 - **Framework**: Next.js 16 (App Router)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS hoặc CSS Modules
 - **UI Components**: shadcn/ui hoặc similar component library
 
 ### Database & Backend Services
+
 - **Database**: Supabase (PostgreSQL)
 - **Authentication**: Supabase Auth
 - **Storage**: Supabase Storage (cho images/files)
 - **Real-time**: Supabase Realtime (nếu cần)
 
 ### Scraping & Automation
+
 - **Scraping Library**: Cheerio hoặc Puppeteer
 - **HTTP Client**: Fetch API hoặc Axios
 - **Job Scheduling**: Vercel Cron Jobs hoặc external cron service
 
 ### AI & Content Generation
+
 - **AI APIs**: OpenAI GPT-4 hoặc Anthropic Claude
 - **Content Processing**: Custom logic với AI API integration
 
 ### Deployment
+
 - **Hosting**: Vercel (recommended) hoặc self-hosted
 - **CI/CD**: GitHub Actions hoặc Vercel Git integration
 - **Monitoring**: Vercel Analytics + Sentry hoặc LogRocket
 
 ### Development Tools
+
 - **Package Manager**: npm hoặc pnpm
 - **Version Control**: Git
 - **Code Quality**: ESLint, Prettier
@@ -537,4 +549,3 @@ Hệ thống không yêu cầu domain-specific compliance như healthcare hay fi
 _This PRD captures the essence of AI Tools Finder - a comprehensive AI tools aggregation platform with automated content generation and affiliate marketing capabilities._
 
 _Created through collaborative discovery between Hoan and AI facilitator._
-

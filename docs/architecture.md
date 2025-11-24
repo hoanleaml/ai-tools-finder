@@ -11,6 +11,7 @@
 This architecture document defines the technical decisions and implementation patterns for AI Tools Finder, a web application that aggregates AI tools with automated content generation and affiliate marketing capabilities. The architecture is designed to ensure consistency across AI agent implementations and prevent conflicts during development.
 
 **Key Architectural Principles:**
+
 - **Consistency First**: All agents follow the same patterns and technologies
 - **Scalability**: Designed to handle 1000+ tools and 10,000+ daily visitors
 - **Reliability**: Robust error handling, retry logic, and monitoring
@@ -26,11 +27,13 @@ This architecture document defines the technical decisions and implementation pa
 **Decision:** Use `create-next-app@latest` with TypeScript and App Router
 
 **Command:**
+
 ```bash
 npx create-next-app@latest ai-tools-finder --typescript --tailwind --app --no-src-dir --import-alias "@/*"
 ```
 
 **What This Establishes:**
+
 - Next.js 16 with App Router (latest stable)
 - TypeScript with strict mode configuration
 - Tailwind CSS for styling (aligns with UX design system choice)
@@ -38,6 +41,7 @@ npx create-next-app@latest ai-tools-finder --typescript --tailwind --app --no-sr
 - Project structure following Next.js conventions
 
 **Rationale:**
+
 - Next.js 16 App Router provides excellent performance with Server Components
 - TypeScript ensures type safety across all implementations
 - Tailwind CSS aligns with shadcn/ui design system choice
@@ -47,23 +51,23 @@ npx create-next-app@latest ai-tools-finder --typescript --tailwind --app --no-sr
 
 ## Decision Summary
 
-| Category | Decision | Version | Affects Epics | Rationale |
-| -------- | -------- | ------- | ------------- | --------- |
-| Framework | Next.js | 16.x (latest) | All | Server Components, App Router, excellent performance |
-| Language | TypeScript | 5.x (latest) | All | Type safety, better IDE support, prevents errors |
-| Styling | Tailwind CSS | 3.x (latest) | All | Aligns with shadcn/ui, utility-first approach |
-| Design System | shadcn/ui | Latest | Epic 2-8 | Accessible, customizable, TypeScript support |
-| Database | Supabase (PostgreSQL) | Latest | All | Managed PostgreSQL, built-in auth, real-time support |
-| Authentication | Supabase Auth | Latest | Epic 1, 4 | Secure, managed auth solution |
-| Scraping | Cheerio + Puppeteer | Latest | Epic 5 | HTML parsing and browser automation |
-| AI Content | OpenAI API | Latest | Epic 7 | GPT-4 for blog generation |
-| Deployment | Vercel | Latest | All | Optimized for Next.js, edge functions |
-| Package Manager | npm | Latest | All | Standard Node.js package manager |
-| State Management | React Server Components + Zustand | Latest | Epic 2-8 | Server-first with client state where needed |
-| Form Handling | React Hook Form + Zod | Latest | Epic 4 | Type-safe form validation |
-| HTTP Client | Native Fetch API | Built-in | All | No additional dependency needed |
-| Image Optimization | Next.js Image | Built-in | Epic 2-3 | Automatic optimization and lazy loading |
-| Caching | Next.js Caching + Vercel KV | Latest | Epic 2-6 | ISR, SWR, and Redis for dynamic data |
+| Category           | Decision                          | Version       | Affects Epics | Rationale                                            |
+| ------------------ | --------------------------------- | ------------- | ------------- | ---------------------------------------------------- |
+| Framework          | Next.js                           | 16.x (latest) | All           | Server Components, App Router, excellent performance |
+| Language           | TypeScript                        | 5.x (latest)  | All           | Type safety, better IDE support, prevents errors     |
+| Styling            | Tailwind CSS                      | 3.x (latest)  | All           | Aligns with shadcn/ui, utility-first approach        |
+| Design System      | shadcn/ui                         | Latest        | Epic 2-8      | Accessible, customizable, TypeScript support         |
+| Database           | Supabase (PostgreSQL)             | Latest        | All           | Managed PostgreSQL, built-in auth, real-time support |
+| Authentication     | Supabase Auth                     | Latest        | Epic 1, 4     | Secure, managed auth solution                        |
+| Scraping           | Cheerio + Puppeteer               | Latest        | Epic 5        | HTML parsing and browser automation                  |
+| AI Content         | OpenAI API                        | Latest        | Epic 7        | GPT-4 for blog generation                            |
+| Deployment         | Vercel                            | Latest        | All           | Optimized for Next.js, edge functions                |
+| Package Manager    | npm                               | Latest        | All           | Standard Node.js package manager                     |
+| State Management   | React Server Components + Zustand | Latest        | Epic 2-8      | Server-first with client state where needed          |
+| Form Handling      | React Hook Form + Zod             | Latest        | Epic 4        | Type-safe form validation                            |
+| HTTP Client        | Native Fetch API                  | Built-in      | All           | No additional dependency needed                      |
+| Image Optimization | Next.js Image                     | Built-in      | Epic 2-3      | Automatic optimization and lazy loading              |
+| Caching            | Next.js Caching + Vercel KV       | Latest        | Epic 2-6      | ISR, SWR, and Redis for dynamic data                 |
 
 ---
 
@@ -168,16 +172,16 @@ ai-tools-finder/
 
 ## Epic to Architecture Mapping
 
-| Epic | Key Architectural Components | Technologies |
-|------|------------------------------|--------------|
-| Epic 1: Foundation | Project setup, Supabase schema, Auth | Next.js, Supabase, TypeScript |
-| Epic 2: Tool Discovery | Search, Filter, Tool Cards | Server Components, Supabase queries, shadcn/ui |
-| Epic 3: Tool Details | Detail pages, Affiliate tracking | Dynamic routes, API routes, Supabase |
-| Epic 4: Admin Dashboard | Admin UI, CRUD operations | Protected routes, Supabase Admin API, shadcn/ui |
-| Epic 5: Scraping & Sync | Scraping jobs, Cron jobs | Vercel Cron, Cheerio/Puppeteer, Background jobs |
-| Epic 6: AI News | News aggregation, RSS parsing | RSS parser, Background jobs, Supabase |
-| Epic 7: AI Blog | Blog generation, Content management | OpenAI API, Background jobs, Markdown |
-| Epic 8: Advanced Affiliate | Affiliate detection, Analytics | Web scraping, Supabase queries, Analytics |
+| Epic                       | Key Architectural Components         | Technologies                                    |
+| -------------------------- | ------------------------------------ | ----------------------------------------------- |
+| Epic 1: Foundation         | Project setup, Supabase schema, Auth | Next.js, Supabase, TypeScript                   |
+| Epic 2: Tool Discovery     | Search, Filter, Tool Cards           | Server Components, Supabase queries, shadcn/ui  |
+| Epic 3: Tool Details       | Detail pages, Affiliate tracking     | Dynamic routes, API routes, Supabase            |
+| Epic 4: Admin Dashboard    | Admin UI, CRUD operations            | Protected routes, Supabase Admin API, shadcn/ui |
+| Epic 5: Scraping & Sync    | Scraping jobs, Cron jobs             | Vercel Cron, Cheerio/Puppeteer, Background jobs |
+| Epic 6: AI News            | News aggregation, RSS parsing        | RSS parser, Background jobs, Supabase           |
+| Epic 7: AI Blog            | Blog generation, Content management  | OpenAI API, Background jobs, Markdown           |
+| Epic 8: Advanced Affiliate | Affiliate detection, Analytics       | Web scraping, Supabase queries, Analytics       |
 
 ---
 
@@ -186,9 +190,11 @@ ai-tools-finder/
 ### Core Technologies
 
 #### Frontend Framework
+
 **Next.js 16 (App Router)**
+
 - **Version:** Latest stable (16.x)
-- **Rationale:** 
+- **Rationale:**
   - Server Components for optimal performance
   - Built-in routing and API routes
   - Image optimization and caching
@@ -196,7 +202,9 @@ ai-tools-finder/
 - **Usage:** All frontend pages and API routes
 
 #### Language
+
 **TypeScript 5.x**
+
 - **Version:** Latest stable (5.x)
 - **Rationale:**
   - Type safety prevents runtime errors
@@ -205,7 +213,9 @@ ai-tools-finder/
 - **Configuration:** Strict mode enabled in tsconfig.json
 
 #### Styling
+
 **Tailwind CSS 3.x**
+
 - **Version:** Latest stable (3.x)
 - **Rationale:**
   - Utility-first approach aligns with shadcn/ui
@@ -214,7 +224,9 @@ ai-tools-finder/
 - **Configuration:** Custom theme matching UX design colors
 
 #### Design System
+
 **shadcn/ui**
+
 - **Version:** Latest
 - **Rationale:**
   - Accessible components (WCAG compliant)
@@ -226,7 +238,9 @@ ai-tools-finder/
 ### Backend & Database
 
 #### Database
+
 **Supabase (PostgreSQL)**
+
 - **Version:** Latest managed service
 - **Rationale:**
   - Managed PostgreSQL (no infrastructure management)
@@ -237,7 +251,9 @@ ai-tools-finder/
 - **Usage:** All data storage and queries
 
 #### Authentication
+
 **Supabase Auth**
+
 - **Version:** Latest
 - **Rationale:**
   - Secure, managed authentication
@@ -249,7 +265,9 @@ ai-tools-finder/
 ### External Services
 
 #### AI Content Generation
+
 **OpenAI API (GPT-4)**
+
 - **Version:** Latest API version
 - **Rationale:**
   - High-quality content generation
@@ -258,7 +276,9 @@ ai-tools-finder/
 - **Usage:** Blog post generation (Epic 7)
 
 #### Scraping
+
 **Cheerio + Puppeteer**
+
 - **Versions:** Latest stable
 - **Rationale:**
   - Cheerio: Fast HTML parsing (server-side)
@@ -267,7 +287,9 @@ ai-tools-finder/
 - **Usage:** Tool scraping (Epic 5), Affiliate detection (Epic 8)
 
 #### News Aggregation
+
 **RSS Parser + Native Fetch**
+
 - **Versions:** Latest RSS parser library
 - **Rationale:**
   - RSS parser: Handles RSS feed parsing
@@ -277,7 +299,9 @@ ai-tools-finder/
 ### Deployment
 
 #### Hosting
+
 **Vercel**
+
 - **Version:** Latest platform
 - **Rationale:**
   - Optimized for Next.js
@@ -294,51 +318,56 @@ ai-tools-finder/
 ### Supabase Integration
 
 **Client Setup:**
+
 ```typescript
 // lib/supabase/client.ts
-import { createBrowserClient } from '@supabase/ssr'
+import { createBrowserClient } from "@supabase/ssr";
 
 export const createClient = () => {
   return createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  )
-}
+  );
+};
 ```
 
 **Server Setup:**
+
 ```typescript
 // lib/supabase/server.ts
-import { createServerClient } from '@supabase/ssr'
-import { cookies } from 'next/headers'
+import { createServerClient } from "@supabase/ssr";
+import { cookies } from "next/headers";
 
 export const createClient = () => {
-  const cookieStore = cookies()
+  const cookieStore = cookies();
   return createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         get(name: string) {
-          return cookieStore.get(name)?.value
+          return cookieStore.get(name)?.value;
         },
       },
     }
-  )
-}
+  );
+};
 ```
 
 ### OpenAI Integration
 
 ```typescript
 // lib/ai/openai.ts
-import OpenAI from 'openai'
+import OpenAI from "openai";
 
 export const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-})
+});
 
-export async function generateBlogPost(topic: string, type: 'review' | 'guide' | 'comparison') {
+export async function generateBlogPost(
+  topic: string,
+  type: "review" | "guide" | "comparison"
+) {
   // Implementation
 }
 ```
@@ -347,12 +376,14 @@ export async function generateBlogPost(topic: string, type: 'review' | 'guide' |
 
 ```typescript
 // lib/scraping/futuretools.ts
-import * as cheerio from 'cheerio'
+import * as cheerio from "cheerio";
 
 export async function scrapeFutureTools() {
-  const response = await fetch('https://www.futuretools.io/?sort-desc=go-live-date')
-  const html = await response.text()
-  const $ = cheerio.load(html)
+  const response = await fetch(
+    "https://www.futuretools.io/?sort-desc=go-live-date"
+  );
+  const html = await response.text();
+  const $ = cheerio.load(html);
   // Parse and extract tools
 }
 ```
@@ -366,6 +397,7 @@ These patterns ensure consistent implementation across all AI agents:
 ### 1. Data Fetching Pattern
 
 **Server Components (Default):**
+
 ```typescript
 // app/tools/page.tsx
 export default async function ToolsPage() {
@@ -374,20 +406,21 @@ export default async function ToolsPage() {
     .from('tools')
     .select('*')
     .order('created_at', { ascending: false })
-  
+
   return <ToolList tools={tools} />
 }
 ```
 
 **Client Components (When Needed):**
+
 ```typescript
 // components/tool/tool-list.tsx
-'use client'
+"use client";
 
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from "react";
 
 export function ToolList({ initialTools }: { initialTools: Tool[] }) {
-  const [tools, setTools] = useState(initialTools)
+  const [tools, setTools] = useState(initialTools);
   // Client-side updates
 }
 ```
@@ -398,26 +431,26 @@ export function ToolList({ initialTools }: { initialTools: Tool[] }) {
 
 ```typescript
 // app/api/tools/route.ts
-import { createClient } from '@/lib/supabase/server'
-import { NextRequest, NextResponse } from 'next/server'
+import { createClient } from "@/lib/supabase/server";
+import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(request: NextRequest) {
-  const supabase = createClient()
-  const { searchParams } = new URL(request.url)
-  const category = searchParams.get('category')
-  
-  let query = supabase.from('tools').select('*')
+  const supabase = createClient();
+  const { searchParams } = new URL(request.url);
+  const category = searchParams.get("category");
+
+  let query = supabase.from("tools").select("*");
   if (category) {
-    query = query.eq('category', category)
+    query = query.eq("category", category);
   }
-  
-  const { data, error } = await query
-  
+
+  const { data, error } = await query;
+
   if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
-  
-  return NextResponse.json({ data })
+
+  return NextResponse.json({ data });
 }
 ```
 
@@ -427,28 +460,28 @@ export async function GET(request: NextRequest) {
 
 ```typescript
 // components/admin/tool-form.tsx
-'use client'
+"use client";
 
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
 
 const toolSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  description: z.string().min(10, 'Description must be at least 10 characters'),
-  website_url: z.string().url('Invalid URL'),
-})
+  name: z.string().min(1, "Name is required"),
+  description: z.string().min(10, "Description must be at least 10 characters"),
+  website_url: z.string().url("Invalid URL"),
+});
 
 export function ToolForm() {
   const form = useForm({
     resolver: zodResolver(toolSchema),
     defaultValues: {
-      name: '',
-      description: '',
-      website_url: '',
+      name: "",
+      description: "",
+      website_url: "",
     },
-  })
-  
+  });
+
   // Form implementation
 }
 ```
@@ -465,19 +498,27 @@ export class AppError extends Error {
     public code: string,
     public statusCode: number = 500
   ) {
-    super(message)
-    this.name = 'AppError'
+    super(message);
+    this.name = "AppError";
   }
 }
 
 export function handleError(error: unknown) {
   if (error instanceof AppError) {
-    return { error: error.message, code: error.code, statusCode: error.statusCode }
+    return {
+      error: error.message,
+      code: error.code,
+      statusCode: error.statusCode,
+    };
   }
-  
+
   // Log unexpected errors
-  console.error('Unexpected error:', error)
-  return { error: 'An unexpected error occurred', code: 'UNKNOWN', statusCode: 500 }
+  console.error("Unexpected error:", error);
+  return {
+    error: "An unexpected error occurred",
+    code: "UNKNOWN",
+    statusCode: 500,
+  };
 }
 ```
 
@@ -487,23 +528,25 @@ export function handleError(error: unknown) {
 
 ```typescript
 // middleware.ts
-import { createServerClient } from '@supabase/ssr'
-import { NextResponse, type NextRequest } from 'next/server'
+import { createServerClient } from "@supabase/ssr";
+import { NextResponse, type NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-  const supabase = createServerClient()
-  const { data: { session } } = await supabase.auth.getSession()
-  
-  if (!session && request.nextUrl.pathname.startsWith('/admin')) {
-    return NextResponse.redirect(new URL('/login', request.url))
+  const supabase = createServerClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session && request.nextUrl.pathname.startsWith("/admin")) {
+    return NextResponse.redirect(new URL("/login", request.url));
   }
-  
-  return NextResponse.next()
+
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/admin/:path*'],
-}
+  matcher: ["/admin/:path*"],
+};
 ```
 
 **Rationale:** Centralized auth check, protects admin routes, redirects unauthenticated users.
@@ -529,30 +572,36 @@ export default async function ToolsPage() {
 ### Naming Conventions
 
 **Files:**
+
 - Components: `kebab-case.tsx` (e.g., `tool-card.tsx`)
 - Utilities: `kebab-case.ts` (e.g., `format-date.ts`)
 - Types: `kebab-case.ts` (e.g., `tool-types.ts`)
 - Hooks: `use-kebab-case.ts` (e.g., `use-tools.ts`)
 
 **Components:**
+
 - PascalCase for component names (e.g., `ToolCard`)
 - Props interface: `ComponentNameProps` (e.g., `ToolCardProps`)
 
 **Functions:**
+
 - camelCase for functions (e.g., `getTools`, `formatDate`)
 - Async functions: descriptive names (e.g., `fetchTools`, `generateBlogPost`)
 
 **Constants:**
+
 - UPPER_SNAKE_CASE for constants (e.g., `MAX_TOOLS_PER_PAGE`)
 - Enums: PascalCase (e.g., `ToolCategory`)
 
 **Database:**
+
 - Tables: `snake_case` (e.g., `tools`, `affiliate_links`)
 - Columns: `snake_case` (e.g., `created_at`, `website_url`)
 
 ### Code Organization
 
 **Component Structure:**
+
 ```typescript
 // 1. Imports (external, then internal)
 import { useState } from 'react'
@@ -569,12 +618,12 @@ interface ToolCardProps {
 export function ToolCard({ tool, onSelect }: ToolCardProps) {
   // 4. Hooks
   const [isLoading, setIsLoading] = useState(false)
-  
+
   // 5. Handlers
   const handleClick = () => {
     onSelect?.(tool)
   }
-  
+
   // 6. Render
   return (
     <div>
@@ -585,6 +634,7 @@ export function ToolCard({ tool, onSelect }: ToolCardProps) {
 ```
 
 **File Organization:**
+
 - One component per file
 - Related utilities in same directory
 - Shared types in `/types` directory
@@ -593,17 +643,20 @@ export function ToolCard({ tool, onSelect }: ToolCardProps) {
 ### Error Handling
 
 **API Routes:**
+
 - Always return proper HTTP status codes
 - Include error messages in response body
 - Log errors server-side
 - Never expose sensitive error details to client
 
 **Client Components:**
+
 - Use try-catch for async operations
 - Show user-friendly error messages
 - Log errors to error tracking service (Sentry)
 
 **Server Components:**
+
 - Handle errors gracefully
 - Return error pages for critical failures
 - Use error.tsx files for error boundaries
@@ -611,23 +664,25 @@ export function ToolCard({ tool, onSelect }: ToolCardProps) {
 ### Logging Strategy
 
 **Server-side:**
+
 ```typescript
 // lib/utils/logger.ts
 export const logger = {
   info: (message: string, data?: any) => {
-    console.log(`[INFO] ${message}`, data)
+    console.log(`[INFO] ${message}`, data);
   },
   error: (message: string, error?: any) => {
-    console.error(`[ERROR] ${message}`, error)
+    console.error(`[ERROR] ${message}`, error);
     // Send to error tracking service
   },
   warn: (message: string, data?: any) => {
-    console.warn(`[WARN] ${message}`, data)
+    console.warn(`[WARN] ${message}`, data);
   },
-}
+};
 ```
 
 **Client-side:**
+
 - Use console for development
 - Send errors to error tracking service in production
 - Don't log sensitive data
@@ -734,6 +789,7 @@ CREATE TABLE scraping_jobs (
 ```
 
 **Indexes:**
+
 ```sql
 -- Performance indexes
 CREATE INDEX idx_tools_category ON tools(category_id);
@@ -750,6 +806,7 @@ CREATE INDEX idx_tools_search ON tools USING gin(to_tsvector('english', name || 
 ```
 
 **Row Level Security (RLS):**
+
 ```sql
 -- Tools: Public read, Admin write
 ALTER TABLE tools ENABLE ROW LEVEL SECURITY;
@@ -772,20 +829,24 @@ CREATE POLICY "Tools are editable by admins" ON tools
 ### Public APIs
 
 **GET /api/tools**
+
 - Query params: `category`, `pricing`, `search`, `page`, `limit`
 - Response: `{ data: Tool[], count: number, page: number }`
 - Caching: ISR with 1-hour revalidation
 
 **GET /api/tools/[slug]**
+
 - Response: `{ data: Tool }`
 - Caching: ISR with 1-hour revalidation
 
 **GET /api/search**
+
 - Query params: `q` (search query)
 - Response: `{ data: Tool[], count: number }`
 - Caching: No cache (dynamic search)
 
 **POST /api/affiliate/click**
+
 - Body: `{ affiliate_link_id: string, tool_id: string }`
 - Response: `{ success: boolean, redirect_url: string }`
 - Purpose: Track affiliate clicks before redirect
@@ -793,25 +854,30 @@ CREATE POLICY "Tools are editable by admins" ON tools
 ### Admin APIs
 
 **GET /api/admin/tools**
+
 - Auth: Required (admin role)
 - Query params: `status`, `category`, `has_affiliate`, `page`, `limit`
 - Response: `{ data: Tool[], count: number }`
 
 **POST /api/admin/tools**
+
 - Auth: Required (admin role)
 - Body: Tool creation data
 - Response: `{ data: Tool }`
 
 **PUT /api/admin/tools/[id]**
+
 - Auth: Required (admin role)
 - Body: Tool update data
 - Response: `{ data: Tool }`
 
 **DELETE /api/admin/tools/[id]**
+
 - Auth: Required (admin role)
 - Response: `{ success: boolean }`
 
 **POST /api/admin/scraping/trigger**
+
 - Auth: Required (admin role)
 - Response: `{ job_id: string }`
 - Purpose: Manually trigger scraping job
@@ -819,6 +885,7 @@ CREATE POLICY "Tools are editable by admins" ON tools
 ### Cron Jobs
 
 **GET /api/cron/sync-tools**
+
 - Auth: Vercel Cron secret header
 - Purpose: Daily tool sync from FutureTools.io
 - Runs: Daily at configured time
@@ -830,12 +897,14 @@ CREATE POLICY "Tools are editable by admins" ON tools
 ### Authentication & Authorization
 
 **Admin Authentication:**
+
 - Supabase Auth với email/password
 - JWT tokens stored in HTTP-only cookies
 - Session validation on every admin request
 - Role-based access control (admin role required)
 
 **API Security:**
+
 - Rate limiting: 100 requests/minute per IP
 - Input validation: Zod schemas for all inputs
 - SQL injection prevention: Parameterized queries only (Supabase handles this)
@@ -845,11 +914,13 @@ CREATE POLICY "Tools are editable by admins" ON tools
 ### Data Protection
 
 **Sensitive Data:**
+
 - Affiliate links: Encrypted at rest (Supabase encryption)
 - API keys: Stored in environment variables only
 - User data: Minimal collection, GDPR compliant
 
 **Row Level Security:**
+
 - All tables have RLS enabled
 - Public tables: Read-only for anonymous users
 - Admin tables: Full access for admin role only
@@ -861,17 +932,20 @@ CREATE POLICY "Tools are editable by admins" ON tools
 ### Frontend Performance
 
 **Server Components:**
+
 - Default to Server Components for all pages
 - Client Components only when interactivity needed
 - Reduces JavaScript bundle size
 
 **Image Optimization:**
+
 - Next.js Image component với automatic optimization
 - WebP format với fallback
 - Lazy loading for below-fold images
 - CDN delivery via Vercel
 
 **Code Splitting:**
+
 - Automatic route-based code splitting
 - Dynamic imports for heavy components
 - Tree shaking enabled
@@ -879,17 +953,20 @@ CREATE POLICY "Tools are editable by admins" ON tools
 ### Backend Performance
 
 **Database Optimization:**
+
 - Proper indexes on frequently queried columns
 - Pagination for all list queries
 - Connection pooling (Supabase handles this)
 
 **Caching Strategy:**
+
 - ISR for static content (tools, news, blog)
 - SWR for client-side data fetching
 - Vercel KV for dynamic caching (if needed)
 - Cache invalidation on data updates
 
 **Query Optimization:**
+
 - Select only needed columns
 - Use Supabase query builder efficiently
 - Avoid N+1 queries
@@ -902,11 +979,13 @@ CREATE POLICY "Tools are editable by admins" ON tools
 ### Environment Setup
 
 **Environments:**
+
 - Development: Local với Supabase local (optional)
 - Staging: Vercel preview deployments
 - Production: Vercel production
 
 **Environment Variables:**
+
 ```bash
 # Supabase
 NEXT_PUBLIC_SUPABASE_URL=
@@ -926,17 +1005,20 @@ NEXT_PUBLIC_APP_URL=
 ### Deployment Process
 
 **CI/CD:**
+
 - GitHub Actions (optional) hoặc Vercel Git integration
 - Automatic deployments on push to main
 - Preview deployments for PRs
 - Automated tests before deployment
 
 **Database Migrations:**
+
 - Supabase migrations via SQL files
 - Version controlled in repository
 - Applied via Supabase dashboard hoặc CLI
 
 **Monitoring:**
+
 - Vercel Analytics for performance
 - Sentry for error tracking (optional)
 - Supabase logs for database queries
@@ -1002,12 +1084,14 @@ npm start
 **Decision:** Use Next.js 16 App Router instead of Pages Router
 
 **Rationale:**
+
 - Server Components provide better performance
 - Improved data fetching patterns
 - Better TypeScript support
 - Future-proof (App Router is the future of Next.js)
 
 **Consequences:**
+
 - Learning curve for developers unfamiliar with App Router
 - Some libraries may not support App Router yet (mitigated by using established libraries)
 
@@ -1018,6 +1102,7 @@ npm start
 **Decision:** Use Supabase managed PostgreSQL instead of self-hosted database
 
 **Rationale:**
+
 - No infrastructure management required
 - Built-in authentication
 - Automatic backups and scaling
@@ -1025,6 +1110,7 @@ npm start
 - Cost-effective for MVP and growth stages
 
 **Consequences:**
+
 - Vendor lock-in (mitigated by using standard PostgreSQL, can migrate)
 - Less control over database configuration (acceptable for this project)
 
@@ -1035,12 +1121,14 @@ npm start
 **Decision:** Use Server Components as default, Client Components only when needed
 
 **Rationale:**
+
 - Better performance (less JavaScript sent to client)
 - Improved SEO (content rendered on server)
 - Reduced client-side complexity
 - Lower hosting costs (less compute on client)
 
 **Consequences:**
+
 - Some interactivity requires Client Components (acceptable trade-off)
 - Need to understand Server/Client Component boundaries
 
@@ -1051,6 +1139,7 @@ npm start
 **Decision:** Use shadcn/ui component library
 
 **Rationale:**
+
 - Copy-paste approach (full control over code)
 - Built on Radix UI (accessible primitives)
 - Tailwind CSS based (aligns with styling choice)
@@ -1058,6 +1147,7 @@ npm start
 - No runtime overhead (components are code, not library)
 
 **Consequences:**
+
 - Need to manually add components (acceptable for customization needs)
 - Less pre-built components than Material UI (mitigated by custom components)
 
@@ -1068,12 +1158,14 @@ npm start
 **Decision:** Use Vercel Cron Jobs for scheduled tasks
 
 **Rationale:**
+
 - Integrated with deployment platform
 - No additional service to manage
 - Free tier sufficient for MVP
 - Easy to configure và monitor
 
 **Consequences:**
+
 - Limited to Vercel platform (acceptable since using Vercel for hosting)
 - Less flexible than dedicated cron services (acceptable for current needs)
 
@@ -1084,12 +1176,14 @@ npm start
 **Decision:** Use Cheerio for simple parsing, Puppeteer for complex pages
 
 **Rationale:**
+
 - Cheerio: Fast, lightweight for static HTML
 - Puppeteer: Handles JavaScript-rendered content
 - Both: Mature, well-documented libraries
 - Cost-effective (no external scraping service)
 
 **Consequences:**
+
 - Need to handle rate limiting manually (implemented in code)
 - May need to update selectors if source changes (acceptable maintenance)
 
@@ -1098,4 +1192,3 @@ npm start
 _Generated by BMAD Decision Architecture Workflow v1.0_  
 _Date: 2025-01-27_  
 _For: Hoan_
-

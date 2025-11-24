@@ -7,5 +7,5 @@ bmad_folder: .bmad
 user_name: Hoan
 communication_language: Vietnam
 document_output_language: Vietnam
-output_folder: '{project-root}/docs'
+output_folder: "{project-root}/docs"
 install_user_docs: true

@@ -69,6 +69,7 @@ So that **I have a solid foundation to build the application**.
 **Given** a new project repository
 **When** I run the setup commands
 **Then** the project should have:
+
 - Next.js 16 with App Router configured
 - TypeScript with strict mode enabled
 - Tailwind CSS or CSS Modules for styling
@@ -76,6 +77,7 @@ So that **I have a solid foundation to build the application**.
 - Git repository initialized with .gitignore
 
 **And** the project structure should follow Next.js 16 conventions:
+
 - `/app` directory for App Router
 - `/components` for reusable components
 - `/lib` for utilities and helpers
@@ -84,6 +86,7 @@ So that **I have a solid foundation to build the application**.
 **Prerequisites:** None (first story)
 
 **Technical Notes:**
+
 - Use `create-next-app@latest` with TypeScript template
 - Configure tsconfig.json with strict mode
 - Set up Tailwind CSS or choose CSS Modules
@@ -102,6 +105,7 @@ So that **the application has a proper data structure to store all information**
 **Given** a Supabase project created
 **When** I set up the database schema
 **Then** the following tables should exist:
+
 - `tools` (id, name, description, website_url, logo_url, category_id, pricing_model, features, created_at, updated_at)
 - `categories` (id, name, slug, description)
 - `affiliate_links` (id, tool_id, affiliate_url, program_name, commission_rate, status, created_at, updated_at)
@@ -110,6 +114,7 @@ So that **the application has a proper data structure to store all information**
 - `scraping_jobs` (id, source_url, status, error_message, tools_found, created_at, completed_at)
 
 **And** all tables should have:
+
 - Primary keys and foreign key relationships
 - Indexes on frequently queried columns (name, category_id, status)
 - Timestamps (created_at, updated_at)
@@ -118,6 +123,7 @@ So that **the application has a proper data structure to store all information**
 **Prerequisites:** Story 1.1
 
 **Technical Notes:**
+
 - Create Supabase project and get API keys
 - Use Supabase SQL editor or migrations
 - Set up Row Level Security (RLS) policies
@@ -136,6 +142,7 @@ So that **I can securely access the admin dashboard**.
 **Given** Supabase Auth is configured
 **When** an admin attempts to log in
 **Then** the system should:
+
 - Support email/password authentication
 - Validate credentials against Supabase Auth
 - Create secure session tokens
@@ -143,6 +150,7 @@ So that **I can securely access the admin dashboard**.
 - Show error messages on failure
 
 **And** the authentication should:
+
 - Support session persistence across page reloads
 - Handle token refresh automatically
 - Log out functionality that clears session
@@ -151,6 +159,7 @@ So that **I can securely access the admin dashboard**.
 **Prerequisites:** Story 1.2
 
 **Technical Notes:**
+
 - Configure Supabase Auth in project
 - Set up email/password provider
 - Create Next.js middleware for route protection
@@ -170,6 +179,7 @@ So that **I can build consistent user interfaces efficiently**.
 **Given** a design system is established
 **When** I build UI components
 **Then** the following components should exist:
+
 - Button (primary, secondary, outline variants)
 - Input (text, email, password, search)
 - Card (for tool listings)
@@ -180,6 +190,7 @@ So that **I can build consistent user interfaces efficiently**.
 - Footer
 
 **And** all components should:
+
 - Follow consistent styling (colors, spacing, typography)
 - Be responsive (mobile, tablet, desktop)
 - Support dark mode (optional for MVP)
@@ -189,6 +200,7 @@ So that **I can build consistent user interfaces efficiently**.
 **Prerequisites:** Story 1.1
 
 **Technical Notes:**
+
 - Consider using shadcn/ui or similar component library
 - Define design tokens (colors, spacing, typography)
 - Use Tailwind CSS for styling
@@ -208,6 +220,7 @@ So that **I can deploy the application easily and automatically**.
 **Given** a Vercel account is connected
 **When** I push code to the repository
 **Then** the system should:
+
 - Automatically build the Next.js application
 - Run linting and type checking
 - Deploy to preview environment for PRs
@@ -215,6 +228,7 @@ So that **I can deploy the application easily and automatically**.
 - Show deployment status and logs
 
 **And** environment variables should be:
+
 - Configured in Vercel dashboard
 - Secured and not exposed in code
 - Different for development, staging, and production
@@ -223,6 +237,7 @@ So that **I can deploy the application easily and automatically**.
 **Prerequisites:** Story 1.1
 
 **Technical Notes:**
+
 - Connect GitHub repository to Vercel
 - Configure build settings (Node.js version, build command)
 - Set up environment variables
@@ -246,6 +261,7 @@ So that **I can explore available tools systematically**.
 **Given** tools exist in the database
 **When** I visit the tools listing page
 **Then** I should see:
+
 - Grid or list layout displaying tools (cards with name, logo, brief description)
 - Pagination controls (previous/next, page numbers)
 - 20-30 tools per page
@@ -253,6 +269,7 @@ So that **I can explore available tools systematically**.
 - Empty state if no tools exist
 
 **And** the page should:
+
 - Load in < 2 seconds (NFR1.1)
 - Be responsive (mobile, tablet, desktop)
 - Show tool count and current page info
@@ -261,6 +278,7 @@ So that **I can explore available tools systematically**.
 **Prerequisites:** Story 1.2, Story 1.4
 
 **Technical Notes:**
+
 - Use Next.js Server Components for data fetching
 - Implement pagination with Supabase query (limit/offset or cursor-based)
 - Use Next.js Image component for optimized images
@@ -280,6 +298,7 @@ So that **I can quickly find specific tools**.
 **Given** I'm on the tools page
 **When** I type in the search box
 **Then** the system should:
+
 - Show search results in real-time (as I type)
 - Search across tool names, descriptions, and features
 - Display results in < 500ms (NFR1.2)
@@ -288,6 +307,7 @@ So that **I can quickly find specific tools**.
 - Support fuzzy search for typos
 
 **And** the search should:
+
 - Update URL with query parameter (/tools?search=keyword)
 - Preserve search state on page navigation
 - Clear search functionality
@@ -296,6 +316,7 @@ So that **I can quickly find specific tools**.
 **Prerequisites:** Story 2.1
 
 **Technical Notes:**
+
 - Use Supabase full-text search or PostgreSQL text search
 - Implement debouncing for search input (300ms delay)
 - Create search index on tool name and description columns
@@ -315,12 +336,14 @@ So that **I can narrow down tools to my specific needs**.
 **Given** I'm on the tools page
 **When** I apply filters
 **Then** I should be able to filter by:
+
 - Category (dropdown or checkbox list)
 - Pricing model (Free, Freemium, Paid, One-time)
 - Features (API access, Browser extension, Mobile app, etc.)
 - Multiple filters simultaneously
 
 **And** the filtering should:
+
 - Update results immediately
 - Show active filters with remove option
 - Update URL with filter parameters (/tools?category=text&pricing=free)
@@ -331,6 +354,7 @@ So that **I can narrow down tools to my specific needs**.
 **Prerequisites:** Story 2.1
 
 **Technical Notes:**
+
 - Use Supabase query filters (eq, in, contains)
 - Implement filter state management (URL params or state)
 - Create filter UI components (checkboxes, dropdowns)
@@ -350,6 +374,7 @@ So that **I can make an informed decision about using it**.
 **Given** I click on a tool from the listing
 **When** I view the tool detail page
 **Then** I should see:
+
 - Tool name and logo (large, prominent)
 - Full description
 - Key features list
@@ -361,6 +386,7 @@ So that **I can make an informed decision about using it**.
 - Social share buttons
 
 **And** the page should:
+
 - Load in < 1.5 seconds (NFR1.3)
 - Be SEO optimized (meta tags, structured data)
 - Support social sharing (Open Graph, Twitter Cards)
@@ -370,6 +396,7 @@ So that **I can make an informed decision about using it**.
 **Prerequisites:** Story 2.1, Story 1.4
 
 **Technical Notes:**
+
 - Use Next.js dynamic routes (/tools/[slug])
 - Generate static paths for SEO (ISR or SSG)
 - Add structured data (JSON-LD) for rich snippets
@@ -389,6 +416,7 @@ So that **the platform can earn revenue from my tool usage**.
 **Given** a tool has an affiliate link
 **When** I click the affiliate link button
 **Then** the system should:
+
 - Track the click (log to database)
 - Redirect to the tool's website with affiliate parameters
 - Open in new tab/window
@@ -396,6 +424,7 @@ So that **the platform can earn revenue from my tool usage**.
 - Handle errors gracefully (if link is invalid)
 
 **And** the tracking should:
+
 - Record click timestamp, tool ID, user session (if available)
 - Not block the redirect (async tracking)
 - Support different affiliate link formats
@@ -404,6 +433,7 @@ So that **the platform can earn revenue from my tool usage**.
 **Prerequisites:** Story 2.4, Story 1.2
 
 **Technical Notes:**
+
 - Create click tracking API endpoint
 - Store clicks in database (affiliate_clicks table)
 - Use Next.js API route for tracking
@@ -427,6 +457,7 @@ So that **I can thoroughly evaluate tools before using them**.
 **Given** I'm viewing a tool detail page
 **When** the page loads
 **Then** I should see:
+
 - Hero section with tool name, logo, tagline
 - Detailed description (formatted text, bullet points)
 - Feature highlights with icons
@@ -438,6 +469,7 @@ So that **I can thoroughly evaluate tools before using them**.
 - Social proof (if available)
 
 **And** the content should:
+
 - Be well-formatted and readable
 - Support markdown or rich text
 - Load images lazily for performance
@@ -447,6 +479,7 @@ So that **I can thoroughly evaluate tools before using them**.
 **Prerequisites:** Story 2.4
 
 **Technical Notes:**
+
 - Enhance tool data model to support rich content
 - Use markdown or rich text editor for descriptions
 - Implement image gallery component
@@ -466,6 +499,7 @@ So that **I can discover alternative or complementary tools**.
 **Given** I'm viewing a tool detail page
 **When** I scroll to the related tools section
 **Then** I should see:
+
 - 4-6 related tools displayed
 - Tools from the same category
 - Tools with similar features
@@ -473,6 +507,7 @@ So that **I can discover alternative or complementary tools**.
 - Clickable cards linking to tool detail pages
 
 **And** the suggestions should:
+
 - Be relevant (not random)
 - Update dynamically based on tool attributes
 - Show tool name, logo, brief description
@@ -481,6 +516,7 @@ So that **I can discover alternative or complementary tools**.
 **Prerequisites:** Story 2.4
 
 **Technical Notes:**
+
 - Create related tools query (category match, feature similarity)
 - Use Supabase query with similarity scoring
 - Cache related tools for performance
@@ -499,12 +535,14 @@ So that **I can recommend tools to others**.
 **Given** I'm viewing a tool detail page
 **When** I click a social share button
 **Then** I should be able to share to:
+
 - Twitter/X
 - Facebook
 - LinkedIn
 - Copy link to clipboard
 
 **And** the shared content should include:
+
 - Tool name and description
 - Tool image/logo
 - Link to tool detail page
@@ -513,6 +551,7 @@ So that **I can recommend tools to others**.
 **Prerequisites:** Story 2.4
 
 **Technical Notes:**
+
 - Use Web Share API for native sharing (mobile)
 - Implement share buttons with proper URLs
 - Add Open Graph and Twitter Card meta tags
@@ -535,6 +574,7 @@ So that **I can understand the current state of the platform**.
 **Given** I'm logged in as admin
 **When** I access the admin dashboard
 **Then** I should see:
+
 - Total tools count
 - New tools added today/this week
 - Tools with affiliate programs (count and percentage)
@@ -543,6 +583,7 @@ So that **I can understand the current state of the platform**.
 - Quick action buttons
 
 **And** the dashboard should:
+
 - Load statistics quickly (< 1 second)
 - Update in real-time or on refresh
 - Be visually clear with charts/graphs (optional)
@@ -551,6 +592,7 @@ So that **I can understand the current state of the platform**.
 **Prerequisites:** Story 1.3, Story 1.4
 
 **Technical Notes:**
+
 - Create admin dashboard route (/admin)
 - Use Supabase queries with aggregations (COUNT, GROUP BY)
 - Cache statistics for performance
@@ -569,6 +611,7 @@ So that **I can efficiently browse and manage the tool catalog**.
 **Given** I'm on the admin tools page
 **When** I view the tools table
 **Then** I should see:
+
 - Table with columns: Name, Category, Status, Affiliate, Actions
 - Sortable columns (name, date added)
 - Pagination (20-50 items per page)
@@ -577,6 +620,7 @@ So that **I can efficiently browse and manage the tool catalog**.
 - Row actions (edit, delete, view)
 
 **And** the table should:
+
 - Load efficiently with pagination
 - Support filtering by status, category, affiliate
 - Show loading states
@@ -585,6 +629,7 @@ So that **I can efficiently browse and manage the tool catalog**.
 **Prerequisites:** Story 4.1
 
 **Technical Notes:**
+
 - Use a table component (shadcn/ui DataTable or similar)
 - Implement server-side pagination and filtering
 - Use Supabase queries with proper indexing
@@ -603,6 +648,7 @@ So that **I can manually add or update tool information**.
 **Given** I'm creating or editing a tool
 **When** I fill out the form
 **Then** I should be able to input:
+
 - Tool name (required)
 - Description (rich text or markdown)
 - Website URL (required, validated)
@@ -613,6 +659,7 @@ So that **I can manually add or update tool information**.
 - Affiliate link (optional)
 
 **And** the form should:
+
 - Validate all required fields
 - Show validation errors clearly
 - Auto-save drafts (optional)
@@ -623,6 +670,7 @@ So that **I can manually add or update tool information**.
 **Prerequisites:** Story 4.2
 
 **Technical Notes:**
+
 - Create form component with validation (react-hook-form + zod)
 - Use Supabase Storage for image uploads (if needed)
 - Implement form state management
@@ -642,6 +690,7 @@ So that **I can update and track affiliate programs**.
 **Given** I'm managing a tool's affiliate link
 **When** I update the affiliate information
 **Then** I should be able to:
+
 - Add affiliate link URL
 - Update existing affiliate link
 - Set affiliate program name
@@ -650,6 +699,7 @@ So that **I can update and track affiliate programs**.
 - View affiliate link status
 
 **And** the management should:
+
 - Validate affiliate URL format
 - Test affiliate link (optional, open in new tab)
 - Show affiliate link status (active, pending, expired)
@@ -658,6 +708,7 @@ So that **I can update and track affiliate programs**.
 **Prerequisites:** Story 4.3
 
 **Technical Notes:**
+
 - Create affiliate link form/component
 - Validate URL format
 - Update affiliate_links table
@@ -677,6 +728,7 @@ So that **I can efficiently manage multiple tools at once**.
 **Given** I've selected multiple tools in the table
 **When** I choose a bulk action
 **Then** I should be able to:
+
 - Bulk delete tools (with confirmation)
 - Bulk update category
 - Bulk update status (active, archived)
@@ -684,6 +736,7 @@ So that **I can efficiently manage multiple tools at once**.
 - Export selected tools (CSV/JSON)
 
 **And** the bulk operations should:
+
 - Show confirmation dialog with count
 - Process operations in background (if many)
 - Show progress indicator
@@ -693,6 +746,7 @@ So that **I can efficiently manage multiple tools at once**.
 **Prerequisites:** Story 4.2
 
 **Technical Notes:**
+
 - Implement bulk selection UI
 - Create bulk action API endpoints
 - Use Supabase batch operations or transactions
@@ -716,6 +770,7 @@ So that **I can discover new AI tools automatically**.
 **Given** FutureTools.io is accessible
 **When** the scraper runs
 **Then** it should:
+
 - Fetch the tools listing page (sorted by go-live-date descending)
 - Parse HTML to extract tool information:
   - Tool name
@@ -729,6 +784,7 @@ So that **I can discover new AI tools automatically**.
 - Handle errors gracefully (network errors, parsing errors)
 
 **And** the scraper should:
+
 - Log all scraping activities
 - Store raw HTML/data for debugging (optional)
 - Retry on failures (exponential backoff)
@@ -737,6 +793,7 @@ So that **I can discover new AI tools automatically**.
 **Prerequisites:** Story 1.2
 
 **Technical Notes:**
+
 - Use Cheerio or Puppeteer for HTML parsing
 - Implement rate limiting (1 request per 2-3 seconds)
 - Create scraping service/utility
@@ -756,6 +813,7 @@ So that **I can detect and add new tools as they're published**.
 **Given** a daily cron job is scheduled
 **When** the job runs
 **Then** it should:
+
 - Fetch the newly-added page from FutureTools.io
 - Parse all tools listed on that page
 - Compare with existing tools in database
@@ -764,6 +822,7 @@ So that **I can detect and add new tools as they're published**.
 - Log the sync results (tools found, tools added, errors)
 
 **And** the detection should:
+
 - Run automatically once per day (configurable)
 - Handle duplicate detection (by name, URL, or unique identifier)
 - Skip tools that already exist
@@ -772,6 +831,7 @@ So that **I can detect and add new tools as they're published**.
 **Prerequisites:** Story 5.1
 
 **Technical Notes:**
+
 - Use Vercel Cron Jobs or external cron service
 - Create API route for scraping job (/api/cron/sync-tools)
 - Implement duplicate detection logic (fuzzy matching by name/URL)
@@ -791,6 +851,7 @@ So that **I can create complete tool entries similar to aitoolfinder.io**.
 **Given** a new tool is detected from scraping
 **When** the tool is added to database
 **Then** the system should:
+
 - Extract available information from scraped data
 - Generate tool slug from name
 - Set default category if not found
@@ -799,6 +860,7 @@ So that **I can create complete tool entries similar to aitoolfinder.io**.
 - Create basic tool entry with available data
 
 **And** the auto-generation should:
+
 - Fill in missing fields with defaults
 - Mark tool as "needs review" if data is incomplete
 - Use AI (optional) to enhance descriptions
@@ -807,6 +869,7 @@ So that **I can create complete tool entries similar to aitoolfinder.io**.
 **Prerequisites:** Story 5.2
 
 **Technical Notes:**
+
 - Create tool data transformation service
 - Implement slug generation (URL-friendly)
 - Add default values for missing fields
@@ -826,6 +889,7 @@ So that **I can ensure the sync system is working correctly**.
 **Given** scraping jobs are running
 **When** I view the scraping jobs page
 **Then** I should see:
+
 - List of all scraping jobs (date, status, tools found, errors)
 - Job status (running, completed, failed)
 - Tools discovered in each job
@@ -834,6 +898,7 @@ So that **I can ensure the sync system is working correctly**.
 - Ability to retry failed jobs
 
 **And** the monitoring should:
+
 - Show real-time status (if job is running)
 - Provide job logs for debugging
 - Send alerts on failures (optional)
@@ -842,6 +907,7 @@ So that **I can ensure the sync system is working correctly**.
 **Prerequisites:** Story 5.2, Story 4.1
 
 **Technical Notes:**
+
 - Create scraping_jobs table to track jobs
 - Add admin UI for job management
 - Implement job status updates
@@ -865,6 +931,7 @@ So that **I can aggregate the latest AI news automatically**.
 **Given** news sources are configured
 **When** the news fetcher runs
 **Then** it should:
+
 - Fetch news from TechCrunch AI section (or similar)
 - Fetch news from The Verge AI section (or similar)
 - Fetch news from AI News website (or similar)
@@ -879,6 +946,7 @@ So that **I can aggregate the latest AI news automatically**.
 - Handle different source formats (RSS, HTML, API)
 
 **And** the integration should:
+
 - Run every 2-4 hours automatically
 - Handle rate limiting per source
 - Retry on failures
@@ -887,6 +955,7 @@ So that **I can aggregate the latest AI news automatically**.
 **Prerequisites:** Story 1.2
 
 **Technical Notes:**
+
 - Use RSS parser library (rss-parser) for RSS feeds
 - Implement HTML scraping for sources without RSS
 - Create news fetching service
@@ -906,6 +975,7 @@ So that **I avoid showing duplicate news to users**.
 **Given** news articles are fetched from sources
 **When** articles are processed
 **Then** the system should:
+
 - Check for duplicates (by title similarity, URL)
 - Skip articles that already exist
 - Extract and clean article content
@@ -914,6 +984,7 @@ So that **I avoid showing duplicate news to users**.
 - Set published_at timestamp
 
 **And** the processing should:
+
 - Use fuzzy matching for duplicate detection
 - Handle articles with similar titles but different sources
 - Clean HTML and format content
@@ -923,6 +994,7 @@ So that **I avoid showing duplicate news to users**.
 **Prerequisites:** Story 6.1
 
 **Technical Notes:**
+
 - Implement duplicate detection algorithm (string similarity)
 - Create news processing service
 - Add content cleaning/formatting
@@ -942,6 +1014,7 @@ So that **I can stay updated with latest AI developments**.
 **Given** news articles exist in database
 **When** I visit the news page
 **Then** I should see:
+
 - List of news articles (cards or list layout)
 - Article title, excerpt, source, date
 - Article image (if available)
@@ -950,6 +1023,7 @@ So that **I can stay updated with latest AI developments**.
 - Sort by date (newest first)
 
 **And** the feed should:
+
 - Load quickly (< 2 seconds)
 - Be responsive (mobile-friendly)
 - Show loading states
@@ -959,6 +1033,7 @@ So that **I can stay updated with latest AI developments**.
 **Prerequisites:** Story 6.2, Story 1.4
 
 **Technical Notes:**
+
 - Create news listing page (/news)
 - Use Next.js Server Components for data fetching
 - Implement pagination or infinite scroll
@@ -978,6 +1053,7 @@ So that **I can get complete information about AI news**.
 **Given** I click on a news article
 **When** I view the article detail page
 **Then** I should see:
+
 - Full article title
 - Article content (formatted, readable)
 - Source name and link
@@ -987,6 +1063,7 @@ So that **I can get complete information about AI news**.
 - Social share buttons
 
 **And** the page should:
+
 - Be SEO optimized (meta tags, structured data)
 - Load quickly
 - Be mobile-responsive
@@ -996,6 +1073,7 @@ So that **I can get complete information about AI news**.
 **Prerequisites:** Story 6.3
 
 **Technical Notes:**
+
 - Create dynamic route (/news/[slug])
 - Generate static paths for SEO
 - Add structured data (Article schema)
@@ -1019,6 +1097,7 @@ So that **I can create content without manual writing**.
 **Given** AI API is configured
 **When** blog generation is triggered
 **Then** the system should:
+
 - Generate blog posts on topics:
   - Tool reviews (review specific AI tools)
   - Best practices (how to use AI tools effectively)
@@ -1035,6 +1114,7 @@ So that **I can create content without manual writing**.
 - Schedule generation (2-3 posts per week)
 
 **And** the generation should:
+
 - Use OpenAI GPT-4 or Anthropic Claude API
 - Generate unique content (not duplicates)
 - Follow SEO best practices
@@ -1044,6 +1124,7 @@ So that **I can create content without manual writing**.
 **Prerequisites:** Story 1.2
 
 **Technical Notes:**
+
 - Integrate OpenAI or Anthropic API
 - Create blog generation service
 - Implement prompt engineering for different topics
@@ -1063,6 +1144,7 @@ So that **I can ensure content quality before publishing**.
 **Given** AI-generated blog posts exist as drafts
 **When** I review a blog post
 **Then** I should be able to:
+
 - View the full blog post content
 - Edit title, content, excerpt
 - Add or modify tags/categories
@@ -1072,6 +1154,7 @@ So that **I can ensure content quality before publishing**.
 - Schedule publication date
 
 **And** the workflow should:
+
 - Show draft posts in admin dashboard
 - Highlight posts pending review
 - Save edits automatically (optional)
@@ -1081,6 +1164,7 @@ So that **I can ensure content quality before publishing**.
 **Prerequisites:** Story 7.1, Story 4.1
 
 **Technical Notes:**
+
 - Create blog post editor component
 - Add rich text editor (Tiptap or similar)
 - Implement approval workflow (status: draft → review → approved → published)
@@ -1100,6 +1184,7 @@ So that **I can learn about AI tools and best practices**.
 **Given** published blog posts exist
 **When** I visit the blog page
 **Then** I should see:
+
 - List of blog posts (cards with title, excerpt, date, author)
 - Featured posts section (optional)
 - Categories/tags filter
@@ -1107,6 +1192,7 @@ So that **I can learn about AI tools and best practices**.
 - Search functionality (optional)
 
 **And** when I click a blog post:
+
 - Full blog post content (formatted, readable)
 - Author information
 - Publication date
@@ -1118,6 +1204,7 @@ So that **I can learn about AI tools and best practices**.
 **Prerequisites:** Story 7.2, Story 1.4
 
 **Technical Notes:**
+
 - Create blog listing page (/blog)
 - Create blog post detail page (/blog/[slug])
 - Use Next.js ISR for SEO
@@ -1138,6 +1225,7 @@ So that **they rank well in search engines and drive organic traffic**.
 **Given** a blog post is published
 **When** the post is indexed by search engines
 **Then** it should have:
+
 - SEO-optimized title (60 characters, includes keywords)
 - Meta description (150-160 characters, compelling)
 - Proper heading structure (H1, H2, H3)
@@ -1148,6 +1236,7 @@ So that **they rank well in search engines and drive organic traffic**.
 - Robots.txt configuration
 
 **And** the SEO should:
+
 - Use target keywords naturally
 - Have readable URLs (slug-based)
 - Load quickly (performance)
@@ -1157,6 +1246,7 @@ So that **they rank well in search engines and drive organic traffic**.
 **Prerequisites:** Story 7.3
 
 **Technical Notes:**
+
 - Generate meta tags dynamically
 - Add structured data (JSON-LD)
 - Create sitemap.xml with blog posts
@@ -1181,6 +1271,7 @@ So that **I can identify monetization opportunities without manual research**.
 **Given** a tool website URL exists
 **When** the affiliate detector runs
 **Then** it should:
+
 - Crawl the tool's website
 - Look for affiliate program pages (common patterns: /affiliate, /partners, /referral)
 - Search for affiliate-related keywords in page content
@@ -1192,6 +1283,7 @@ So that **I can identify monetization opportunities without manual research**.
 - Store detected programs with "pending confirmation" status
 
 **And** the detection should:
+
 - Handle different website structures
 - Respect robots.txt and rate limiting
 - Retry on failures
@@ -1201,6 +1293,7 @@ So that **I can identify monetization opportunities without manual research**.
 **Prerequisites:** Story 1.2, Story 5.1
 
 **Technical Notes:**
+
 - Use web scraping (Cheerio/Puppeteer) to crawl tool websites
 - Implement pattern matching for affiliate pages
 - Create affiliate detection service
@@ -1220,6 +1313,7 @@ So that **I can verify and activate legitimate affiliate opportunities**.
 **Given** affiliate programs are auto-detected
 **When** I review detected programs
 **Then** I should be able to:
+
 - View list of pending affiliate detections
 - See detection details (source URL, detected info, confidence score)
 - Visit the detected affiliate page (open in new tab)
@@ -1229,6 +1323,7 @@ So that **I can verify and activate legitimate affiliate opportunities**.
 - Edit affiliate link details before confirming
 
 **And** the workflow should:
+
 - Show detection confidence/score
 - Highlight tools with pending detections
 - Send notifications for new detections (optional)
@@ -1237,6 +1332,7 @@ So that **I can verify and activate legitimate affiliate opportunities**.
 **Prerequisites:** Story 8.1, Story 4.1
 
 **Technical Notes:**
+
 - Create admin UI for affiliate review
 - Add confirmation status field
 - Implement confidence scoring for detections
@@ -1256,6 +1352,7 @@ So that **I can track performance and optimize revenue**.
 **Given** affiliate links are being used
 **When** I view affiliate analytics
 **Then** I should see:
+
 - Total clicks per affiliate link
 - Click-through rate (CTR)
 - Conversion tracking (if available from affiliate network)
@@ -1265,6 +1362,7 @@ So that **I can track performance and optimize revenue**.
 - Export reports (CSV, PDF)
 
 **And** the analytics should:
+
 - Update in real-time or near real-time
 - Show date range filters
 - Display charts/graphs for visualization
@@ -1274,6 +1372,7 @@ So that **I can track performance and optimize revenue**.
 **Prerequisites:** Story 2.5, Story 4.4
 
 **Technical Notes:**
+
 - Create analytics dashboard
 - Query affiliate_clicks table with aggregations
 - Implement date range filtering
@@ -1285,71 +1384,71 @@ So that **I can track performance and optimize revenue**.
 
 ## FR Coverage Matrix
 
-| FR ID | Description | Epic | Story |
-|-------|-------------|------|-------|
-| FR1.1 | Scrape tools from FutureTools.io | Epic 5 | Story 5.1 |
-| FR1.2 | Daily sync from newly-added | Epic 5 | Story 5.2 |
-| FR1.3 | Compare and detect new tools | Epic 5 | Story 5.2 |
-| FR1.4 | Auto-create tool entries | Epic 5 | Story 5.3 |
-| FR1.5 | Auto-generate tool metadata | Epic 5 | Story 5.3 |
-| FR1.6 | Store scraping history | Epic 5 | Story 5.4 |
-| FR1.7 | Handle scraping errors | Epic 5 | Story 5.1 |
-| FR1.8 | Rate limiting for scraping | Epic 5 | Story 5.1 |
-| FR2.1 | Browse tool listings | Epic 2 | Story 2.1 |
-| FR2.2 | Search tools | Epic 2 | Story 2.2 |
-| FR2.3 | Filter tools | Epic 2 | Story 2.3 |
-| FR2.4 | View tool details | Epic 2, Epic 3 | Story 2.4, Story 3.1 |
-| FR2.5 | Click affiliate links | Epic 2 | Story 2.5 |
-| FR2.6 | Share tools | Epic 3 | Story 3.3 |
-| FR2.7 | View related tools | Epic 3 | Story 3.2 |
-| FR3.1 | Admin login | Epic 4 | Story 4.1 (via Story 1.3) |
-| FR3.2 | Dashboard overview | Epic 4 | Story 4.1 |
-| FR3.3 | View tools table | Epic 4 | Story 4.2 |
-| FR3.4 | Filter tools in admin | Epic 4 | Story 4.2 |
-| FR3.5 | Create tools manually | Epic 4 | Story 4.3 |
-| FR3.6 | Edit tools | Epic 4 | Story 4.3 |
-| FR3.7 | Delete tools | Epic 4 | Story 4.3 |
-| FR3.8 | Update affiliate links | Epic 4 | Story 4.4 |
-| FR3.9 | Bulk operations | Epic 4 | Story 4.5 |
-| FR3.10 | Manage scraping jobs | Epic 4 | Story 5.4 |
-| FR4.1 | Fetch news from sources | Epic 6 | Story 6.1 |
-| FR4.2 | Update news every 2-4 hours | Epic 6 | Story 6.1 |
-| FR4.3 | Parse news content | Epic 6 | Story 6.2 |
-| FR4.4 | Detect duplicates | Epic 6 | Story 6.2 |
-| FR4.5 | View news feed | Epic 6 | Story 6.3 |
-| FR4.6 | View news detail | Epic 6 | Story 6.4 |
-| FR4.7 | Filter news | Epic 6 | Story 6.3 |
-| FR4.8 | Moderate news | Epic 6 | Story 6.1 (optional) |
-| FR5.1 | Auto-generate blog posts | Epic 7 | Story 7.1 |
-| FR5.2 | Generate on multiple topics | Epic 7 | Story 7.1 |
-| FR5.3 | Schedule blog posts | Epic 7 | Story 7.1 |
-| FR5.4 | SEO-optimize content | Epic 7 | Story 7.4 |
-| FR5.5 | Admin review workflow | Epic 7 | Story 7.2 |
-| FR5.6 | Approve/reject posts | Epic 7 | Story 7.2 |
-| FR5.7 | Manual blog creation | Epic 7 | Story 7.2 |
-| FR5.8 | View blog listings | Epic 7 | Story 7.3 |
-| FR5.9 | View blog detail | Epic 7 | Story 7.3 |
-| FR5.10 | Share blog posts | Epic 7 | Story 7.3 |
-| FR6.1 | Auto-detect affiliate programs | Epic 8 | Story 8.1 |
-| FR6.2 | Admin confirmation | Epic 8 | Story 8.2 |
-| FR6.3 | Review detected programs | Epic 8 | Story 8.2 |
-| FR6.4 | Manually add affiliate links | Epic 4 | Story 4.4 |
-| FR6.5 | Update affiliate links | Epic 4 | Story 4.4 |
-| FR6.6 | Track clicks | Epic 2 | Story 2.5 |
-| FR6.7 | Generate reports | Epic 8 | Story 8.3 |
-| FR6.8 | View analytics | Epic 8 | Story 8.3 |
-| FR6.9 | Handle redirects | Epic 2 | Story 2.5 |
-| FR7.1 | Index tool data | Epic 2 | Story 2.2 |
-| FR7.2 | Full-text search | Epic 2 | Story 2.2 |
-| FR7.3 | Fuzzy search | Epic 2 | Story 2.2 |
-| FR7.4 | Filter combinations | Epic 2 | Story 2.3 |
-| FR7.5 | URL state management | Epic 2 | Story 2.3 |
-| FR7.6 | Search suggestions | Epic 2 | Story 2.2 (optional) |
-| FR8.1 | Store tool data | Epic 1 | Story 1.2 |
-| FR8.2 | Handle relationships | Epic 1 | Story 1.2 |
-| FR8.3 | Backup data | Epic 1 | Story 1.2 (via Supabase) |
-| FR8.4 | Export data | Epic 4 | Story 4.5 |
-| FR8.5 | Import data | Epic 4 | Story 4.3 (via form) |
+| FR ID  | Description                      | Epic           | Story                     |
+| ------ | -------------------------------- | -------------- | ------------------------- |
+| FR1.1  | Scrape tools from FutureTools.io | Epic 5         | Story 5.1                 |
+| FR1.2  | Daily sync from newly-added      | Epic 5         | Story 5.2                 |
+| FR1.3  | Compare and detect new tools     | Epic 5         | Story 5.2                 |
+| FR1.4  | Auto-create tool entries         | Epic 5         | Story 5.3                 |
+| FR1.5  | Auto-generate tool metadata      | Epic 5         | Story 5.3                 |
+| FR1.6  | Store scraping history           | Epic 5         | Story 5.4                 |
+| FR1.7  | Handle scraping errors           | Epic 5         | Story 5.1                 |
+| FR1.8  | Rate limiting for scraping       | Epic 5         | Story 5.1                 |
+| FR2.1  | Browse tool listings             | Epic 2         | Story 2.1                 |
+| FR2.2  | Search tools                     | Epic 2         | Story 2.2                 |
+| FR2.3  | Filter tools                     | Epic 2         | Story 2.3                 |
+| FR2.4  | View tool details                | Epic 2, Epic 3 | Story 2.4, Story 3.1      |
+| FR2.5  | Click affiliate links            | Epic 2         | Story 2.5                 |
+| FR2.6  | Share tools                      | Epic 3         | Story 3.3                 |
+| FR2.7  | View related tools               | Epic 3         | Story 3.2                 |
+| FR3.1  | Admin login                      | Epic 4         | Story 4.1 (via Story 1.3) |
+| FR3.2  | Dashboard overview               | Epic 4         | Story 4.1                 |
+| FR3.3  | View tools table                 | Epic 4         | Story 4.2                 |
+| FR3.4  | Filter tools in admin            | Epic 4         | Story 4.2                 |
+| FR3.5  | Create tools manually            | Epic 4         | Story 4.3                 |
+| FR3.6  | Edit tools                       | Epic 4         | Story 4.3                 |
+| FR3.7  | Delete tools                     | Epic 4         | Story 4.3                 |
+| FR3.8  | Update affiliate links           | Epic 4         | Story 4.4                 |
+| FR3.9  | Bulk operations                  | Epic 4         | Story 4.5                 |
+| FR3.10 | Manage scraping jobs             | Epic 4         | Story 5.4                 |
+| FR4.1  | Fetch news from sources          | Epic 6         | Story 6.1                 |
+| FR4.2  | Update news every 2-4 hours      | Epic 6         | Story 6.1                 |
+| FR4.3  | Parse news content               | Epic 6         | Story 6.2                 |
+| FR4.4  | Detect duplicates                | Epic 6         | Story 6.2                 |
+| FR4.5  | View news feed                   | Epic 6         | Story 6.3                 |
+| FR4.6  | View news detail                 | Epic 6         | Story 6.4                 |
+| FR4.7  | Filter news                      | Epic 6         | Story 6.3                 |
+| FR4.8  | Moderate news                    | Epic 6         | Story 6.1 (optional)      |
+| FR5.1  | Auto-generate blog posts         | Epic 7         | Story 7.1                 |
+| FR5.2  | Generate on multiple topics      | Epic 7         | Story 7.1                 |
+| FR5.3  | Schedule blog posts              | Epic 7         | Story 7.1                 |
+| FR5.4  | SEO-optimize content             | Epic 7         | Story 7.4                 |
+| FR5.5  | Admin review workflow            | Epic 7         | Story 7.2                 |
+| FR5.6  | Approve/reject posts             | Epic 7         | Story 7.2                 |
+| FR5.7  | Manual blog creation             | Epic 7         | Story 7.2                 |
+| FR5.8  | View blog listings               | Epic 7         | Story 7.3                 |
+| FR5.9  | View blog detail                 | Epic 7         | Story 7.3                 |
+| FR5.10 | Share blog posts                 | Epic 7         | Story 7.3                 |
+| FR6.1  | Auto-detect affiliate programs   | Epic 8         | Story 8.1                 |
+| FR6.2  | Admin confirmation               | Epic 8         | Story 8.2                 |
+| FR6.3  | Review detected programs         | Epic 8         | Story 8.2                 |
+| FR6.4  | Manually add affiliate links     | Epic 4         | Story 4.4                 |
+| FR6.5  | Update affiliate links           | Epic 4         | Story 4.4                 |
+| FR6.6  | Track clicks                     | Epic 2         | Story 2.5                 |
+| FR6.7  | Generate reports                 | Epic 8         | Story 8.3                 |
+| FR6.8  | View analytics                   | Epic 8         | Story 8.3                 |
+| FR6.9  | Handle redirects                 | Epic 2         | Story 2.5                 |
+| FR7.1  | Index tool data                  | Epic 2         | Story 2.2                 |
+| FR7.2  | Full-text search                 | Epic 2         | Story 2.2                 |
+| FR7.3  | Fuzzy search                     | Epic 2         | Story 2.2                 |
+| FR7.4  | Filter combinations              | Epic 2         | Story 2.3                 |
+| FR7.5  | URL state management             | Epic 2         | Story 2.3                 |
+| FR7.6  | Search suggestions               | Epic 2         | Story 2.2 (optional)      |
+| FR8.1  | Store tool data                  | Epic 1         | Story 1.2                 |
+| FR8.2  | Handle relationships             | Epic 1         | Story 1.2                 |
+| FR8.3  | Backup data                      | Epic 1         | Story 1.2 (via Supabase)  |
+| FR8.4  | Export data                      | Epic 4         | Story 4.5                 |
+| FR8.5  | Import data                      | Epic 4         | Story 4.3 (via form)      |
 
 **Coverage: 100% - All 63 FRs mapped to stories**
 
@@ -1377,4 +1476,3 @@ Each epic delivers incremental user value, and stories are sized for single dev 
 _For implementation: Use the `create-story` workflow to generate individual story implementation plans from this epic breakdown._
 
 _This document will be updated after UX Design and Architecture workflows to incorporate interaction details and technical decisions._
-

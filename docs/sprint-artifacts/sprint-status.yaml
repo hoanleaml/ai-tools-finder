@@ -1,0 +1,105 @@
+# Sprint Status Tracking File
+# This tracks progress through Phase 4 implementation, extracting all epics and stories from epic files
+
+# generated: 2025-11-24 10:51
+# project: AI Tools Finder
+# project_key: ai-tools-finder
+# tracking_system: file-system
+# story_location: docs/sprint-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic exists in epic file but not contexted
+#   - contexted: Epic tech context created (required before drafting stories)
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - drafted: Story file created in stories folder
+#   - ready-for-dev: Draft approved and story context created
+#   - in-progress: Developer actively working on implementation
+#   - review: Under SM review (via code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - completed: Retrospective has been done
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epics should be 'contexted' before stories can be 'drafted'
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically drafts next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', SM reviews, then Dev moves to 'done'
+
+generated: 2025-11-24 10:51
+project: AI Tools Finder
+project_key: ai-tools-finder
+tracking_system: file-system
+story_location: docs/sprint-artifacts
+
+development_status:
+  # Epic 1: Foundation & Infrastructure
+  epic-1: contexted
+  1-1-project-setup-nextjs-configuration: in-progress
+  1-2-supabase-project-setup-database-schema: backlog
+  1-3-supabase-authentication-setup: backlog
+  1-4-basic-ui-components-design-system: backlog
+  1-5-deployment-pipeline-environment-configuration: backlog
+  epic-1-retrospective: optional
+
+  # Epic 2: Tool Discovery & Browsing
+  epic-2: backlog
+  2-1-tool-listing-page-with-pagination: backlog
+  2-2-tool-search-functionality: backlog
+  2-3-tool-filtering-system: backlog
+  2-4-tool-detail-page: backlog
+  2-5-affiliate-link-tracking-redirect: backlog
+  epic-2-retrospective: optional
+
+  # Epic 3: Tool Details & Affiliate Links
+  epic-3: backlog
+  3-1-enhanced-tool-detail-page-with-rich-content: backlog
+  3-2-related-tools-suggestions: backlog
+  3-3-social-sharing-functionality: backlog
+  epic-3-retrospective: optional
+
+  # Epic 4: Admin Dashboard
+  epic-4: backlog
+  4-1-admin-dashboard-overview: backlog
+  4-2-tools-management-table: backlog
+  4-3-tool-creation-editing-form: backlog
+  4-4-affiliate-link-management: backlog
+  4-5-bulk-operations-for-tools: backlog
+  epic-4-retrospective: optional
+
+  # Epic 5: Scraping & Sync System
+  epic-5: backlog
+  5-1-futuretools-io-scraper-implementation: backlog
+  5-2-newly-added-tools-detection: backlog
+  5-3-tool-data-auto-generation: backlog
+  5-4-scraping-job-management-monitoring: backlog
+  epic-5-retrospective: optional
+
+  # Epic 6: AI News System
+  epic-6: backlog
+  6-1-news-source-integration: backlog
+  6-2-news-article-processing-deduplication: backlog
+  6-3-news-feed-display: backlog
+  6-4-news-article-detail-page: backlog
+  epic-6-retrospective: optional
+
+  # Epic 7: AI Blog System
+  epic-7: backlog
+  7-1-blog-post-auto-generation-with-ai: backlog
+  7-2-blog-post-review-approval-workflow: backlog
+  7-3-blog-listing-detail-pages: backlog
+  7-4-blog-seo-optimization: backlog
+  epic-7-retrospective: optional
+
+  # Epic 8: Advanced Affiliate Management
+  epic-8: backlog
+  8-1-affiliate-program-auto-detection: backlog
+  8-2-admin-affiliate-confirmation-workflow: backlog
+  8-3-affiliate-link-analytics-reporting: backlog
+  epic-8-retrospective: optional

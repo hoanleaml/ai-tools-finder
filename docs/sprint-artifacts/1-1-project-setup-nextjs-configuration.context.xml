@@ -1,0 +1,179 @@
+<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.1</storyId>
+    <title>Project Setup & Next.js Configuration</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-24 10:59:19</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/1-1-project-setup-nextjs-configuration.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>a properly configured Next.js 16 project with TypeScript and essential dependencies</iWant>
+    <soThat>I have a solid foundation to build the application</soThat>
+    <tasks>
+      <task id="1" ac="1,2">Initialize Next.js Project</task>
+      <task id="2" ac="1">Configure TypeScript</task>
+      <task id="3" ac="3">Configure Tailwind CSS</task>
+      <task id="4" ac="4">Configure ESLint and Prettier</task>
+      <task id="5" ac="5">Initialize Git Repository</task>
+      <task id="6" ac="2">Verify Project Structure</task>
+      <task id="7" ac="1,2,3">Test Development Server</task>
+      <task id="8" ac="1,4">Test Build Process</task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC1">Next.js 16 project initialized with TypeScript strict mode enabled</criterion>
+    <criterion id="AC2">Project structure follows Next.js 16 conventions (`/app`, `/components`, `/lib`, `/types`)</criterion>
+    <criterion id="AC3">Tailwind CSS configured and working</criterion>
+    <criterion id="AC4">ESLint and Prettier configured and passing</criterion>
+    <criterion id="AC5">Git repository initialized with appropriate `.gitignore`</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>AI Tools Finder - Epic Breakdown</title>
+        <section>Epic 1: Foundation & Infrastructure - Story 1.1</section>
+        <snippet>Story 1.1 establishes the foundational project setup. Use `create-next-app@latest` with TypeScript template, configure tsconfig.json with strict mode, set up Tailwind CSS, and add essential dev dependencies (ESLint, Prettier, TypeScript).</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>AI Tools Finder - Architecture Document</title>
+        <section>Project Initialization</section>
+        <snippet>Use `create-next-app@latest ai-tools-finder --typescript --tailwind --app --no-src-dir --import-alias "@/*"`. Establishes Next.js 16 with App Router, TypeScript strict mode, Tailwind CSS, ESLint and Prettier configured, and project structure following Next.js conventions.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundation & Infrastructure</title>
+        <section>Workflows and Sequencing - Story 1.1: Project Setup</section>
+        <snippet>Run `npx create-next-app@latest` with TypeScript template, configure `tsconfig.json` with strict mode, install and configure Tailwind CSS, set up ESLint and Prettier, initialize Git repository with `.gitignore`, and create project structure (`/app`, `/components`, `/lib`, `/types`).</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>AI Tools Finder - Product Requirements Document</title>
+        <section>Technical Stack</section>
+        <snippet>Framework: Next.js 16 (App Router), Language: TypeScript, Styling: Tailwind CSS, Code Quality: ESLint, Prettier, Type Checking: TypeScript strict mode.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing code artifacts - this is the first story establishing the project foundation -->
+    </code>
+    <dependencies>
+      <ecosystem name="node">
+        <package name="next" version="^16.0.0">Next.js framework with App Router</package>
+        <package name="react" version="^18.0.0">React library</package>
+        <package name="react-dom" version="^18.0.0">React DOM rendering</package>
+        <package name="typescript" version="^5.0.0" dev="true">TypeScript compiler</package>
+        <package name="@types/node" version="^20.0.0" dev="true">Node.js type definitions</package>
+        <package name="@types/react" version="^18.0.0" dev="true">React type definitions</package>
+        <package name="@types/react-dom" version="^18.0.0" dev="true">React DOM type definitions</package>
+        <package name="tailwindcss" version="^3.4.0" dev="true">Tailwind CSS framework</package>
+        <package name="eslint" version="^8.0.0" dev="true">ESLint linter</package>
+        <package name="eslint-config-next" version="^16.0.0" dev="true">Next.js ESLint configuration</package>
+        <package name="prettier" version="^3.0.0" dev="true">Prettier code formatter</package>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>
+      <type>framework</type>
+      <rule>Must use Next.js 16 (not 15 or earlier)</rule>
+      <source>docs/architecture.md#Project-Initialization</source>
+    </constraint>
+    <constraint>
+      <type>routing</type>
+      <rule>Must use App Router (not Pages Router)</rule>
+      <source>docs/architecture.md#Project-Initialization</source>
+    </constraint>
+    <constraint>
+      <type>typescript</type>
+      <rule>Must use TypeScript strict mode (no `any` types without explicit justification)</rule>
+      <source>docs/architecture.md#Language</source>
+    </constraint>
+    <constraint>
+      <type>structure</type>
+      <rule>Must follow Next.js 16 conventions (no custom routing outside App Router)</rule>
+      <source>docs/architecture.md#Project-Structure</source>
+    </constraint>
+    <constraint>
+      <type>structure</type>
+      <rule>No `src/` directory (use root-level directories)</rule>
+      <source>docs/architecture.md#Project-Initialization</source>
+    </constraint>
+    <constraint>
+      <type>import</type>
+      <rule>Use `@/*` import alias for cleaner imports (e.g., `@/components/Button`)</rule>
+      <source>docs/architecture.md#Project-Initialization</source>
+    </constraint>
+    <constraint>
+      <type>testing</type>
+      <rule>TypeScript compilation must pass (`npx tsc --noEmit`)</rule>
+      <source>docs/sprint-artifacts/tech-spec-epic-1.md#Test-Strategy-Summary</source>
+    </constraint>
+    <constraint>
+      <type>testing</type>
+      <rule>ESLint must pass (`npm run lint`)</rule>
+      <source>docs/sprint-artifacts/tech-spec-epic-1.md#Test-Strategy-Summary</source>
+    </constraint>
+    <constraint>
+      <type>testing</type>
+      <rule>Prettier formatting must be consistent (`npm run format:check`)</rule>
+      <source>docs/sprint-artifacts/tech-spec-epic-1.md#Test-Strategy-Summary</source>
+    </constraint>
+    <constraint>
+      <type>testing</type>
+      <rule>Build must succeed (`npm run build`)</rule>
+      <source>docs/sprint-artifacts/tech-spec-epic-1.md#Test-Strategy-Summary</source>
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <!-- No existing interfaces - this story establishes the project foundation -->
+  </interfaces>
+
+  <tests>
+    <standards>
+      Testing standards for this story focus on verifying project setup and configuration. TypeScript compilation must pass without errors. ESLint must pass with no warnings or errors. Prettier formatting must be consistent across all files. Build process must complete successfully. Development server must start without errors. All project structure directories must exist and follow Next.js 16 conventions.
+    </standards>
+    <locations>
+      <location>No test files required for this story - verification is done through build and lint commands</location>
+    </locations>
+    <ideas>
+      <test ac="AC1">
+        <idea>Verify Next.js 16 is installed by checking package.json version</idea>
+        <idea>Verify TypeScript strict mode is enabled in tsconfig.json</idea>
+        <idea>Run `npx tsc --noEmit` to verify TypeScript compilation passes</idea>
+      </test>
+      <test ac="AC2">
+        <idea>Verify `/app` directory exists with `layout.tsx` and `page.tsx`</idea>
+        <idea>Verify `/components`, `/lib`, `/types` directories exist</idea>
+        <idea>Verify import alias `@/*` works by testing an import statement</idea>
+      </test>
+      <test ac="AC3">
+        <idea>Verify Tailwind CSS is installed in package.json</idea>
+        <idea>Verify `tailwind.config.js` exists</idea>
+        <idea>Verify `app/globals.css` includes Tailwind directives</idea>
+        <idea>Test Tailwind by adding a test class and verifying styles apply</idea>
+      </test>
+      <test ac="AC4">
+        <idea>Verify ESLint is installed and configured</idea>
+        <idea>Run `npm run lint` and verify no errors</idea>
+        <idea>Verify Prettier is installed and configured</idea>
+        <idea>Run `npm run format:check` and verify formatting is consistent</idea>
+      </test>
+      <test ac="AC5">
+        <idea>Verify `.gitignore` file exists</idea>
+        <idea>Verify `.gitignore` includes required entries (node_modules, .next, .env*.local, etc.)</idea>
+        <idea>Verify Git repository is initialized</idea>
+        <idea>Verify initial commit can be created</idea>
+      </test>
+    </ideas>
+  </tests>
+</story-context>
+

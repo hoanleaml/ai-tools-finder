@@ -1,546 +1,622 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>AI Tools Finder - Design Direction Mockups</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            background: #f8fafc;
-            color: #0f172a;
-        }
-        
-        .header {
-            background: white;
-            border-bottom: 1px solid #e2e8f0;
-            padding: 1.5rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        
-        h1 {
-            font-size: 1.875rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .subtitle {
-            color: #64748b;
-            font-size: 0.875rem;
-        }
-        
-        .nav-controls {
-            display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            flex-wrap: wrap;
-        }
-        
-        .nav-btn {
-            padding: 0.5rem 1rem;
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.875rem;
-            transition: all 0.2s;
-        }
-        
-        .nav-btn:hover {
-            background: #e2e8f0;
-        }
-        
-        .nav-btn.active {
-            background: #2563eb;
-            color: white;
-            border-color: #2563eb;
-        }
-        
-        .direction-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        .direction {
-            display: none;
-            background: white;
-            border-radius: 12px;
-            padding: 2rem;
-            margin-bottom: 3rem;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-        }
-        
-        .direction.active {
-            display: block;
-        }
-        
-        .direction-header {
-            margin-bottom: 2rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #e2e8f0;
-        }
-        
-        .direction-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
-        
-        .direction-philosophy {
-            color: #64748b;
-            font-size: 0.875rem;
-            margin-bottom: 0.75rem;
-        }
-        
-        .direction-characteristics {
-            display: flex;
-            gap: 1.5rem;
-            flex-wrap: wrap;
-            font-size: 0.875rem;
-        }
-        
-        .characteristic {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .characteristic-label {
-            color: #64748b;
-            font-weight: 500;
-        }
-        
-        .characteristic-value {
-            color: #0f172a;
-            font-weight: 600;
-        }
-        
-        .mockup {
-            background: #f8fafc;
-            border-radius: 8px;
-            padding: 2rem;
-            border: 1px solid #e2e8f0;
-        }
-        
-        /* Mockup Styles */
-        .mock-nav {
-            background: white;
-            padding: 1rem 2rem;
-            border-bottom: 1px solid #e2e8f0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-        
-        .logo {
-            font-weight: 700;
-            font-size: 1.25rem;
-            color: #2563eb;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-        
-        .nav-link {
-            color: #64748b;
-            text-decoration: none;
-            font-size: 0.875rem;
-            transition: color 0.2s;
-        }
-        
-        .nav-link:hover, .nav-link.active {
-            color: #2563eb;
-        }
-        
-        .search-bar {
-            padding: 0.75rem 1rem;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-            width: 100%;
-            max-width: 500px;
-            font-size: 0.875rem;
-        }
-        
-        .main-content {
-            display: grid;
-            gap: 2rem;
-        }
-        
-        .tool-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-        
-        .tool-card {
-            background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            border: 1px solid #e2e8f0;
-            transition: all 0.2s;
-        }
-        
-        .tool-card:hover {
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transform: translateY(-2px);
-        }
-        
-        .tool-logo {
-            width: 48px;
-            height: 48px;
-            background: #e2e8f0;
-            border-radius: 8px;
-            margin-bottom: 1rem;
-        }
-        
-        .tool-name {
-            font-weight: 600;
-            font-size: 1rem;
-            margin-bottom: 0.5rem;
-            color: #0f172a;
-        }
-        
-        .tool-description {
-            color: #64748b;
-            font-size: 0.875rem;
-            line-height: 1.5;
-            margin-bottom: 1rem;
-        }
-        
-        .tool-features {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin-bottom: 1rem;
-        }
-        
-        .feature-badge {
-            background: #f1f5f9;
-            color: #475569;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-        }
-        
-        .tool-button {
-            width: 100%;
-            padding: 0.625rem;
-            background: #2563eb;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-weight: 500;
-            font-size: 0.875rem;
-            cursor: pointer;
-        }
-        
-        .sidebar {
-            background: white;
-            border-radius: 8px;
-            padding: 1.5rem;
-            border: 1px solid #e2e8f0;
-        }
-        
-        .filter-section {
-            margin-bottom: 1.5rem;
-        }
-        
-        .filter-title {
-            font-weight: 600;
-            font-size: 0.875rem;
-            margin-bottom: 0.75rem;
-            color: #0f172a;
-        }
-        
-        .filter-option {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin-bottom: 0.5rem;
-            font-size: 0.875rem;
-        }
-        
-        .selected-badge {
-            display: inline-block;
-            background: #10b981;
-            color: white;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
-        }
-    </style>
-</head>
-<body>
-    <div class="header">
-        <h1>🎨 Design Direction Mockups</h1>
-        <p class="subtitle">Explore different design approaches for AI Tools Finder. Navigate through each direction to see complete mockups.</p>
-        <div class="nav-controls">
-            <button class="nav-btn active" onclick="showDirection(1)">Direction 1: Clean Discovery</button>
-            <button class="nav-btn" onclick="showDirection(2)">Direction 2: Dense Dashboard</button>
-            <button class="nav-btn" onclick="showDirection(3)">Direction 3: Card Gallery</button>
-            <button class="nav-btn" onclick="showDirection(4)">Direction 4: Spacious Explorer</button>
-            <button class="nav-btn" onclick="showDirection(5)">Direction 5: Minimal Search</button>
-            <button class="nav-btn" onclick="showDirection(6)">Direction 6: Rich Visual</button>
-        </div>
-    </div>
-    
-    <div class="direction-container">
-        <!-- Direction 1: Clean Discovery (Selected) -->
-        <div class="direction active" id="direction-1">
-            <div class="direction-header">
-                <div class="direction-title">
-                    Direction 1: Clean Discovery
-                    <span class="selected-badge">SELECTED</span>
-                </div>
-                <div class="direction-philosophy">
-                    Professional & Efficient - Balanced density with clear hierarchy. Perfect for users who need quick discovery without overwhelm.
-                </div>
-                <div class="direction-characteristics">
-                    <div class="characteristic">
-                        <span class="characteristic-label">Layout:</span>
-                        <span class="characteristic-value">Sidebar + Grid</span>
-                    </div>
-                    <div class="characteristic">
-                        <span class="characteristic-label">Density:</span>
-                        <span class="characteristic-value">Balanced</span>
-                    </div>
-                    <div class="characteristic">
-                        <span class="characteristic-label">Navigation:</span>
-                        <span class="characteristic-value">Top Nav</span>
-                    </div>
-                    <div class="characteristic">
-                        <span class="characteristic-label">Primary Action:</span>
-                        <span class="characteristic-value">Prominent</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mockup">
-                <div class="mock-nav">
-                    <div class="logo">AI Tools Finder</div>
-                    <div class="nav-links">
-                        <a href="#" class="nav-link active">Tools</a>
-                        <a href="#" class="nav-link">News</a>
-                        <a href="#" class="nav-link">Blog</a>
-                    </div>
-                </div>
-                
-                <div style="margin-bottom: 2rem;">
-                    <input type="text" class="search-bar" placeholder="Search AI tools...">
-                </div>
-                
-                <div class="main-content" style="grid-template-columns: 280px 1fr;">
-                    <div class="sidebar">
-                        <div class="filter-section">
-                            <div class="filter-title">Categories</div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="cat1" checked>
-                                <label for="cat1">Text Generation</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="cat2">
-                                <label for="cat2">Image Generation</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="cat3">
-                                <label for="cat3">Code Assistant</label>
-                            </div>
-                        </div>
-                        <div class="filter-section">
-                            <div class="filter-title">Pricing</div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="price1">
-                                <label for="price1">Free</label>
-                            </div>
-                            <div class="filter-option">
-                                <input type="checkbox" id="price2" checked>
-                                <label for="price2">Freemium</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div>
-                        <div style="margin-bottom: 1rem; color: #64748b; font-size: 0.875rem;">
-                            Showing 24 tools
-                        </div>
-                        <div class="tool-grid">
-                            <div class="tool-card">
-                                <div class="tool-logo"></div>
-                                <div class="tool-name">ChatGPT</div>
-                                <div class="tool-description">Advanced AI conversation tool for text generation and assistance.</div>
-                                <div class="tool-features">
-                                    <span class="feature-badge">Text</span>
-                                    <span class="feature-badge">API</span>
-                                </div>
-                                <button class="tool-button">View Tool</button>
-                            </div>
-                            <div class="tool-card">
-                                <div class="tool-logo"></div>
-                                <div class="tool-name">Midjourney</div>
-                                <div class="tool-description">AI-powered image generation from text prompts.</div>
-                                <div class="tool-features">
-                                    <span class="feature-badge">Image</span>
-                                    <span class="feature-badge">Paid</span>
-                                </div>
-                                <button class="tool-button">View Tool</button>
-                            </div>
-                            <div class="tool-card">
-                                <div class="tool-logo"></div>
-                                <div class="tool-name">GitHub Copilot</div>
-                                <div class="tool-description">AI pair programmer that suggests code completions.</div>
-                                <div class="tool-features">
-                                    <span class="feature-badge">Code</span>
-                                    <span class="feature-badge">IDE</span>
-                                </div>
-                                <button class="tool-button">View Tool</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Direction 2: Dense Dashboard -->
-        <div class="direction" id="direction-2">
-            <div class="direction-header">
-                <div class="direction-title">Direction 2: Dense Dashboard</div>
-                <div class="direction-philosophy">
-                    Information-Rich & Efficient - Maximum information density for power users who want to see everything at once.
-                </div>
-                <div class="direction-characteristics">
-                    <div class="characteristic">
-                        <span class="characteristic-label">Layout:</span>
-                        <span class="characteristic-value">Multi-Column</span>
-                    </div>
-                    <div class="characteristic">
-                        <span class="characteristic-label">Density:</span>
-                        <span class="characteristic-value">High</span>
-                    </div>
-                    <div class="characteristic">
-                        <span class="characteristic-label">Navigation:</span>
-                        <span class="characteristic-value">Top Nav</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mockup">
-                <div class="mock-nav">
-                    <div class="logo">AI Tools Finder</div>
-                    <div class="nav-links">
-                        <a href="#" class="nav-link active">Tools</a>
-                        <a href="#" class="nav-link">News</a>
-                        <a href="#" class="nav-link">Blog</a>
-                    </div>
-                </div>
-                
-                <div style="display: grid; grid-template-columns: 200px 1fr 200px; gap: 1rem;">
-                    <div class="sidebar" style="padding: 1rem;">
-                        <div class="filter-title" style="margin-bottom: 0.75rem;">Quick Filters</div>
-                        <div style="font-size: 0.75rem; color: #64748b;">Compact filters</div>
-                    </div>
-                    <div>
-                        <div class="tool-grid" style="grid-template-columns: repeat(4, 1fr); gap: 1rem;">
-                            <div class="tool-card" style="padding: 1rem;">
-                                <div class="tool-logo" style="width: 32px; height: 32px; margin-bottom: 0.5rem;"></div>
-                                <div class="tool-name" style="font-size: 0.875rem;">ChatGPT</div>
-                                <div class="tool-description" style="font-size: 0.75rem; margin-bottom: 0.5rem;">AI conversation tool</div>
-                                <button class="tool-button" style="padding: 0.5rem; font-size: 0.75rem;">View</button>
-                            </div>
-                            <!-- More compact cards -->
-                        </div>
-                    </div>
-                    <div class="sidebar" style="padding: 1rem;">
-                        <div class="filter-title" style="margin-bottom: 0.75rem;">Stats</div>
-                        <div style="font-size: 0.75rem; color: #64748b;">Quick stats</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Direction 3: Card Gallery -->
-        <div class="direction" id="direction-3">
-            <div class="direction-header">
-                <div class="direction-title">Direction 3: Card Gallery</div>
-                <div class="direction-philosophy">
-                    Visual & Scannable - Large, image-focused cards that showcase tools beautifully. Best for visual discovery.
-                </div>
-                <div class="direction-characteristics">
-                    <div class="characteristic">
-                        <span class="characteristic-label">Layout:</span>
-                        <span class="characteristic-value">Grid Cards</span>
-                    </div>
-                    <div class="characteristic">
-                        <span class="characteristic-label">Density:</span>
-                        <span class="characteristic-value">Spacious</span>
-                    </div>
-                    <div class="characteristic">
-                        <span class="characteristic-label">Focus:</span>
-                        <span class="characteristic-value">Visual</span>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="mockup">
-                <div class="mock-nav">
-                    <div class="logo">AI Tools Finder</div>
-                    <div class="nav-links">
-                        <a href="#" class="nav-link active">Tools</a>
-                        <a href="#" class="nav-link">News</a>
-                        <a href="#" class="nav-link">Blog</a>
-                    </div>
-                </div>
-                
-                <div class="tool-grid" style="grid-template-columns: repeat(3, 1fr);">
-                    <div class="tool-card" style="padding: 2rem;">
-                        <div class="tool-logo" style="width: 64px; height: 64px; margin-bottom: 1rem;"></div>
-                        <div class="tool-name" style="font-size: 1.25rem; margin-bottom: 0.75rem;">ChatGPT</div>
-                        <div class="tool-description" style="margin-bottom: 1.5rem;">Advanced AI conversation tool for text generation and assistance. Perfect for writing, coding, and creative tasks.</div>
-                        <div class="tool-features" style="margin-bottom: 1.5rem;">
-                            <span class="feature-badge">Text Generation</span>
-                            <span class="feature-badge">API Available</span>
-                        </div>
-                        <button class="tool-button">Explore Tool</button>
-                    </div>
-                    <!-- More large cards -->
-                </div>
-            </div>
-        </div>
-        
-        <!-- Additional directions would follow similar pattern -->
-        <!-- Direction 4, 5, 6... -->
-        
-    </div>
-    
-    <script>
-        function showDirection(num) {
-            // Hide all directions
-            document.querySelectorAll('.direction').forEach(dir => {
-                dir.classList.remove('active');
-            });
-            
-            // Remove active from all buttons
-            document.querySelectorAll('.nav-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            
-            // Show selected direction
-            document.getElementById(`direction-${num}`).classList.add('active');
-            event.target.classList.add('active');
-        }
-    </script>
-</body>
-</html>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
+      body {
+        font-family:
+          "Inter",
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        background: #f8fafc;
+        color: #0f172a;
+      }
+
+      .header {
+        background: white;
+        border-bottom: 1px solid #e2e8f0;
+        padding: 1.5rem 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+
+      h1 {
+        font-size: 1.875rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .subtitle {
+        color: #64748b;
+        font-size: 0.875rem;
+      }
+
+      .nav-controls {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .nav-btn {
+        padding: 0.5rem 1rem;
+        background: #f8fafc;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        cursor: pointer;
+        font-size: 0.875rem;
+        transition: all 0.2s;
+      }
+
+      .nav-btn:hover {
+        background: #e2e8f0;
+      }
+
+      .nav-btn.active {
+        background: #2563eb;
+        color: white;
+        border-color: #2563eb;
+      }
+
+      .direction-container {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 2rem;
+      }
+
+      .direction {
+        display: none;
+        background: white;
+        border-radius: 12px;
+        padding: 2rem;
+        margin-bottom: 3rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .direction.active {
+        display: block;
+      }
+
+      .direction-header {
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .direction-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+
+      .direction-philosophy {
+        color: #64748b;
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .direction-characteristics {
+        display: flex;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+        font-size: 0.875rem;
+      }
+
+      .characteristic {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .characteristic-label {
+        color: #64748b;
+        font-weight: 500;
+      }
+
+      .characteristic-value {
+        color: #0f172a;
+        font-weight: 600;
+      }
+
+      .mockup {
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 2rem;
+        border: 1px solid #e2e8f0;
+      }
+
+      /* Mockup Styles */
+      .mock-nav {
+        background: white;
+        padding: 1rem 2rem;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .logo {
+        font-weight: 700;
+        font-size: 1.25rem;
+        color: #2563eb;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 2rem;
+      }
+
+      .nav-link {
+        color: #64748b;
+        text-decoration: none;
+        font-size: 0.875rem;
+        transition: color 0.2s;
+      }
+
+      .nav-link:hover,
+      .nav-link.active {
+        color: #2563eb;
+      }
+
+      .search-bar {
+        padding: 0.75rem 1rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        width: 100%;
+        max-width: 500px;
+        font-size: 0.875rem;
+      }
+
+      .main-content {
+        display: grid;
+        gap: 2rem;
+      }
+
+      .tool-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .tool-card {
+        background: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        border: 1px solid #e2e8f0;
+        transition: all 0.2s;
+      }
+
+      .tool-card:hover {
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transform: translateY(-2px);
+      }
+
+      .tool-logo {
+        width: 48px;
+        height: 48px;
+        background: #e2e8f0;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+      }
+
+      .tool-name {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 0.5rem;
+        color: #0f172a;
+      }
+
+      .tool-description {
+        color: #64748b;
+        font-size: 0.875rem;
+        line-height: 1.5;
+        margin-bottom: 1rem;
+      }
+
+      .tool-features {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 1rem;
+      }
+
+      .feature-badge {
+        background: #f1f5f9;
+        color: #475569;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+      }
+
+      .tool-button {
+        width: 100%;
+        padding: 0.625rem;
+        background: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-weight: 500;
+        font-size: 0.875rem;
+        cursor: pointer;
+      }
+
+      .sidebar {
+        background: white;
+        border-radius: 8px;
+        padding: 1.5rem;
+        border: 1px solid #e2e8f0;
+      }
+
+      .filter-section {
+        margin-bottom: 1.5rem;
+      }
+
+      .filter-title {
+        font-weight: 600;
+        font-size: 0.875rem;
+        margin-bottom: 0.75rem;
+        color: #0f172a;
+      }
+
+      .filter-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.5rem;
+        font-size: 0.875rem;
+      }
+
+      .selected-badge {
+        display: inline-block;
+        background: #10b981;
+        color: white;
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <h1>🎨 Design Direction Mockups</h1>
+      <p class="subtitle">
+        Explore different design approaches for AI Tools Finder. Navigate
+        through each direction to see complete mockups.
+      </p>
+      <div class="nav-controls">
+        <button class="nav-btn active" onclick="showDirection(1)">
+          Direction 1: Clean Discovery
+        </button>
+        <button class="nav-btn" onclick="showDirection(2)">
+          Direction 2: Dense Dashboard
+        </button>
+        <button class="nav-btn" onclick="showDirection(3)">
+          Direction 3: Card Gallery
+        </button>
+        <button class="nav-btn" onclick="showDirection(4)">
+          Direction 4: Spacious Explorer
+        </button>
+        <button class="nav-btn" onclick="showDirection(5)">
+          Direction 5: Minimal Search
+        </button>
+        <button class="nav-btn" onclick="showDirection(6)">
+          Direction 6: Rich Visual
+        </button>
+      </div>
+    </div>
+
+    <div class="direction-container">
+      <!-- Direction 1: Clean Discovery (Selected) -->
+      <div class="direction active" id="direction-1">
+        <div class="direction-header">
+          <div class="direction-title">
+            Direction 1: Clean Discovery
+            <span class="selected-badge">SELECTED</span>
+          </div>
+          <div class="direction-philosophy">
+            Professional & Efficient - Balanced density with clear hierarchy.
+            Perfect for users who need quick discovery without overwhelm.
+          </div>
+          <div class="direction-characteristics">
+            <div class="characteristic">
+              <span class="characteristic-label">Layout:</span>
+              <span class="characteristic-value">Sidebar + Grid</span>
+            </div>
+            <div class="characteristic">
+              <span class="characteristic-label">Density:</span>
+              <span class="characteristic-value">Balanced</span>
+            </div>
+            <div class="characteristic">
+              <span class="characteristic-label">Navigation:</span>
+              <span class="characteristic-value">Top Nav</span>
+            </div>
+            <div class="characteristic">
+              <span class="characteristic-label">Primary Action:</span>
+              <span class="characteristic-value">Prominent</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mockup">
+          <div class="mock-nav">
+            <div class="logo">AI Tools Finder</div>
+            <div class="nav-links">
+              <a href="#" class="nav-link active">Tools</a>
+              <a href="#" class="nav-link">News</a>
+              <a href="#" class="nav-link">Blog</a>
+            </div>
+          </div>
+
+          <div style="margin-bottom: 2rem">
+            <input
+              type="text"
+              class="search-bar"
+              placeholder="Search AI tools..."
+            />
+          </div>
+
+          <div class="main-content" style="grid-template-columns: 280px 1fr">
+            <div class="sidebar">
+              <div class="filter-section">
+                <div class="filter-title">Categories</div>
+                <div class="filter-option">
+                  <input type="checkbox" id="cat1" checked />
+                  <label for="cat1">Text Generation</label>
+                </div>
+                <div class="filter-option">
+                  <input type="checkbox" id="cat2" />
+                  <label for="cat2">Image Generation</label>
+                </div>
+                <div class="filter-option">
+                  <input type="checkbox" id="cat3" />
+                  <label for="cat3">Code Assistant</label>
+                </div>
+              </div>
+              <div class="filter-section">
+                <div class="filter-title">Pricing</div>
+                <div class="filter-option">
+                  <input type="checkbox" id="price1" />
+                  <label for="price1">Free</label>
+                </div>
+                <div class="filter-option">
+                  <input type="checkbox" id="price2" checked />
+                  <label for="price2">Freemium</label>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div
+                style="margin-bottom: 1rem; color: #64748b; font-size: 0.875rem"
+              >
+                Showing 24 tools
+              </div>
+              <div class="tool-grid">
+                <div class="tool-card">
+                  <div class="tool-logo"></div>
+                  <div class="tool-name">ChatGPT</div>
+                  <div class="tool-description">
+                    Advanced AI conversation tool for text generation and
+                    assistance.
+                  </div>
+                  <div class="tool-features">
+                    <span class="feature-badge">Text</span>
+                    <span class="feature-badge">API</span>
+                  </div>
+                  <button class="tool-button">View Tool</button>
+                </div>
+                <div class="tool-card">
+                  <div class="tool-logo"></div>
+                  <div class="tool-name">Midjourney</div>
+                  <div class="tool-description">
+                    AI-powered image generation from text prompts.
+                  </div>
+                  <div class="tool-features">
+                    <span class="feature-badge">Image</span>
+                    <span class="feature-badge">Paid</span>
+                  </div>
+                  <button class="tool-button">View Tool</button>
+                </div>
+                <div class="tool-card">
+                  <div class="tool-logo"></div>
+                  <div class="tool-name">GitHub Copilot</div>
+                  <div class="tool-description">
+                    AI pair programmer that suggests code completions.
+                  </div>
+                  <div class="tool-features">
+                    <span class="feature-badge">Code</span>
+                    <span class="feature-badge">IDE</span>
+                  </div>
+                  <button class="tool-button">View Tool</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Direction 2: Dense Dashboard -->
+      <div class="direction" id="direction-2">
+        <div class="direction-header">
+          <div class="direction-title">Direction 2: Dense Dashboard</div>
+          <div class="direction-philosophy">
+            Information-Rich & Efficient - Maximum information density for power
+            users who want to see everything at once.
+          </div>
+          <div class="direction-characteristics">
+            <div class="characteristic">
+              <span class="characteristic-label">Layout:</span>
+              <span class="characteristic-value">Multi-Column</span>
+            </div>
+            <div class="characteristic">
+              <span class="characteristic-label">Density:</span>
+              <span class="characteristic-value">High</span>
+            </div>
+            <div class="characteristic">
+              <span class="characteristic-label">Navigation:</span>
+              <span class="characteristic-value">Top Nav</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mockup">
+          <div class="mock-nav">
+            <div class="logo">AI Tools Finder</div>
+            <div class="nav-links">
+              <a href="#" class="nav-link active">Tools</a>
+              <a href="#" class="nav-link">News</a>
+              <a href="#" class="nav-link">Blog</a>
+            </div>
+          </div>
+
+          <div
+            style="
+              display: grid;
+              grid-template-columns: 200px 1fr 200px;
+              gap: 1rem;
+            "
+          >
+            <div class="sidebar" style="padding: 1rem">
+              <div class="filter-title" style="margin-bottom: 0.75rem">
+                Quick Filters
+              </div>
+              <div style="font-size: 0.75rem; color: #64748b">
+                Compact filters
+              </div>
+            </div>
+            <div>
+              <div
+                class="tool-grid"
+                style="grid-template-columns: repeat(4, 1fr); gap: 1rem"
+              >
+                <div class="tool-card" style="padding: 1rem">
+                  <div
+                    class="tool-logo"
+                    style="width: 32px; height: 32px; margin-bottom: 0.5rem"
+                  ></div>
+                  <div class="tool-name" style="font-size: 0.875rem">
+                    ChatGPT
+                  </div>
+                  <div
+                    class="tool-description"
+                    style="font-size: 0.75rem; margin-bottom: 0.5rem"
+                  >
+                    AI conversation tool
+                  </div>
+                  <button
+                    class="tool-button"
+                    style="padding: 0.5rem; font-size: 0.75rem"
+                  >
+                    View
+                  </button>
+                </div>
+                <!-- More compact cards -->
+              </div>
+            </div>
+            <div class="sidebar" style="padding: 1rem">
+              <div class="filter-title" style="margin-bottom: 0.75rem">
+                Stats
+              </div>
+              <div style="font-size: 0.75rem; color: #64748b">Quick stats</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Direction 3: Card Gallery -->
+      <div class="direction" id="direction-3">
+        <div class="direction-header">
+          <div class="direction-title">Direction 3: Card Gallery</div>
+          <div class="direction-philosophy">
+            Visual & Scannable - Large, image-focused cards that showcase tools
+            beautifully. Best for visual discovery.
+          </div>
+          <div class="direction-characteristics">
+            <div class="characteristic">
+              <span class="characteristic-label">Layout:</span>
+              <span class="characteristic-value">Grid Cards</span>
+            </div>
+            <div class="characteristic">
+              <span class="characteristic-label">Density:</span>
+              <span class="characteristic-value">Spacious</span>
+            </div>
+            <div class="characteristic">
+              <span class="characteristic-label">Focus:</span>
+              <span class="characteristic-value">Visual</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="mockup">
+          <div class="mock-nav">
+            <div class="logo">AI Tools Finder</div>
+            <div class="nav-links">
+              <a href="#" class="nav-link active">Tools</a>
+              <a href="#" class="nav-link">News</a>
+              <a href="#" class="nav-link">Blog</a>
+            </div>
+          </div>
+
+          <div class="tool-grid" style="grid-template-columns: repeat(3, 1fr)">
+            <div class="tool-card" style="padding: 2rem">
+              <div
+                class="tool-logo"
+                style="width: 64px; height: 64px; margin-bottom: 1rem"
+              ></div>
+              <div
+                class="tool-name"
+                style="font-size: 1.25rem; margin-bottom: 0.75rem"
+              >
+                ChatGPT
+              </div>
+              <div class="tool-description" style="margin-bottom: 1.5rem">
+                Advanced AI conversation tool for text generation and
+                assistance. Perfect for writing, coding, and creative tasks.
+              </div>
+              <div class="tool-features" style="margin-bottom: 1.5rem">
+                <span class="feature-badge">Text Generation</span>
+                <span class="feature-badge">API Available</span>
+              </div>
+              <button class="tool-button">Explore Tool</button>
+            </div>
+            <!-- More large cards -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional directions would follow similar pattern -->
+      <!-- Direction 4, 5, 6... -->
+    </div>
+
+    <script>
+      function showDirection(num) {
+        // Hide all directions
+        document.querySelectorAll(".direction").forEach((dir) => {
+          dir.classList.remove("active");
+        });
+
+        // Remove active from all buttons
+        document.querySelectorAll(".nav-btn").forEach((btn) => {
+          btn.classList.remove("active");
+        });
+
+        // Show selected direction
+        document.getElementById(`direction-${num}`).classList.add("active");
+        event.target.classList.add("active");
+      }
+    </script>
+  </body>
+</html>

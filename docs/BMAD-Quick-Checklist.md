@@ -33,10 +33,12 @@
 ## 🎯 Chọn Track Phù Hợp
 
 ### Enterprise/Complex Track
+
 → Sử dụng **prd** workflow
 → Phù hợp: Dự án lớn, phức tạp, nhiều stakeholders
 
-### Quick Flow Track  
+### Quick Flow Track
+
 → Sử dụng **tech-spec** workflow
 → Phù hợp: Dự án đơn giản, feature mới, cần nhanh
 
@@ -45,11 +47,13 @@
 ## 📝 Cách Sử Dụng
 
 Trong Cursor, reference workflow:
+
 ```
 @bmad/bmm/workflows/{workflow-name}
 ```
 
 Ví dụ:
+
 ```
 @bmad/bmm/workflows/product-brief
 ```
@@ -78,4 +82,3 @@ Ví dụ:
 ---
 
 Xem hướng dẫn chi tiết: [BMAD-Guide-From-Idea-to-Implementation.md](./BMAD-Guide-From-Idea-to-Implementation.md)
-
