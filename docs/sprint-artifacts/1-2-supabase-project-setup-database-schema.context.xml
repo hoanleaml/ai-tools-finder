@@ -1,0 +1,267 @@
+<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.2</storyId>
+    <title>Supabase Project Setup & Database Schema</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-24 11:26:50</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/1-2-supabase-project-setup-database-schema.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>Supabase project configured with database schema for tools, categories, affiliate links, news, and blog posts</iWant>
+    <soThat>the application has a proper data structure to store all information</soThat>
+    <tasks>
+      <task id="1" ac="1">Create Supabase Project and Configure Environment</task>
+      <task id="2" ac="1">Install Supabase Client Library</task>
+      <task id="3" ac="2">Create Categories Table</task>
+      <task id="4" ac="3">Create Tools Table</task>
+      <task id="5" ac="4">Create Affiliate Links Table</task>
+      <task id="6" ac="5">Create News Articles Table</task>
+      <task id="7" ac="6">Create Blog Posts Table</task>
+      <task id="8" ac="7">Create Scraping Jobs Table</task>
+      <task id="9" ac="10">Configure Row Level Security (RLS)</task>
+      <task id="10" ac="8,11">Create Database Types</task>
+      <task id="11" ac="11">Test Database Connection</task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC1">Supabase project created and API keys configured in environment variables</criterion>
+    <criterion id="AC2">`categories` table created with proper schema (id, name, slug, description, created_at, updated_at)</criterion>
+    <criterion id="AC3">`tools` table created with proper schema (id, name, description, website_url, logo_url, category_id, pricing_model, features, created_at, updated_at)</criterion>
+    <criterion id="AC4">`affiliate_links` table created with proper schema (id, tool_id, affiliate_url, program_name, commission_rate, status, created_at, updated_at)</criterion>
+    <criterion id="AC5">`news_articles` table created with proper schema (id, title, summary, content, source_url, source_name, image_url, published_at, created_at)</criterion>
+    <criterion id="AC6">`blog_posts` table created with proper schema (id, title, slug, content, excerpt, author_id, status, published_at, created_at, updated_at)</criterion>
+    <criterion id="AC7">`scraping_jobs` table created with proper schema (id, source_url, status, error_message, tools_found, created_at, completed_at)</criterion>
+    <criterion id="AC8">All tables have primary keys, foreign key relationships, and proper constraints</criterion>
+    <criterion id="AC9">Indexes created on frequently queried columns (name, category_id, status, slug)</criterion>
+    <criterion id="AC10">Row Level Security (RLS) policies configured for all tables</criterion>
+    <criterion id="AC11">Database connection tested and verified working</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>AI Tools Finder - Epic Breakdown</title>
+        <section>Epic 1: Foundation & Infrastructure - Story 1.2</section>
+        <snippet>Story 1.2 establishes the database foundation. Create Supabase project, set up database schema for tools, categories, affiliate links, news, and blog posts. Use Supabase SQL editor or migrations, set up Row Level Security (RLS) policies, and create indexes for performance.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>AI Tools Finder - Architecture Document</title>
+        <section>Backend & Database - Supabase (PostgreSQL)</section>
+        <snippet>Supabase is the chosen database solution providing managed PostgreSQL, built-in authentication, Row Level Security (RLS) for data protection, and auto-generated REST and GraphQL APIs. All data storage and queries use Supabase.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>AI Tools Finder - Architecture Document</title>
+        <section>Integration Points - Supabase Integration</section>
+        <snippet>Client setup uses `@supabase/ssr` with `createBrowserClient` for browser-side and `createServerClient` for server-side. Environment variables: NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundation & Infrastructure</title>
+        <section>Data Models and Contracts - Database Schema</section>
+        <snippet>Complete SQL schema definitions for categories, tools, affiliate_links, news_articles, blog_posts, and scraping_jobs tables. Includes UUID primary keys, foreign key relationships, indexes, and TIMESTAMPTZ timestamps.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundation & Infrastructure</title>
+        <section>Workflows and Sequencing - Story 1.2: Database Schema</section>
+        <snippet>Create Supabase project, run SQL migrations to create tables, set up indexes for performance, configure Row Level Security (RLS) policies, and test database connections.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/1-1-project-setup-nextjs-configuration.md</path>
+        <title>Story 1.1: Project Setup & Next.js Configuration</title>
+        <section>Dev Agent Record - Completion Notes</section>
+        <snippet>Project structure established with `/lib` and `/types` directories ready for Supabase clients and database types. Import alias `@/*` configured. `.gitignore` already includes `.env*.local` entries.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <!-- No existing code artifacts - this story establishes the database foundation -->
+    </code>
+    <dependencies>
+      <ecosystem name="node">
+        <package name="@supabase/supabase-js" version="^2.0.0">Supabase JavaScript client library</package>
+        <package name="@supabase/ssr" version="^0.5.0">Supabase SSR support for Next.js App Router</package>
+        <package name="next" version="^16.0.0">Next.js framework (already installed)</package>
+        <package name="typescript" version="^5.0.0" dev="true">TypeScript compiler (already installed)</package>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>
+      <type>database</type>
+      <rule>Must use Supabase (PostgreSQL) as database solution</rule>
+      <source>docs/architecture.md#Backend-&-Database</source>
+    </constraint>
+    <constraint>
+      <type>primary-key</type>
+      <rule>Must use UUID for primary keys (Supabase default)</rule>
+      <source>docs/sprint-artifacts/tech-spec-epic-1.md#Data-Models-and-Contracts</source>
+    </constraint>
+    <constraint>
+      <type>timestamp</type>
+      <rule>Must use TIMESTAMPTZ for timestamps (timezone-aware)</rule>
+      <source>docs/sprint-artifacts/tech-spec-epic-1.md#Data-Models-and-Contracts</source>
+    </constraint>
+    <constraint>
+      <type>security</type>
+      <rule>Must enable Row Level Security (RLS) on all tables</rule>
+      <source>docs/architecture.md#Backend-&-Database</source>
+    </constraint>
+    <constraint>
+      <type>performance</type>
+      <rule>Must create indexes on frequently queried columns (name, category_id, status, slug)</rule>
+      <source>docs/sprint-artifacts/tech-spec-epic-1.md#Data-Models-and-Contracts</source>
+    </constraint>
+    <constraint>
+      <type>typescript</type>
+      <rule>Must use TypeScript types for database tables (strict mode enabled)</rule>
+      <source>docs/architecture.md#Language</source>
+    </constraint>
+    <constraint>
+      <type>client-pattern</type>
+      <rule>Must use separate client and server Supabase clients for Next.js App Router</rule>
+      <source>docs/architecture.md#Integration-Points</source>
+    </constraint>
+    <constraint>
+      <type>environment</type>
+      <rule>Environment variables must be in `.env.local` (gitignored) and `.env.example` (documented)</rule>
+      <source>docs/sprint-artifacts/1-1-project-setup-nextjs-configuration.md#Dev-Agent-Record</source>
+    </constraint>
+    <constraint>
+      <type>migration</type>
+      <rule>Use Supabase SQL editor for initial setup, migrations for future changes</rule>
+      <source>docs/sprint-artifacts/tech-spec-epic-1.md#Risks-Assumptions-Open-Questions</source>
+    </constraint>
+    <constraint>
+      <type>structure</type>
+      <rule>Supabase clients must be in `lib/supabase/` directory</rule>
+      <source>docs/architecture.md#Project-Structure</source>
+    </constraint>
+    <constraint>
+      <type>structure</type>
+      <rule>Database types must be in `types/database.ts`</rule>
+      <source>docs/sprint-artifacts/1-2-supabase-project-setup-database-schema.md#Project-Structure-Notes</source>
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>Supabase Browser Client</name>
+      <kind>Function</kind>
+      <signature>createClient(): SupabaseClient</signature>
+      <path>lib/supabase/client.ts</path>
+      <description>Browser-side Supabase client using createBrowserClient from @supabase/ssr</description>
+    </interface>
+    <interface>
+      <name>Supabase Server Client</name>
+      <kind>Function</kind>
+      <signature>createClient(): SupabaseClient</signature>
+      <path>lib/supabase/server.ts</path>
+      <description>Server-side Supabase client using createServerClient from @supabase/ssr with Next.js cookies</description>
+    </interface>
+    <interface>
+      <name>Database Types</name>
+      <kind>TypeScript Types</kind>
+      <signature>Category, Tool, AffiliateLink, NewsArticle, BlogPost, ScrapingJob</signature>
+      <path>types/database.ts</path>
+      <description>TypeScript type definitions for all database tables</description>
+    </interface>
+  </interfaces>
+
+  <tests>
+    <standards>
+      Testing standards for this story focus on verifying database setup and schema. Database connection must be testable from both client and server. RLS policies must be verified to ensure proper access control. Foreign key relationships must be tested to ensure data integrity. Indexes must be verified in query plans for performance. TypeScript types must compile correctly. Environment variables must be accessible in Next.js runtime.
+    </standards>
+    <locations>
+      <location>Test scripts or API routes for database connection testing</location>
+      <location>Supabase SQL editor for schema verification</location>
+      <location>TypeScript compilation for type checking</location>
+    </locations>
+    <ideas>
+      <test ac="AC1">
+        <idea>Verify Supabase project URL and API keys are configured in `.env.local`</idea>
+        <idea>Verify environment variables are accessible via `process.env.NEXT_PUBLIC_SUPABASE_URL`</idea>
+        <idea>Verify `.env.example` file exists with placeholder values</idea>
+        <idea>Test that environment variables are not exposed in client bundle</idea>
+      </test>
+      <test ac="AC2">
+        <idea>Verify `categories` table exists in Supabase dashboard</idea>
+        <idea>Verify all columns exist: id, name, slug, description, created_at, updated_at</idea>
+        <idea>Verify primary key constraint on id column</idea>
+        <idea>Verify unique constraint on slug column</idea>
+        <idea>Verify index on slug column exists</idea>
+        <idea>Test inserting a category record</idea>
+      </test>
+      <test ac="AC3">
+        <idea>Verify `tools` table exists with all required columns</idea>
+        <idea>Verify foreign key constraint to categories table</idea>
+        <idea>Verify indexes on name and category_id columns</idea>
+        <idea>Test inserting a tool record with valid category_id</idea>
+        <idea>Test foreign key constraint by attempting to insert invalid category_id</idea>
+      </test>
+      <test ac="AC4">
+        <idea>Verify `affiliate_links` table exists with all required columns</idea>
+        <idea>Verify foreign key constraint to tools table with ON DELETE CASCADE</idea>
+        <idea>Verify indexes on tool_id and status columns</idea>
+        <idea>Test inserting an affiliate link record</idea>
+      </test>
+      <test ac="AC5">
+        <idea>Verify `news_articles` table exists with all required columns</idea>
+        <idea>Verify indexes on published_at and source_name columns</idea>
+        <idea>Test inserting a news article record</idea>
+      </test>
+      <test ac="AC6">
+        <idea>Verify `blog_posts` table exists with all required columns</idea>
+        <idea>Verify unique constraint on slug column</idea>
+        <idea>Verify indexes on slug, status, and published_at columns</idea>
+        <idea>Test inserting a blog post record</idea>
+      </test>
+      <test ac="AC7">
+        <idea>Verify `scraping_jobs` table exists with all required columns</idea>
+        <idea>Verify indexes on status and created_at columns</idea>
+        <idea>Test inserting a scraping job record</idea>
+      </test>
+      <test ac="AC8">
+        <idea>Verify all tables have UUID primary keys</idea>
+        <idea>Verify all foreign key relationships are properly configured</idea>
+        <idea>Verify NOT NULL constraints on required columns</idea>
+        <idea>Verify UNIQUE constraints on slug columns</idea>
+        <idea>Test cascade delete behavior for affiliate_links when tool is deleted</idea>
+      </test>
+      <test ac="AC9">
+        <idea>Verify indexes exist on name columns (tools table)</idea>
+        <idea>Verify indexes exist on category_id columns (tools table)</idea>
+        <idea>Verify indexes exist on status columns (tools, affiliate_links, blog_posts, scraping_jobs)</idea>
+        <idea>Verify indexes exist on slug columns (categories, tools, blog_posts)</idea>
+        <idea>Use EXPLAIN ANALYZE to verify indexes are used in queries</idea>
+      </test>
+      <test ac="AC10">
+        <idea>Verify RLS is enabled on all tables</idea>
+        <idea>Verify public read access policy for categories table</idea>
+        <idea>Verify public read access policy for tools table</idea>
+        <idea>Verify public read access policy for affiliate_links table</idea>
+        <idea>Verify public read access policy for news_articles table</idea>
+        <idea>Verify public read access policy for published blog_posts only</idea>
+        <idea>Verify admin-only access policy for scraping_jobs table</idea>
+        <idea>Test RLS policies by attempting unauthorized access</idea>
+      </test>
+      <test ac="AC11">
+        <idea>Create test script or API route to test Supabase connection</idea>
+        <idea>Test reading from categories table using browser client</idea>
+        <idea>Test reading from tools table using server client</idea>
+        <idea>Verify connection works from both client and server contexts</idea>
+        <idea>Test error handling for connection failures (invalid URL/key)</idea>
+        <idea>Verify TypeScript types work correctly with Supabase queries</idea>
+      </test>
+    </ideas>
+  </tests>
+</story-context>
+

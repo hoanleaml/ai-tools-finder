@@ -1,0 +1,279 @@
+<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.4</storyId>
+    <title>Basic UI Components & Design System</title>
+    <status>drafted</status>
+    <generatedAt>2025-01-27</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/1-4-basic-ui-components-design-system.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>developer</asA>
+    <iWant>a set of reusable UI components and design system</iWant>
+    <soThat>I can build consistent user interfaces efficiently</soThat>
+    <tasks>
+      <task id="1" ac="1,10">Set Up Design System Foundation</task>
+      <task id="2" ac="2,10,11,12,13">Create Button Component</task>
+      <task id="3" ac="3,10,11,12,13">Create Input Component</task>
+      <task id="4" ac="4,10,11,12,13">Create Card Component</task>
+      <task id="5" ac="5,10,11,12,13">Create Modal/Dialog Component</task>
+      <task id="6" ac="6,10,11,12,13">Create Loading Spinner Component</task>
+      <task id="7" ac="7,10,11,12,13">Create Error Message Component</task>
+      <task id="8" ac="8,10,11,12,13,14">Create Navigation Header Component</task>
+      <task id="9" ac="9,10,11,12,13,14">Create Footer Component</task>
+      <task id="10" ac="All">Create Component Documentation</task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC1">Design system foundation established with design tokens (colors, spacing, typography)</criterion>
+    <criterion id="AC2">Button component created with variants (primary, secondary, outline)</criterion>
+    <criterion id="AC3">Input component created with types (text, email, password, search)</criterion>
+    <criterion id="AC4">Card component created for tool listings</criterion>
+    <criterion id="AC5">Modal/Dialog component created</criterion>
+    <criterion id="AC6">Loading spinner component created</criterion>
+    <criterion id="AC7">Error message display component created</criterion>
+    <criterion id="AC8">Navigation header component created</criterion>
+    <criterion id="AC9">Footer component created</criterion>
+    <criterion id="AC10">All components follow consistent styling (colors, spacing, typography)</criterion>
+    <criterion id="AC11">All components are responsive (mobile, tablet, desktop)</criterion>
+    <criterion id="AC12">All components meet WCAG 2.1 AA accessibility standards</criterion>
+    <criterion id="AC13">All components use TypeScript for type safety</criterion>
+    <criterion id="AC14">Components are server-side compatible (where applicable)</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>AI Tools Finder - Epic Breakdown</title>
+        <section>Epic 1: Foundation & Infrastructure - Story 1.4</section>
+        <snippet>Story 1.4 establishes the UI component foundation. Create reusable UI components (Button, Input, Card, Modal, Loading, Error, Header, Footer) using shadcn/ui, configure design tokens in Tailwind, and ensure accessibility compliance (WCAG 2.1 AA).</snippet>
+      </doc>
+      <doc>
+        <path>docs/ux-design-specification.md</path>
+        <title>AI Tools Finder UX Design Specification</title>
+        <section>Design System Foundation - shadcn/ui</section>
+        <snippet>shadcn/ui is the chosen component library. Modern, customizable, built on Radix UI primitives, excellent accessibility (WCAG compliant), Tailwind CSS based, TypeScript support. Components provided: Form components, Navigation, Overlays, Feedback, Data Display, Layout.</snippet>
+      </doc>
+      <doc>
+        <path>docs/ux-design-specification.md</path>
+        <title>AI Tools Finder UX Design Specification</title>
+        <section>Visual Foundation - Color System</section>
+        <snippet>Professional & Trustworthy theme. Primary: #2563eb (Blue 600), Secondary: #64748b (Slate 500), Accent: #10b981 (Emerald 500). Semantic colors: Success, Warning, Error, Info. Neutral colors: Background, Text Primary/Secondary, Border.</snippet>
+      </doc>
+      <doc>
+        <path>docs/ux-design-specification.md</path>
+        <title>AI Tools Finder UX Design Specification</title>
+        <section>Visual Foundation - Typography</section>
+        <snippet>Font Family: Inter (headings and body), JetBrains Mono (monospace). Type Scale: H1 (2.25rem), H2 (1.875rem), H3 (1.5rem), H4 (1.25rem), Body (1rem), Small (0.875rem), Tiny (0.75rem). Font Weights: Regular (400), Medium (500), Semibold (600), Bold (700).</snippet>
+      </doc>
+      <doc>
+        <path>docs/ux-design-specification.md</path>
+        <title>AI Tools Finder UX Design Specification</title>
+        <section>Visual Foundation - Spacing & Layout</section>
+        <snippet>Base Unit: 4px. Spacing Scale: xs (4px), sm (8px), md (16px), lg (24px), xl (32px), 2xl (48px), 3xl (64px). Layout Grid: Desktop (12-column, 24px gutters), Tablet (8-column, 16px gutters), Mobile (4-column, 16px gutters). Container Widths: Desktop (1280px max), Tablet/Mobile (100% with padding).</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>AI Tools Finder - Architecture Document</title>
+        <section>Decision Summary - Design System</section>
+        <snippet>shadcn/ui is the chosen design system. Latest version, accessible, customizable, TypeScript support. Tailwind CSS 3.x for styling, aligns with shadcn/ui, utility-first approach.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundation & Infrastructure</title>
+        <section>Workflows and Sequencing - Story 1.4: UI Components</section>
+        <snippet>Install shadcn/ui CLI, add base components (Button, Input, Card, etc.), configure design tokens in Tailwind, create layout components (Header, Footer), ensure accessibility compliance (WCAG 2.1 AA).</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/1-1-project-setup-nextjs-configuration.md</path>
+        <title>Story 1.1: Project Setup & Next.js Configuration</title>
+        <section>Dev Agent Record - Completion Notes</section>
+        <snippet>Tailwind CSS already configured in project. Project structure established with `/components` directory ready for UI components. TypeScript strict mode enabled. Import alias `@/*` configured.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>package.json</path>
+        <type>config</type>
+        <description>Package dependencies - Tailwind CSS v4 already installed</description>
+        <snippet>tailwindcss: ^4, @tailwindcss/postcss: ^4</snippet>
+      </artifact>
+      <artifact>
+        <path>app/globals.css</path>
+        <type>style</type>
+        <description>Global CSS file with Tailwind directives</description>
+      </artifact>
+      <artifact>
+        <path>components/auth/logout-button.tsx</path>
+        <type>component</type>
+        <description>Example component using Tailwind CSS classes</description>
+        <snippet>Uses Tailwind utility classes for styling (bg-red-600, px-4, py-2, etc.)</snippet>
+      </artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="node">
+        <package name="tailwindcss" version="^4">Tailwind CSS for styling (already installed)</package>
+        <package name="@tailwindcss/postcss" version="^4">Tailwind PostCSS plugin (already installed)</package>
+        <package name="next" version="^16.0.3">Next.js framework (already installed)</package>
+        <package name="react" version="^19.2.0">React library (already installed)</package>
+        <package name="typescript" version="^5.0.0" dev="true">TypeScript compiler (already installed)</package>
+        <package name="@radix-ui/react-*" version="latest">Radix UI primitives (will be installed with shadcn/ui)</package>
+        <package name="class-variance-authority" version="latest">For component variants (will be installed with shadcn/ui)</package>
+        <package name="clsx" version="latest">For className merging (will be installed with shadcn/ui)</package>
+        <package name="tailwind-merge" version="latest">For Tailwind class merging (will be installed with shadcn/ui)</package>
+      </ecosystem>
+      <internal>
+        <dependency type="prerequisite">Story 1.1: Project setup must be complete (Tailwind CSS already configured)</dependency>
+        <dependency type="code">app/globals.css - Tailwind CSS directives</dependency>
+        <dependency type="config">tsconfig.json - TypeScript configuration</dependency>
+        <dependency type="structure">components/ directory - Ready for UI components</dependency>
+      </internal>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>
+      <type>design-system</type>
+      <rule>Must use shadcn/ui as component library</rule>
+      <source>UX Design: Design System Choice</source>
+    </constraint>
+    <constraint>
+      <type>styling</type>
+      <rule>Must use Tailwind CSS for styling (already configured)</rule>
+      <source>Architecture: Styling</source>
+    </constraint>
+    <constraint>
+      <type>accessibility</type>
+      <rule>All components must meet WCAG 2.1 AA accessibility standards</rule>
+      <source>Architecture: Accessibility, UX Design: Accessibility</source>
+    </constraint>
+    <constraint>
+      <type>responsive</type>
+      <rule>All components must be responsive (mobile, tablet, desktop)</rule>
+      <source>UX Design: Responsive Design</source>
+    </constraint>
+    <constraint>
+      <type>typescript</type>
+      <rule>All components must use TypeScript with strict mode</rule>
+      <source>Architecture: Language</source>
+    </constraint>
+    <constraint>
+      <type>server-components</type>
+      <rule>Components should be server-side compatible where applicable</rule>
+      <source>Architecture: Framework - Server Components by default</source>
+    </constraint>
+    <constraint>
+      <type>color-theme</type>
+      <rule>Follow Professional & Trustworthy color theme from UX Design</rule>
+      <source>UX Design: Visual Foundation - Color System</source>
+    </constraint>
+    <constraint>
+      <type>typography</type>
+      <rule>Use Inter font family for headings and body text</rule>
+      <source>UX Design: Visual Foundation - Typography</source>
+    </constraint>
+    <constraint>
+      <type>spacing</type>
+      <rule>Use 4px base unit spacing scale</rule>
+      <source>UX Design: Visual Foundation - Spacing & Layout</source>
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>shadcn/ui CLI</name>
+      <type>external</type>
+      <description>Command-line tool for installing shadcn/ui components</description>
+      <methods>
+        <method name="npx shadcn@latest init">Initialize shadcn/ui in project, creates components.json</method>
+        <method name="npx shadcn@latest add [component]">Add specific component to project</method>
+      </methods>
+      <docs>https://ui.shadcn.com/docs/installation</docs>
+    </interface>
+    <interface>
+      <name>Tailwind CSS Configuration</name>
+      <type>config</type>
+      <description>Tailwind CSS configuration file for design tokens</description>
+      <methods>
+        <method name="tailwind.config.ts">Configure theme, colors, spacing, typography</method>
+      </methods>
+      <docs>https://tailwindcss.com/docs/configuration</docs>
+    </interface>
+    <interface>
+      <name>Radix UI Primitives</name>
+      <type>external</type>
+      <description>Accessible UI primitives used by shadcn/ui</description>
+      <methods>
+        <method name="@radix-ui/react-dialog">Dialog/Modal component</method>
+        <method name="@radix-ui/react-slot">Slot component for composition</method>
+        <method name="@radix-ui/react-*">Other Radix UI primitives</method>
+      </methods>
+      <docs>https://www.radix-ui.com/primitives</docs>
+    </interface>
+  </interfaces>
+
+  <testing>
+    <testType>manual</testType>
+    <testScenarios>
+      <scenario>
+        <name>Component Rendering</name>
+        <steps>
+          <step>Import component in page</step>
+          <step>Render component with props</step>
+          <step>Verify component displays correctly</step>
+        </steps>
+        <expected>Component renders with correct styling and structure</expected>
+      </scenario>
+      <scenario>
+        <name>Responsive Behavior</name>
+        <steps>
+          <step>Render component</step>
+          <step>Test at mobile breakpoint (&lt; 640px)</step>
+          <step>Test at tablet breakpoint (640px - 1024px)</step>
+          <step>Test at desktop breakpoint (&gt; 1024px)</step>
+        </steps>
+        <expected>Component adapts correctly to different screen sizes</expected>
+      </scenario>
+      <scenario>
+        <name>Accessibility Testing</name>
+        <steps>
+          <step>Test keyboard navigation</step>
+          <step>Test with screen reader</step>
+          <step>Verify ARIA attributes</step>
+          <step>Check color contrast ratios</step>
+        </steps>
+        <expected>Component meets WCAG 2.1 AA standards</expected>
+      </scenario>
+      <scenario>
+        <name>TypeScript Type Safety</name>
+        <steps>
+          <step>Import component with incorrect props</step>
+          <step>Verify TypeScript errors</step>
+          <step>Fix props to match interface</step>
+          <step>Verify no TypeScript errors</step>
+        </steps>
+        <expected>TypeScript catches type errors at compile time</expected>
+      </scenario>
+    </testScenarios>
+  </testing>
+
+  <learnings>
+    <learning>
+      <from>Story 1.1</from>
+      <note>Tailwind CSS v4 is already configured in the project. No need to reinstall or reconfigure Tailwind. Just need to set up shadcn/ui and configure design tokens.</note>
+    </learning>
+    <learning>
+      <from>Story 1.3</from>
+      <note>Components directory structure already exists. Created `components/auth/logout-button.tsx` which uses Tailwind CSS classes. Can follow similar pattern for other components.</note>
+    </learning>
+    <learning>
+      <from>Story 1.1</from>
+      <note>Import alias `@/*` is already configured. Use `@/components/...` for component imports.</note>
+    </learning>
+  </learnings>
+</story-context>
+

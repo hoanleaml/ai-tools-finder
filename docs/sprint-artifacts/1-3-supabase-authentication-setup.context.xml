@@ -1,0 +1,272 @@
+<story-context id="{bmad_folder}/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1.3</storyId>
+    <title>Supabase Authentication Setup</title>
+    <status>drafted</status>
+    <generatedAt>2025-01-27</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/sprint-artifacts/1-3-supabase-authentication-setup.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>admin user</asA>
+    <iWant>to authenticate using Supabase Auth</iWant>
+    <soThat>I can securely access the admin dashboard</soThat>
+    <tasks>
+      <task id="1" ac="1">Configure Supabase Auth Provider</task>
+      <task id="2" ac="10,11">Create Authentication Middleware</task>
+      <task id="3" ac="2,3,4,5,6">Create Login Page</task>
+      <task id="4" ac="9">Implement Logout Functionality</task>
+      <task id="5" ac="10,11,12">Create Protected Admin Route Example</task>
+      <task id="6" ac="7,8,12">Create Auth Helper Utilities</task>
+      <task id="7" ac="All">Test Authentication Flow</task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC1">Supabase Auth configured with email/password provider in Supabase dashboard</criterion>
+    <criterion id="AC2">Login page created with email and password input fields</criterion>
+    <criterion id="AC3">Login functionality validates credentials against Supabase Auth</criterion>
+    <criterion id="AC4">Successful login creates secure session tokens stored in cookies</criterion>
+    <criterion id="AC5">User redirected to admin dashboard on successful login</criterion>
+    <criterion id="AC6">Error messages displayed on login failure (invalid credentials, network errors)</criterion>
+    <criterion id="AC7">Session persists across page reloads</criterion>
+    <criterion id="AC8">Token refresh handled automatically by Supabase client</criterion>
+    <criterion id="AC9">Logout functionality clears session and redirects to login page</criterion>
+    <criterion id="AC10">Middleware protects admin routes (`/admin/*`) and redirects unauthenticated users to login</criterion>
+    <criterion id="AC11">Protected routes verify session on each request</criterion>
+    <criterion id="AC12">Authentication state accessible in both client and server components</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/epics.md</path>
+        <title>AI Tools Finder - Epic Breakdown</title>
+        <section>Epic 1: Foundation & Infrastructure - Story 1.3</section>
+        <snippet>Story 1.3 implements authentication for admin users using Supabase Auth. Configure email/password provider, create login/logout functionality, protect admin routes with middleware, and implement session management.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>AI Tools Finder - Architecture Document</title>
+        <section>Authentication Pattern</section>
+        <snippet>Use Next.js middleware with Supabase Auth to protect admin routes. Check session using `getSession()`, redirect unauthenticated users to `/login`, and allow authenticated users to access protected routes.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>AI Tools Finder - Architecture Document</title>
+        <section>Security - Authentication</section>
+        <snippet>Supabase Auth provides secure admin authentication. Use email/password provider, store sessions in HTTP-only cookies, and implement automatic token refresh.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundation & Infrastructure</title>
+        <section>Workflows and Sequencing - Story 1.3: Authentication</section>
+        <snippet>Configure Supabase Auth with email/password provider, create authentication middleware, set up protected admin routes, implement login/logout functionality, and test session persistence and token refresh.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Foundation & Infrastructure</title>
+        <section>Interfaces - Auth Middleware Interface</section>
+        <snippet>Middleware implementation using `createServerClient` from `@supabase/ssr`, checking session with `getSession()`, and redirecting unauthenticated users to login page.</snippet>
+      </doc>
+      <doc>
+        <path>docs/sprint-artifacts/1-2-supabase-project-setup-database-schema.md</path>
+        <title>Story 1.2: Supabase Project Setup & Database Schema</title>
+        <section>Dev Agent Record - Completion Notes</section>
+        <snippet>Supabase project created, API keys configured in `.env.local`, Supabase clients (`lib/supabase/client.ts` and `lib/supabase/server.ts`) created and working. Database connection tested successfully.</snippet>
+      </doc>
+      <doc>
+        <path>docs/prd.md</path>
+        <title>Product Requirements Document</title>
+        <section>Security Requirements</section>
+        <snippet>Admin authentication required for accessing admin dashboard. Secure session management, token refresh, and protected routes are essential security requirements.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>lib/supabase/client.ts</path>
+        <type>utility</type>
+        <description>Browser-side Supabase client using createBrowserClient from @supabase/ssr</description>
+        <snippet>export function createClient() { return createBrowserClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!); }</snippet>
+      </artifact>
+      <artifact>
+        <path>lib/supabase/server.ts</path>
+        <type>utility</type>
+        <description>Server-side Supabase client using createServerClient from @supabase/ssr with cookie handling</description>
+        <snippet>export async function createClient() { const cookieStore = await cookies(); return createServerClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!, { cookies: { getAll() { return cookieStore.getAll(); }, setAll(cookiesToSet) { ... } } }); }</snippet>
+      </artifact>
+    </code>
+    <dependencies>
+      <ecosystem name="node">
+        <package name="@supabase/supabase-js" version="^2.84.0">Supabase JavaScript client library (already installed)</package>
+        <package name="@supabase/ssr" version="^0.7.0">Supabase SSR support for Next.js App Router (already installed)</package>
+        <package name="next" version="^16.0.3">Next.js framework (already installed)</package>
+        <package name="react" version="^19.2.0">React library (already installed)</package>
+        <package name="typescript" version="^5.0.0" dev="true">TypeScript compiler (already installed)</package>
+      </ecosystem>
+      <internal>
+        <dependency type="prerequisite">Story 1.2: Supabase project setup and database schema must be complete</dependency>
+        <dependency type="code">lib/supabase/client.ts - Browser client for auth operations</dependency>
+        <dependency type="code">lib/supabase/server.ts - Server client for middleware and protected routes</dependency>
+        <dependency type="config">.env.local - Supabase URL and API keys must be configured</dependency>
+      </internal>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>
+      <type>authentication</type>
+      <rule>Must use Supabase Auth as authentication solution</rule>
+      <source>Architecture: Authentication</source>
+    </constraint>
+    <constraint>
+      <type>security</type>
+      <rule>Sessions must be stored in HTTP-only cookies (handled by @supabase/ssr)</rule>
+      <source>Architecture: Security</source>
+    </constraint>
+    <constraint>
+      <type>routing</type>
+      <rule>Admin routes (`/admin/*`) must be protected by middleware</rule>
+      <source>Architecture: Authentication Pattern</source>
+    </constraint>
+    <constraint>
+      <type>framework</type>
+      <rule>Must use Next.js App Router conventions (middleware.ts in root, app directory for routes)</rule>
+      <source>Architecture: Framework</source>
+    </constraint>
+    <constraint>
+      <type>typescript</type>
+      <rule>All code must be TypeScript with strict mode enabled</rule>
+      <source>Story 1.1: Project Setup</source>
+    </constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>Supabase Auth Methods</name>
+      <type>external</type>
+      <description>Supabase Auth API methods for authentication operations</description>
+      <methods>
+        <method name="signInWithPassword">Sign in with email and password. Returns session and user data.</method>
+        <method name="signOut">Sign out current user. Clears session.</method>
+        <method name="getSession">Get current session. Returns session data or null.</method>
+        <method name="getUser">Get current user. Returns user data or null.</method>
+      </methods>
+      <docs>https://supabase.com/docs/reference/javascript/auth-signinwithpassword</docs>
+    </interface>
+    <interface>
+      <name>Next.js Middleware</name>
+      <type>framework</type>
+      <description>Next.js middleware for route protection</description>
+      <methods>
+        <method name="middleware">Middleware function that runs before request is processed</method>
+        <method name="config.matcher">Configure which routes middleware applies to</method>
+      </methods>
+      <docs>https://nextjs.org/docs/app/building-your-application/routing/middleware</docs>
+    </interface>
+    <interface>
+      <name>Next.js Server Actions</name>
+      <type>framework</type>
+      <description>Server actions for form submissions (login/logout)</description>
+      <methods>
+        <method name="use server">Mark function as server action</method>
+      </methods>
+      <docs>https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions-and-mutations</docs>
+    </interface>
+  </interfaces>
+
+  <testing>
+    <testType>manual</testType>
+    <testScenarios>
+      <scenario>
+        <name>Login with valid credentials</name>
+        <steps>
+          <step>Navigate to /login page</step>
+          <step>Enter valid email and password</step>
+          <step>Submit form</step>
+          <step>Verify redirect to /admin or /admin/dashboard</step>
+          <step>Verify session is created</step>
+        </steps>
+        <expected>User is authenticated and redirected to admin dashboard</expected>
+      </scenario>
+      <scenario>
+        <name>Login with invalid credentials</name>
+        <steps>
+          <step>Navigate to /login page</step>
+          <step>Enter invalid email or password</step>
+          <step>Submit form</step>
+          <step>Verify error message is displayed</step>
+          <step>Verify user remains on login page</step>
+        </steps>
+        <expected>Error message displayed, user not authenticated</expected>
+      </scenario>
+      <scenario>
+        <name>Session persistence</name>
+        <steps>
+          <step>Login successfully</step>
+          <step>Reload page</step>
+          <step>Verify user remains authenticated</step>
+          <step>Verify session persists</step>
+        </steps>
+        <expected>Session persists across page reloads</expected>
+      </scenario>
+      <scenario>
+        <name>Protected route access without authentication</name>
+        <steps>
+          <step>Navigate to /admin without logging in</step>
+          <step>Verify redirect to /login</step>
+        </steps>
+        <expected>User redirected to login page</expected>
+      </scenario>
+      <scenario>
+        <name>Protected route access with authentication</name>
+        <steps>
+          <step>Login successfully</step>
+          <step>Navigate to /admin</step>
+          <step>Verify access granted</step>
+        </steps>
+        <expected>User can access protected routes</expected>
+      </scenario>
+      <scenario>
+        <name>Logout functionality</name>
+        <steps>
+          <step>Login successfully</step>
+          <step>Click logout button</step>
+          <step>Verify session is cleared</step>
+          <step>Verify redirect to /login</step>
+          <step>Verify cannot access /admin after logout</step>
+        </steps>
+        <expected>Session cleared, user logged out, redirect to login</expected>
+      </scenario>
+      <scenario>
+        <name>Token refresh</name>
+        <steps>
+          <step>Login successfully</step>
+          <step>Wait for token to expire (or simulate)</step>
+          <step>Make request to protected route</step>
+          <step>Verify token is refreshed automatically</step>
+          <step>Verify user remains authenticated</step>
+        </steps>
+        <expected>Token refreshed automatically, user remains authenticated</expected>
+      </scenario>
+    </testScenarios>
+  </testing>
+
+  <learnings>
+    <learning>
+      <from>Story 1.2</from>
+      <note>Supabase clients are already configured and working. Use existing `lib/supabase/client.ts` for browser-side auth and `lib/supabase/server.ts` for server-side auth operations.</note>
+    </learning>
+    <learning>
+      <from>Story 1.2</from>
+      <note>Environment variables are already configured in `.env.local`. No need to add new environment variables for authentication.</note>
+    </learning>
+    <learning>
+      <from>Story 1.1</from>
+      <note>Project structure follows Next.js 16 App Router conventions. Use `app/login/page.tsx` for login page and `middleware.ts` in root for route protection.</note>
+    </learning>
+  </learnings>
+</story-context>
+
