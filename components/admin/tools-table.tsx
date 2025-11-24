@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { BulkActionsBar } from "./bulk-actions-bar";
 import {
   Table,
   TableBody,
@@ -214,21 +215,16 @@ export function ToolsTable({
 
       {/* Bulk Actions */}
       {selectedTools.size > 0 && (
-        <div className="rounded-lg border bg-yellow-50 p-4">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium">
-              {selectedTools.size} tool(s) selected
-            </span>
-            <div className="flex gap-2">
-              <Button variant="outline" size="sm">
-                Bulk Edit
-              </Button>
-              <Button variant="destructive" size="sm">
-                Delete Selected
-              </Button>
-            </div>
-          </div>
-        </div>
+        <BulkActionsBar
+          selectedCount={selectedTools.size}
+          selectedToolIds={Array.from(selectedTools)}
+          onClearSelection={() => setSelectedTools(new Set())}
+          onSuccess={() => {
+            setSelectedTools(new Set());
+            router.refresh();
+          }}
+          categories={categories}
+        />
       )}
 
       {/* Table */}

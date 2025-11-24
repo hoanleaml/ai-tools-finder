@@ -70,7 +70,7 @@ development_status:
   4-2-tools-management-table: done
   4-3-tool-creation-editing-form: done
   4-4-affiliate-link-management: done
-  4-5-bulk-operations-for-tools: backlog
+  4-5-bulk-operations-for-tools: done
   epic-4-retrospective: optional
 
   # Epic 5: Scraping & Sync System
