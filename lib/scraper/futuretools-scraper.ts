@@ -79,14 +79,15 @@ export async function scrapeFutureTools(
     ];
 
     let foundTools = false;
+    // Create a new cheerio instance for use in callbacks to avoid Root type issue
+    const cheerioApi = cheerio.load(html);
     for (const selector of toolSelectors) {
       const elements = $(selector);
       if (elements.length > 0) {
         console.log(`Found ${elements.length} tools using selector: ${selector}`);
         elements.each((index, element) => {
           try {
-            // Use cheerio.load to get CheerioAPI for this element
-            const tool = extractToolData($.root().constructor.prototype.constructor === cheerio ? $ : cheerio.load(''), element, finalConfig.baseUrl);
+            const tool = extractToolData(cheerioApi as cheerio.CheerioAPI, element, finalConfig.baseUrl);
             if (tool) {
               tools.push(tool);
             }
@@ -103,14 +104,13 @@ export async function scrapeFutureTools(
     if (!foundTools) {
       console.warn("No tools found with common selectors, trying fallback method...");
       // Fallback: look for links that might be tool links
-      // Capture cheerio API before callback
-      const cheerioApiFallback = cheerio.load(html);
+      // Use the same cheerioApi instance
       $("a[href^='/tools/'], a[href*='tool']").each((index, element) => {
         try {
-          const $link = cheerioApiFallback(element);
+          const $link = cheerioApi(element);
           const $parent = $link.closest("div, article, section, li");
           const parentElement = $parent.length > 0 ? $parent[0] : element;
-          const tool = extractToolData(cheerioApiFallback, parentElement, finalConfig.baseUrl);
+          const tool = extractToolData(cheerioApi as cheerio.CheerioAPI, parentElement, finalConfig.baseUrl);
           if (tool) {
             tools.push(tool);
           }
@@ -143,7 +143,7 @@ export async function scrapeFutureTools(
 /**
  * Extract tool data from a single tool element
  */
-function extractToolData(cheerioApi: cheerio.CheerioAPI, element: cheerio.AnyNode, baseUrl: string = "https://www.futuretools.io"): FutureToolsTool | null {
+function extractToolData(cheerioApi: cheerio.CheerioAPI, element: cheerio.Element, baseUrl: string = "https://www.futuretools.io"): FutureToolsTool | null {
   const $element = cheerioApi(element);
   try {
     // Tool name - try multiple selectors
