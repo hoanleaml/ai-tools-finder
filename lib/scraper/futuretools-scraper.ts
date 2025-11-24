@@ -140,8 +140,8 @@ export async function scrapeFutureTools(
 /**
  * Extract tool data from a single tool element
  */
-function extractToolData(cheerioApi: CheerioAPI, element: Element, baseUrl: string = "https://www.futuretools.io"): FutureToolsTool | null {
-  const $element = cheerioApi(element);
+function extractToolData($: cheerio.CheerioAPI, element: cheerio.AnyNode, baseUrl: string = "https://www.futuretools.io"): FutureToolsTool | null {
+  const $element = $(element);
   try {
     // Tool name - try multiple selectors
     const name = 
