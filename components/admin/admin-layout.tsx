@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Package, Link as LinkIcon, Settings, LogOut } from "lucide-react";
+import { LayoutDashboard, Package, Link as LinkIcon, Settings } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
+import LogoutButton from "@/components/auth/logout-button";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -88,16 +89,7 @@ export async function AdminLayout({ children }: AdminLayoutProps) {
 
           {/* Logout */}
           <div className="border-t p-4">
-            <form action="/api/auth/logout" method="POST">
-              <Button
-                type="submit"
-                variant="ghost"
-                className="w-full justify-start text-red-600 hover:text-red-700"
-              >
-                <LogOut className="mr-2 h-4 w-4" />
-                Logout
-              </Button>
-            </form>
+            <LogoutButton />
           </div>
         </div>
       </aside>
