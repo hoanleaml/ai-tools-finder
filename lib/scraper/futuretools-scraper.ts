@@ -121,7 +121,7 @@ export async function scrapeFutureTools(
     }
 
     // Determine total pages (if pagination exists)
-    const totalPages = extractTotalPages($);
+    const totalPages = extractTotalPages(cheerioApi as cheerio.CheerioAPI);
 
     return {
       tools,
