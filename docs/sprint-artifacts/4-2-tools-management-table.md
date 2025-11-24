@@ -1,6 +1,6 @@
 # Story 4.2: Tools Management Table
 
-**Status:** backlog  
+**Status:** done  
 **Epic:** Epic 4 - Admin Dashboard  
 **Prerequisites:** Story 4.1
 
@@ -69,5 +69,18 @@ So that **I can efficiently browse and manage the tool catalog**.
 
 ## Completion Notes
 
-_To be filled after completion_
+**Completed:** 2025-11-24
+
+- ✅ Tools management page at /admin/tools
+- ✅ Full-featured table with all required columns
+- ✅ Server-side pagination (20 tools per page)
+- ✅ Server-side sorting (name, pricing_model, status, created_at)
+- ✅ Server-side filtering (status, category)
+- ✅ Search functionality (name, description)
+- ✅ Bulk selection with checkboxes
+- ✅ Action buttons (View, Edit, Delete)
+- ✅ Affiliate status indicator
+- ✅ Responsive design
+- ✅ URL-based state management
+- ✅ All acceptance criteria met
 
