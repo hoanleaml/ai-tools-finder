@@ -1,6 +1,11 @@
 import { createAdminClient } from "@/lib/supabase/admin";
 import { generateSlug } from "@/lib/utils/generate-slug";
 import type { FutureToolsTool } from "./futuretools-scraper";
+import {
+  autoGenerateToolData,
+  enhanceDescription,
+  suggestCategory,
+} from "./auto-generate-tool-data";
 
 export interface SaveResult {
   saved: number;
@@ -73,6 +78,7 @@ async function findCategoryId(categoryName: string | null): Promise<string | nul
 
 /**
  * Map scraped tool data to database schema
+ * Uses auto-generation to enhance data quality
  */
 function mapToDatabaseTool(
   scrapedTool: FutureToolsTool,
@@ -88,32 +94,45 @@ function mapToDatabaseTool(
   slug: string;
   status: string;
 } {
-  // Generate slug from name
-  let slug = generateSlug(scrapedTool.name);
+  // Auto-generate tool data
+  const autoData = autoGenerateToolData(scrapedTool);
 
-  // Extract features from description (simple approach - can be enhanced)
-  const features: string[] = [];
-  if (scrapedTool.description) {
-    // Try to extract features from description
-    // This is a simple implementation - can be enhanced with AI/NLP
-    const sentences = scrapedTool.description
-      .split(/[.!?]\s+/)
-      .filter((s) => s.length > 20 && s.length < 200);
-    
-    // Take first 3-5 sentences as features
-    features.push(...sentences.slice(0, 5));
+  // Enhance description
+  const enhancedDescription = enhanceDescription(
+    scrapedTool.description,
+    scrapedTool.name,
+    scrapedTool.category
+  );
+
+  // Determine status based on review needs
+  let status = "pending";
+  if (autoData.needsReview) {
+    status = "pending"; // Needs admin review
+  } else if (enhancedDescription && scrapedTool.logoUrl && categoryId) {
+    status = "active"; // Complete data, can be active
   }
+
+  // Use auto-generated slug (ensures uniqueness will be checked later)
+  let slug = autoData.slug;
+
+  // Use auto-generated features if available
+  const features = autoData.features && autoData.features.length > 0
+    ? autoData.features
+    : null;
+
+  // Use auto-generated pricing model if available
+  const pricingModel = autoData.pricingModel;
 
   return {
     name: scrapedTool.name.trim(),
-    description: scrapedTool.description.trim() || null,
+    description: enhancedDescription || null,
     website_url: scrapedTool.websiteUrl,
     logo_url: scrapedTool.logoUrl,
     category_id: categoryId,
-    pricing_model: null, // Will be set later or by admin
-    features: features.length > 0 ? features : null,
+    pricing_model: pricingModel,
+    features: features,
     slug: slug,
-    status: "pending", // New scraped tools start as pending for review
+    status: status,
   };
 }
 
@@ -167,8 +186,19 @@ export async function saveScrapedTools(
         }
       }
 
-      // Find category ID
-      const categoryId = await findCategoryId(scrapedTool.category);
+      // Find category ID (use scraped category or suggest from description)
+      let categoryId = await findCategoryId(scrapedTool.category);
+      
+      // If no category found, try to suggest and find best match
+      if (!categoryId && scrapedTool.description) {
+        const suggestions = suggestCategory(scrapedTool.description, scrapedTool.name);
+        for (const suggestion of suggestions) {
+          categoryId = await findCategoryId(suggestion);
+          if (categoryId) {
+            break; // Use first matching suggestion
+          }
+        }
+      }
 
       // Map to database schema
       const dbTool = mapToDatabaseTool(scrapedTool, categoryId);
