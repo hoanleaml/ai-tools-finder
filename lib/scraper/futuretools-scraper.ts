@@ -66,7 +66,7 @@ export async function scrapeFutureTools(
     // Note: This selector needs to be updated based on actual FutureTools.io HTML structure
     $(".tool-card, .product-card, [data-tool]").each((index, element) => {
       try {
-        const tool = extractToolData($, $(element));
+        const tool = extractToolData($, $(element), finalConfig.baseUrl);
         if (tool) {
           tools.push(tool);
         }
@@ -98,7 +98,7 @@ export async function scrapeFutureTools(
 /**
  * Extract tool data from a single tool element
  */
-function extractToolData($: cheerio.CheerioAPI, $element: cheerio.Cheerio<cheerio.Element>): FutureToolsTool | null {
+function extractToolData($: cheerio.CheerioAPI, $element: cheerio.Cheerio<cheerio.Element>, baseUrl: string = "https://www.futuretools.io"): FutureToolsTool | null {
   try {
     // Tool name - try multiple selectors
     const name = 
@@ -151,10 +151,10 @@ function extractToolData($: cheerio.CheerioAPI, $element: cheerio.Cheerio<cheeri
       name,
       description,
       websiteUrl: websiteUrl.startsWith("http") ? websiteUrl : `https://${websiteUrl}`,
-      logoUrl: logoUrl ? (logoUrl.startsWith("http") ? logoUrl : `https://www.futuretools.io${logoUrl}`) : null,
+      logoUrl: logoUrl ? (logoUrl.startsWith("http") ? logoUrl : `${baseUrl}${logoUrl}`) : null,
       category,
       launchDate,
-      sourceUrl: sourceUrl.startsWith("http") ? sourceUrl : `https://www.futuretools.io${sourceUrl}`,
+      sourceUrl: sourceUrl.startsWith("http") ? sourceUrl : `${baseUrl}${sourceUrl}`,
     };
   } catch (error) {
     console.error("Error extracting tool data:", error);
