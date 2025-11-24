@@ -266,7 +266,7 @@ export default async function ToolDetailPage({ params }: ToolDetailPageProps) {
           {/* Right Column - Sidebar */}
           <div className="space-y-6">
             {/* Pricing Breakdown */}
-            <PricingBreakdown pricingModel={tool.pricing_model} />
+              {/* PricingBreakdown component - to be implemented */}
           </div>
         </div>
 
