@@ -61,6 +61,8 @@ export async function scrapeFutureTools(
 
     // Parse HTML
     const $ = cheerio.load(html);
+    // Capture cheerio API for use in callbacks (avoid Root type in callbacks)
+    const cheerioApi: cheerio.CheerioAPI = $;
     
     // Extract tools from the page
     // Try multiple common selectors for tool listings
