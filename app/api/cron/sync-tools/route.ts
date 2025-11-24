@@ -67,20 +67,19 @@ export async function POST(request: NextRequest) {
     // Step 3: Log job results to database (if scraping_jobs table exists)
     try {
       const supabase = createAdminClient();
+      const errorMessage = saveResult.errors.length > 0 
+        ? saveResult.errors.join("; ").substring(0, 500) // Limit error message length
+        : null;
+      
       await supabase.from("scraping_jobs").insert({
-        job_id: jobId,
-        job_type: "newly_added_sync",
-        status: saveResult.errors.length > 0 ? "partial_success" : "success",
+        source_url: "https://www.futuretools.io/newly-added",
+        status: saveResult.errors.length > 0 ? "failed" : "completed",
+        error_message: errorMessage,
         tools_found: scrapeResult.tools.length,
-        tools_saved: saveResult.saved,
-        tools_skipped: saveResult.skipped,
-        errors: saveResult.errors.length > 0 ? saveResult.errors : null,
-        duration_ms: duration,
-        started_at: new Date(startTime).toISOString(),
         completed_at: new Date().toISOString(),
       });
     } catch (error) {
-      // scraping_jobs table might not exist yet, log to console
+      // scraping_jobs table might not exist yet or schema differs, log to console
       console.warn(`[${jobId}] Could not log to scraping_jobs table:`, error);
     }
 
