@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools Finder - Color Theme Explorer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        h1 {
+            font-size: 2.25rem;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+        
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 3rem;
+        }
+        
+        .theme-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .theme-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            border: 1px solid #e2e8f0;
+        }
+        
+        .theme-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #0f172a;
+        }
+        
+        .theme-description {
+            color: #64748b;
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .color-palette {
+            margin-bottom: 2rem;
+        }
+        
+        .palette-section {
+            margin-bottom: 1.5rem;
+        }
+        
+        .palette-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #64748b;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .color-swatches {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 0.75rem;
+        }
+        
+        .color-swatch {
+            aspect-ratio: 1;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0.5rem;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 500;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .color-swatch.light {
+            color: #0f172a;
+            text-shadow: none;
+        }
+        
+        .component-examples {
+            margin-top: 2rem;
+        }
+        
+        .example-button {
+            display: inline-block;
+            padding: 0.625rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.875rem;
+            cursor: pointer;
+            border: none;
+            margin-right: 0.75rem;
+            margin-bottom: 0.75rem;
+            transition: all 0.2s;
+        }
+        
+        .example-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .example-input {
+            width: 100%;
+            padding: 0.625rem 1rem;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .example-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border: 1px solid #e2e8f0;
+            margin-bottom: 1rem;
+        }
+        
+        .selected-badge {
+            display: inline-block;
+            background: #10b981;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Color Theme Explorer</h1>
+        <p class="subtitle">Explore color themes for AI Tools Finder. Each theme includes a complete palette and live component examples.</p>
+        
+        <div class="theme-grid">
+            <!-- Theme 1: Professional Blue (Selected) -->
+            <div class="theme-card">
+                <div class="theme-title">
+                    Theme 1: Professional Blue
+                    <span class="selected-badge">SELECTED</span>
+                </div>
+                <div class="theme-description">
+                    Trustworthy, professional, modern. Perfect for AI tools platform conveying reliability and expertise.
+                </div>
+                
+                <div class="color-palette">
+                    <div class="palette-section">
+                        <div class="palette-label">Primary Colors</div>
+                        <div class="color-swatches">
+                            <div class="color-swatch" style="background: #2563eb;">
+                                <div>Primary</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#2563eb</div>
+                            </div>
+                            <div class="color-swatch" style="background: #1e40af;">
+                                <div>Dark</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#1e40af</div>
+                            </div>
+                            <div class="color-swatch" style="background: #3b82f6;">
+                                <div>Light</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#3b82f6</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="palette-section">
+                        <div class="palette-label">Semantic Colors</div>
+                        <div class="color-swatches">
+                            <div class="color-swatch" style="background: #10b981;">
+                                <div>Success</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#10b981</div>
+                            </div>
+                            <div class="color-swatch" style="background: #f59e0b;">
+                                <div>Warning</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#f59e0b</div>
+                            </div>
+                            <div class="color-swatch" style="background: #ef4444;">
+                                <div>Error</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#ef4444</div>
+                            </div>
+                            <div class="color-swatch" style="background: #3b82f6;">
+                                <div>Info</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#3b82f6</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="palette-section">
+                        <div class="palette-label">Neutral Colors</div>
+                        <div class="color-swatches">
+                            <div class="color-swatch light" style="background: #ffffff; border: 1px solid #e2e8f0;">
+                                <div style="color: #0f172a;">White</div>
+                                <div style="font-size: 0.625rem; color: #64748b;">#ffffff</div>
+                            </div>
+                            <div class="color-swatch light" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                                <div style="color: #0f172a;">Bg 2</div>
+                                <div style="font-size: 0.625rem; color: #64748b;">#f8fafc</div>
+                            </div>
+                            <div class="color-swatch light" style="background: #0f172a;">
+                                <div>Text</div>
+                                <div style="font-size: 0.625rem; opacity: 0.8;">#0f172a</div>
+                            </div>
+                            <div class="color-swatch light" style="background: #64748b;">
+                                <div>Text 2</div>
+                                <div style="font-size: 0.625rem; opacity: 0.8;">#64748b</div>
+                            </div>
+                            <div class="color-swatch light" style="background: #e2e8f0;">
+                                <div>Border</div>
+                                <div style="font-size: 0.625rem; color: #64748b;">#e2e8f0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-examples">
+                    <div class="palette-label">Live Component Examples</div>
+                    <button class="example-button" style="background: #2563eb; color: white;">Primary Button</button>
+                    <button class="example-button" style="background: transparent; color: #2563eb; border: 1px solid #2563eb;">Secondary Button</button>
+                    <button class="example-button" style="background: #10b981; color: white;">Success Button</button>
+                    <input type="text" class="example-input" placeholder="Search tools..." style="border-color: #e2e8f0;">
+                    <div class="example-card">
+                        <div style="font-weight: 600; margin-bottom: 0.5rem; color: #0f172a;">Tool Card Example</div>
+                        <div style="color: #64748b; font-size: 0.875rem;">This is how tool cards will look with this theme.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Theme 2: Modern Purple (Alternative) -->
+            <div class="theme-card">
+                <div class="theme-title">Theme 2: Modern Purple</div>
+                <div class="theme-description">
+                    Creative, innovative, tech-forward. Emphasizes AI innovation and creativity.
+                </div>
+                
+                <div class="color-palette">
+                    <div class="palette-section">
+                        <div class="palette-label">Primary Colors</div>
+                        <div class="color-swatches">
+                            <div class="color-swatch" style="background: #7c3aed;">
+                                <div>Primary</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#7c3aed</div>
+                            </div>
+                            <div class="color-swatch" style="background: #5b21b6;">
+                                <div>Dark</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#5b21b6</div>
+                            </div>
+                            <div class="color-swatch" style="background: #8b5cf6;">
+                                <div>Light</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#8b5cf6</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="palette-section">
+                        <div class="palette-label">Semantic Colors</div>
+                        <div class="color-swatches">
+                            <div class="color-swatch" style="background: #10b981;">
+                                <div>Success</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#10b981</div>
+                            </div>
+                            <div class="color-swatch" style="background: #f59e0b;">
+                                <div>Warning</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#f59e0b</div>
+                            </div>
+                            <div class="color-swatch" style="background: #ef4444;">
+                                <div>Error</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#ef4444</div>
+                            </div>
+                            <div class="color-swatch" style="background: #8b5cf6;">
+                                <div>Info</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#8b5cf6</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="palette-section">
+                        <div class="palette-label">Neutral Colors</div>
+                        <div class="color-swatches">
+                            <div class="color-swatch light" style="background: #ffffff; border: 1px solid #e2e8f0;">
+                                <div style="color: #0f172a;">White</div>
+                                <div style="font-size: 0.625rem; color: #64748b;">#ffffff</div>
+                            </div>
+                            <div class="color-swatch light" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                                <div style="color: #0f172a;">Bg 2</div>
+                                <div style="font-size: 0.625rem; color: #64748b;">#f8fafc</div>
+                            </div>
+                            <div class="color-swatch light" style="background: #0f172a;">
+                                <div>Text</div>
+                                <div style="font-size: 0.625rem; opacity: 0.8;">#0f172a</div>
+                            </div>
+                            <div class="color-swatch light" style="background: #64748b;">
+                                <div>Text 2</div>
+                                <div style="font-size: 0.625rem; opacity: 0.8;">#64748b</div>
+                            </div>
+                            <div class="color-swatch light" style="background: #e2e8f0;">
+                                <div>Border</div>
+                                <div style="font-size: 0.625rem; color: #64748b;">#e2e8f0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-examples">
+                    <div class="palette-label">Live Component Examples</div>
+                    <button class="example-button" style="background: #7c3aed; color: white;">Primary Button</button>
+                    <button class="example-button" style="background: transparent; color: #7c3aed; border: 1px solid #7c3aed;">Secondary Button</button>
+                    <button class="example-button" style="background: #10b981; color: white;">Success Button</button>
+                    <input type="text" class="example-input" placeholder="Search tools..." style="border-color: #e2e8f0;">
+                    <div class="example-card">
+                        <div style="font-weight: 600; margin-bottom: 0.5rem; color: #0f172a;">Tool Card Example</div>
+                        <div style="color: #64748b; font-size: 0.875rem;">This is how tool cards will look with this theme.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Theme 3: Tech Green (Alternative) -->
+            <div class="theme-card">
+                <div class="theme-title">Theme 3: Tech Green</div>
+                <div class="theme-description">
+                    Growth-oriented, fresh, modern. Emphasizes progress and innovation in AI.
+                </div>
+                
+                <div class="color-palette">
+                    <div class="palette-section">
+                        <div class="palette-label">Primary Colors</div>
+                        <div class="color-swatches">
+                            <div class="color-swatch" style="background: #059669;">
+                                <div>Primary</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#059669</div>
+                            </div>
+                            <div class="color-swatch" style="background: #047857;">
+                                <div>Dark</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#047857</div>
+                            </div>
+                            <div class="color-swatch" style="background: #10b981;">
+                                <div>Light</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#10b981</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="palette-section">
+                        <div class="palette-label">Semantic Colors</div>
+                        <div class="color-swatches">
+                            <div class="color-swatch" style="background: #10b981;">
+                                <div>Success</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#10b981</div>
+                            </div>
+                            <div class="color-swatch" style="background: #f59e0b;">
+                                <div>Warning</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#f59e0b</div>
+                            </div>
+                            <div class="color-swatch" style="background: #ef4444;">
+                                <div>Error</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#ef4444</div>
+                            </div>
+                            <div class="color-swatch" style="background: #3b82f6;">
+                                <div>Info</div>
+                                <div style="font-size: 0.625rem; opacity: 0.9;">#3b82f6</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="palette-section">
+                        <div class="palette-label">Neutral Colors</div>
+                        <div class="color-swatches">
+                            <div class="color-swatch light" style="background: #ffffff; border: 1px solid #e2e8f0;">
+                                <div style="color: #0f172a;">White</div>
+                                <div style="font-size: 0.625rem; color: #64748b;">#ffffff</div>
+                            </div>
+                            <div class="color-swatch light" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                                <div style="color: #0f172a;">Bg 2</div>
+                                <div style="font-size: 0.625rem; color: #64748b;">#f8fafc</div>
+                            </div>
+                            <div class="color-swatch light" style="background: #0f172a;">
+                                <div>Text</div>
+                                <div style="font-size: 0.625rem; opacity: 0.8;">#0f172a</div>
+                            </div>
+                            <div class="color-swatch light" style="background: #64748b;">
+                                <div>Text 2</div>
+                                <div style="font-size: 0.625rem; opacity: 0.8;">#64748b</div>
+                            </div>
+                            <div class="color-swatch light" style="background: #e2e8f0;">
+                                <div>Border</div>
+                                <div style="font-size: 0.625rem; color: #64748b;">#e2e8f0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="component-examples">
+                    <div class="palette-label">Live Component Examples</div>
+                    <button class="example-button" style="background: #059669; color: white;">Primary Button</button>
+                    <button class="example-button" style="background: transparent; color: #059669; border: 1px solid #059669;">Secondary Button</button>
+                    <button class="example-button" style="background: #10b981; color: white;">Success Button</button>
+                    <input type="text" class="example-input" placeholder="Search tools..." style="border-color: #e2e8f0;">
+                    <div class="example-card">
+                        <div style="font-weight: 600; margin-bottom: 0.5rem; color: #0f172a;">Tool Card Example</div>
+                        <div style="color: #64748b; font-size: 0.875rem;">This is how tool cards will look with this theme.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div style="background: white; border-radius: 12px; padding: 2rem; border: 1px solid #e2e8f0;">
+            <h2 style="font-size: 1.25rem; margin-bottom: 1rem;">Selected Theme: Professional Blue</h2>
+            <p style="color: #64748b; margin-bottom: 1rem;">
+                Theme 1 (Professional Blue) has been selected for AI Tools Finder. This theme conveys trustworthiness and professionalism, 
+                which aligns perfectly with the goal of helping users discover reliable AI tools.
+            </p>
+            <p style="color: #64748b;">
+                <strong>Rationale:</strong> Blue is universally associated with trust, technology, and professionalism. 
+                This color choice supports the "trustworthy" emotional response we want users to feel when using the platform.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

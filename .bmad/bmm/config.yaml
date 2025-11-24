@@ -3,7 +3,7 @@
 # Version: 6.0.0-alpha.12
 # Date: 2025-11-24T01:54:48.483Z
 
-project_name: ai-tools-finder
+project_name: AI Tools Finder
 user_skill_level: intermediate
 sprint_artifacts: '{project-root}/docs/sprint-artifacts'
 tea_use_mcp_enhancements: true
