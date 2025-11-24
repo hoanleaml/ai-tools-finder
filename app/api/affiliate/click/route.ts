@@ -56,6 +56,12 @@ export async function GET(request: NextRequest) {
     });
 
     // Redirect to affiliate URL
+    if (!affiliateUrl) {
+      return NextResponse.json(
+        { error: "Affiliate URL not found" },
+        { status: 404 }
+      );
+    }
     return NextResponse.redirect(affiliateUrl, { status: 302 });
   } catch (error) {
     console.error("Error in affiliate click handler:", error);
