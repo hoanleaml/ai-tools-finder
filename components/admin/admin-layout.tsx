@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { LayoutDashboard, Package, Link as LinkIcon, Settings } from "lucide-react";
+import { LayoutDashboard, Package, Link as LinkIcon, Settings, TestTube } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import LogoutButton from "@/components/auth/logout-button";
@@ -70,6 +70,18 @@ export async function AdminLayout({ children }: AdminLayoutProps) {
                 <div>
                   <LinkIcon className="mr-2 h-4 w-4" />
                   Affiliate Links
+                </div>
+              </Button>
+            </Link>
+            <Link href="/admin/scraper-test">
+              <Button
+                variant="ghost"
+                className="w-full justify-start"
+                asChild
+              >
+                <div>
+                  <TestTube className="mr-2 h-4 w-4" />
+                  Scraper Test
                 </div>
               </Button>
             </Link>
