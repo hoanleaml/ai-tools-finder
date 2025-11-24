@@ -78,7 +78,7 @@ export function SocialShare({
           <h4 className="mb-3 text-sm font-semibold">Share this tool</h4>
 
           {/* Web Share API (mobile) */}
-          {typeof navigator !== "undefined" && navigator.share && (
+          {typeof navigator !== "undefined" && "share" in navigator && (
             <Button
               variant="ghost"
               className="w-full justify-start"
