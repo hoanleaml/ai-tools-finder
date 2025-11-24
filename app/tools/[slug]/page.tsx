@@ -213,37 +213,62 @@ export default async function ToolDetailPage({ params }: ToolDetailPageProps) {
                     </a>
                   </Button>
                 )}
-                <Button variant="outline" size="lg" asChild>
-                  <a
-                    href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(
-                      `Check out ${tool.name} - ${tool.description || ""}`
-                    )}&url=${encodeURIComponent(tool.website_url)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center"
-                  >
-                    <Share2 className="mr-2 h-4 w-4" />
-                    Share
-                  </a>
-                </Button>
+                <SocialShare
+                  toolName={tool.name}
+                  toolDescription={tool.description || ""}
+                  toolUrl={`/tools/${tool.slug || tool.id}`}
+                  toolImage={tool.logo_url}
+                />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Features */}
-        {tool.features && Array.isArray(tool.features) && tool.features.length > 0 && (
-          <div className="mb-8">
-            <h2 className="mb-4 text-2xl font-semibold">Key Features</h2>
-            <div className="flex flex-wrap gap-2">
-              {tool.features.map((feature, index) => (
-                <Badge key={index} variant="outline" className="text-sm">
-                  {feature}
-                </Badge>
-              ))}
-            </div>
+        {/* Main Content Grid */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
+          {/* Left Column - Main Content */}
+          <div className="lg:col-span-2 space-y-8">
+            {/* Features */}
+            {tool.features && Array.isArray(tool.features) && tool.features.length > 0 && (
+              <div>
+                <h2 className="mb-4 text-2xl font-semibold">Key Features</h2>
+                <div className="flex flex-wrap gap-2">
+                  {tool.features.map((feature, index) => (
+                    <Badge key={index} variant="outline" className="text-sm">
+                      {feature}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Use Cases */}
+            {tool.features && Array.isArray(tool.features) && tool.features.length > 0 && (
+              <div>
+                <h2 className="mb-4 text-2xl font-semibold">Use Cases</h2>
+                <div className="space-y-3">
+                  {tool.features.slice(0, 5).map((feature, index) => (
+                    <div key={index} className="flex items-start gap-3 rounded-lg border p-4">
+                      <div className="mt-0.5 h-2 w-2 rounded-full bg-primary" />
+                      <div>
+                        <p className="font-medium">{feature}</p>
+                        <p className="mt-1 text-sm text-gray-600">
+                          Use {tool.name} for {feature.toLowerCase()} tasks and workflows
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        )}
+
+          {/* Right Column - Sidebar */}
+          <div className="space-y-6">
+            {/* Pricing Breakdown */}
+            <PricingBreakdown pricingModel={tool.pricing_model} />
+          </div>
+        </div>
 
         {/* Related Tools */}
         {relatedTools.length > 0 && (
