@@ -63,19 +63,14 @@ export async function scrapeFutureTools(
     const $ = cheerio.load(html);
     
     // Extract tools from the page
-    // Try multiple common selectors for tool listings
-    // FutureTools.io structure may vary, so we try multiple patterns
+    // FutureTools.io uses: <div role="listitem" class="tool tool-home w-dyn-item w-col w-col-4">
     const toolSelectors = [
+      ".tool.tool-home", // Primary selector for FutureTools.io
+      ".tool[role='listitem']", // Alternative
+      ".tool", // Fallback
       ".tool-card",
       ".product-card",
       "[data-tool]",
-      ".tool-item",
-      ".product-item",
-      "article[class*='tool']",
-      "article[class*='product']",
-      ".card",
-      "[class*='tool-card']",
-      "[class*='product-card']",
     ];
 
     let foundTools = false;
@@ -100,25 +95,24 @@ export async function scrapeFutureTools(
       }
     }
 
-    // If no tools found with common selectors, try to find any links that might be tools
-    if (!foundTools) {
-      console.warn("No tools found with common selectors, trying fallback method...");
-      // Fallback: look for links that might be tool links
-      // Use the same cheerioApi instance
-      $("a[href^='/tools/'], a[href*='tool']").each((index, element) => {
-        try {
-          const $link = cheerioApi(element);
-          const $parent = $link.closest("div, article, section, li");
-          const parentElement = $parent.length > 0 ? $parent[0] : element;
-          const tool = extractToolData(cheerioApi as cheerio.CheerioAPI, parentElement, finalConfig.baseUrl);
-          if (tool) {
-            tools.push(tool);
-          }
-        } catch (error) {
-          errors.push(`Error extracting tool from link ${index}: ${error instanceof Error ? error.message : String(error)}`);
-        }
-      });
+    // Remove duplicates based on sourceUrl (same tool detail page)
+    const uniqueTools: FutureToolsTool[] = [];
+    const seenSourceUrls = new Set<string>();
+    
+    for (const tool of tools) {
+      if (tool.sourceUrl && !seenSourceUrls.has(tool.sourceUrl)) {
+        seenSourceUrls.add(tool.sourceUrl);
+        uniqueTools.push(tool);
+      } else if (!tool.sourceUrl && !seenSourceUrls.has(tool.name)) {
+        // Fallback: use name if no sourceUrl
+        seenSourceUrls.add(tool.name);
+        uniqueTools.push(tool);
+      }
     }
+    
+    // Replace tools array with deduplicated version
+    tools.length = 0;
+    tools.push(...uniqueTools);
 
     // Determine total pages (if pagination exists)
     const totalPages = extractTotalPages(cheerioApi as cheerio.CheerioAPI);
@@ -146,46 +140,52 @@ export async function scrapeFutureTools(
 function extractToolData(cheerioApi: cheerio.CheerioAPI, element: cheerio.Element, baseUrl: string = "https://www.futuretools.io"): FutureToolsTool | null {
   const $element = cheerioApi(element);
   try {
-    // Tool name - try multiple selectors
+    // Tool name - FutureTools.io structure: <a href="/tools/alloy" class="tool-item-link---new">
     const name = 
-      $element.find("h2, h3, .tool-name, [data-name]").first().text().trim() ||
-      $element.find("a").first().text().trim();
+      $element.find("a.tool-item-link---new").first().text().trim() ||
+      $element.find("h2, h3, .tool-name").first().text().trim() ||
+      $element.find("a[href^='/tools/']").first().text().trim() ||
+      "";
 
     if (!name) {
       return null;
     }
 
-    // Description
+    // Description - FutureTools.io: <div class="tool-item-description-box---new">
     const description = 
-      $element.find(".description, .tool-description, p").first().text().trim() ||
-      $element.find("[data-description]").text().trim() ||
+      $element.find(".tool-item-description-box---new").first().text().trim() ||
+      $element.find(".description, .tool-description").first().text().trim() ||
       "";
 
-    // Website URL - usually in a link
+    // Website URL - FutureTools.io uses affiliate links: <a href="https://futuretools.link/..." class="tool-item-new-window---new">
+    // Note: These are affiliate links, we'll need to visit tool detail page for actual URL
+    // For now, we'll use the affiliate link but mark it
+    const affiliateLink = $element.find("a.tool-item-new-window---new").first().attr("href") || "";
+    
+    // Try to find actual website URL (might not be available on listing page)
     const websiteUrl = 
-      $element.find("a[href^='http']").not("[href*='futuretools.io']").first().attr("href") ||
-      $element.find("[data-url]").attr("data-url") ||
+      affiliateLink ||
+      $element.find("a[href^='http']").not("[href*='futuretools.io']").not("[href*='futuretools.link']").first().attr("href") ||
       "";
 
     if (!websiteUrl) {
       return null;
     }
 
-    // Logo/image URL - try multiple attributes
+    // Logo/image URL - FutureTools.io: <img class="tool-item-image---new tool-item-image---home" src="...">
     const logoSelectors = [
+      "img.tool-item-image---new",
+      "img.tool-item-image---home",
       "img[src]",
       "img[data-src]",
       "img[data-lazy-src]",
-      ".logo img",
-      ".tool-logo img",
-      ".product-image img",
     ];
 
     let logoUrl: string | null = null;
     for (const selector of logoSelectors) {
       const img = $element.find(selector).first();
       const src = img.attr("src") || img.attr("data-src") || img.attr("data-lazy-src");
-      if (src && src.length > 0) {
+      if (src && src.length > 0 && !src.includes("placeholder")) {
         logoUrl = src;
         break;
       }
@@ -231,11 +231,11 @@ function extractToolData(cheerioApi: cheerio.CheerioAPI, element: cheerio.Elemen
       }
     }
 
-    // Source URL (FutureTools.io page) - link to tool detail page
+    // Source URL (FutureTools.io page) - FutureTools.io: <a href="/tools/alloy" class="tool-item-link---new">
     const sourceUrlSelectors = [
-      "a[href*='futuretools.io']",
+      "a.tool-item-link---new[href^='/tools/']",
       "a[href^='/tools/']",
-      "a[href^='/tool/']",
+      "a[href*='futuretools.io/tools/']",
     ];
 
     let sourceUrl = "";
@@ -245,6 +245,12 @@ function extractToolData(cheerioApi: cheerio.CheerioAPI, element: cheerio.Elemen
         sourceUrl = found.startsWith("http") ? found : `${baseUrl}${found}`;
         break;
       }
+    }
+    
+    // If no source URL found, try to construct from name
+    if (!sourceUrl && name) {
+      const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+      sourceUrl = `${baseUrl}/tools/${slug}`;
     }
 
     return {
