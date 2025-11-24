@@ -63,8 +63,58 @@ export async function scrapeFutureTools(
     const $ = cheerio.load(html);
     
     // Extract tools from the page
-    // Note: This selector needs to be updated based on actual FutureTools.io HTML structure
-    $(".tool-card, .product-card, [data-tool]").each((index, element) => {
+    // Try multiple common selectors for tool listings
+    // FutureTools.io structure may vary, so we try multiple patterns
+    const toolSelectors = [
+      ".tool-card",
+      ".product-card",
+      "[data-tool]",
+      ".tool-item",
+      ".product-item",
+      "article[class*='tool']",
+      "article[class*='product']",
+      ".card",
+      "[class*='tool-card']",
+      "[class*='product-card']",
+    ];
+
+    let foundTools = false;
+    for (const selector of toolSelectors) {
+      const elements = $(selector);
+      if (elements.length > 0) {
+        console.log(`Found ${elements.length} tools using selector: ${selector}`);
+        elements.each((index, element) => {
+          try {
+            const tool = extractToolData($, $(element), finalConfig.baseUrl);
+            if (tool) {
+              tools.push(tool);
+            }
+          } catch (error) {
+            errors.push(`Error extracting tool ${index}: ${error instanceof Error ? error.message : String(error)}`);
+          }
+        });
+        foundTools = true;
+        break; // Use first selector that finds elements
+      }
+    }
+
+    // If no tools found with common selectors, try to find any links that might be tools
+    if (!foundTools) {
+      console.warn("No tools found with common selectors, trying fallback method...");
+      // Fallback: look for links that might be tool links
+      $("a[href^='/tools/'], a[href*='tool']").each((index, element) => {
+        try {
+          const $link = $(element);
+          const $parent = $link.closest("div, article, section, li");
+          const tool = extractToolData($, $parent.length > 0 ? $parent : $link, finalConfig.baseUrl);
+          if (tool) {
+            tools.push(tool);
+          }
+        } catch (error) {
+          errors.push(`Error extracting tool from link ${index}: ${error instanceof Error ? error.message : String(error)}`);
+        }
+      });
+    }
       try {
         const tool = extractToolData($, $(element), finalConfig.baseUrl);
         if (tool) {
@@ -125,27 +175,81 @@ function extractToolData($: cheerio.CheerioAPI, $element: cheerio.Cheerio<cheeri
       return null;
     }
 
-    // Logo/image URL
-    const logoUrl = 
-      $element.find("img").first().attr("src") ||
-      $element.find("img").first().attr("data-src") ||
-      null;
+    // Logo/image URL - try multiple attributes
+    const logoSelectors = [
+      "img[src]",
+      "img[data-src]",
+      "img[data-lazy-src]",
+      ".logo img",
+      ".tool-logo img",
+      ".product-image img",
+    ];
 
-    // Category - might be in a badge or tag
-    const category = 
-      $element.find(".category, .tag, .badge, [data-category]").first().text().trim() ||
-      null;
+    let logoUrl: string | null = null;
+    for (const selector of logoSelectors) {
+      const img = $element.find(selector).first();
+      const src = img.attr("src") || img.attr("data-src") || img.attr("data-lazy-src");
+      if (src && src.length > 0) {
+        logoUrl = src;
+        break;
+      }
+    }
 
-    // Launch date - might be in a date element
-    const launchDate = 
-      $element.find("[data-date], .date, time").first().attr("datetime") ||
-      $element.find("[data-date], .date, time").first().text().trim() ||
-      null;
+    // Category - try multiple selectors
+    const categorySelectors = [
+      ".category",
+      ".tag",
+      ".badge",
+      "[data-category]",
+      ".tool-category",
+      ".product-category",
+      "[class*='category']",
+    ];
 
-    // Source URL (FutureTools.io page)
-    const sourceUrl = 
-      $element.find("a[href*='futuretools.io']").first().attr("href") ||
-      "";
+    let category: string | null = null;
+    for (const selector of categorySelectors) {
+      const found = $element.find(selector).first().text().trim();
+      if (found && found.length > 0 && found.length < 100) {
+        category = found;
+        break;
+      }
+    }
+
+    // Launch date - try multiple formats
+    const dateSelectors = [
+      "[data-date]",
+      "[datetime]",
+      ".date",
+      "time",
+      "[data-launch-date]",
+      ".launch-date",
+    ];
+
+    let launchDate: string | null = null;
+    for (const selector of dateSelectors) {
+      const element = $element.find(selector).first();
+      const dateValue = element.attr("datetime") || element.attr("data-date") || element.text().trim();
+      if (dateValue && dateValue.length > 0) {
+        launchDate = dateValue;
+        break;
+      }
+    }
+
+    // Source URL (FutureTools.io page) - link to tool detail page
+    const sourceUrlSelectors = [
+      "a[href*='futuretools.io']",
+      "a[href^='/tools/']",
+      "a[href^='/tool/']",
+    ];
+
+    let sourceUrl = "";
+    for (const selector of sourceUrlSelectors) {
+      const found = $element.find(selector).first().attr("href");
+      if (found) {
+        sourceUrl = found.startsWith("http") ? found : `${baseUrl}${found}`;
+        break;
+      }
+    }
 
     return {
       name,
