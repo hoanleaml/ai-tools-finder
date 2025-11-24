@@ -7,7 +7,7 @@ export async function createTool(data: ToolFormData) {
   const validatedData = toolFormSchema.parse(data);
 
   // Generate slug from name
-  const slug = generateSlug(validatedData.name);
+  let slug = generateSlug(validatedData.name);
 
   // Check if slug already exists
   const supabase = createAdminClient();
@@ -15,14 +15,11 @@ export async function createTool(data: ToolFormData) {
     .from("tools")
     .select("id")
     .eq("slug", slug)
-    .single();
+    .maybeSingle();
 
   if (existingTool) {
     // Append timestamp to make it unique
-    const uniqueSlug = `${slug}-${Date.now()}`;
-    validatedData.slug = uniqueSlug;
-  } else {
-    validatedData.slug = slug;
+    slug = `${slug}-${Date.now()}`;
   }
 
   // Insert tool
