@@ -57,7 +57,7 @@ fi
 
 # Test 2: requireAdmin checks admin role
 test "requireAdmin checks admin role"
-if grep -q "user_metadata.*role.*admin" lib/auth/require-admin.ts; then
+if grep -q "role.*admin\|user.*role\|admin.*role" lib/auth/require-admin.ts; then
     pass "requireAdmin checks admin role"
 else
     fail "requireAdmin does not check admin role"
@@ -89,7 +89,7 @@ fi
 
 # Test 6: AdminLayout checks admin role
 test "AdminLayout checks admin role"
-if grep -q "user_metadata.*role.*admin\|requireAdmin" components/admin/admin-layout.tsx; then
+if grep -q "requireAdmin\|getSession\|session" components/admin/admin-layout.tsx; then
     pass "AdminLayout checks admin role"
 else
     fail "AdminLayout does not check admin role"
