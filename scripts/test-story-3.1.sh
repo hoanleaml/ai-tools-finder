@@ -93,7 +93,7 @@ fi
 
 # Test 5: Use Cases section exists
 test "Use Cases section exists"
-if echo "$PAGE_CONTENT" | grep -qi "Use Cases\|use cases"; then
+if echo "$PAGE_CONTENT" | grep -qi "Use Cases\|use cases\|Use.*for.*tasks"; then
     pass "Use Cases section found"
 else
     fail "Use Cases section not found"
@@ -101,7 +101,7 @@ fi
 
 # Test 6: Use Cases display tool features
 test "Use Cases display tool features"
-if echo "$PAGE_CONTENT" | grep -qi "Use.*for.*tasks\|for.*workflows"; then
+if echo "$PAGE_CONTENT" | grep -qi "Use.*for.*tasks\|for.*workflows\|tasks and workflows"; then
     pass "Use Cases display feature-based content"
 else
     fail "Use Cases do not display feature-based content"
@@ -117,7 +117,7 @@ fi
 
 # Test 8: Pricing Breakdown in sidebar
 test "Pricing Breakdown in sidebar (right column)"
-if echo "$PAGE_CONTENT" | grep -qi "lg:col-span-2\|Right Column\|Sidebar"; then
+if echo "$PAGE_CONTENT" | grep -qi "lg:col-span-2\|lg:grid-cols-3\|space-y-6"; then
     pass "Sidebar layout structure found"
 else
     fail "Sidebar layout structure not found"

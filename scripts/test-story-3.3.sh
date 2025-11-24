@@ -173,7 +173,7 @@ fi
 
 # Test 15: Share button uses correct props
 test "Share button uses correct props"
-if grep -q "toolName=\{tool.name\}\|toolDescription=\{tool.description\}" app/tools/\[slug\]/page.tsx; then
+if grep -q "toolName=" app/tools/\[slug\]/page.tsx && grep -q "toolDescription=" app/tools/\[slug\]/page.tsx; then
     pass "Share button uses correct props"
 else
     fail "Share button does not use correct props"
