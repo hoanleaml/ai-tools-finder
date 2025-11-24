@@ -37,8 +37,8 @@ export function AffiliateLinkForm({
     formState: { errors },
     setValue,
     watch,
-  } = useForm<AffiliateLinkFormData>({
-    resolver: zodResolver(affiliateLinkSchema),
+  } = useForm({
+    resolver: zodResolver(affiliateLinkSchema) as any,
     defaultValues: {
       tool_id: initialData?.tool_id || "",
       affiliate_url: initialData?.affiliate_url || "",

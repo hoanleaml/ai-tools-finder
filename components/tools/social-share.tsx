@@ -45,7 +45,7 @@ export function SocialShare({
   };
 
   const handleWebShare = async () => {
-    if (navigator.share) {
+      if (typeof navigator !== 'undefined' && navigator.share) {
       try {
         await navigator.share({
           title: toolName,

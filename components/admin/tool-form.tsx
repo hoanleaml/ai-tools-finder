@@ -39,8 +39,8 @@ export function ToolForm({ categories, initialData, onSubmit, onCancel }: ToolFo
     formState: { errors },
     setValue,
     watch,
-  } = useForm<ToolFormData>({
-    resolver: zodResolver(toolFormSchema),
+  } = useForm({
+    resolver: zodResolver(toolFormSchema) as any,
     defaultValues: {
       name: initialData?.name || "",
       description: initialData?.description || "",
