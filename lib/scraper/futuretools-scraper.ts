@@ -47,9 +47,17 @@ export async function scrapeFutureTools(
 
   try {
     // Construct URL - FutureTools.io uses pagination
-    const url = page === 1 
-      ? `${finalConfig.baseUrl}`
-      : `${finalConfig.baseUrl}?page=${page}`;
+    // Support both base URL and specific paths like /newly-added
+    let url: string;
+    if (finalConfig.baseUrl.includes("/newly-added")) {
+      // For /newly-added page, don't add page parameter
+      url = finalConfig.baseUrl;
+    } else {
+      // For main listing page, use pagination
+      url = page === 1 
+        ? `${finalConfig.baseUrl}`
+        : `${finalConfig.baseUrl}?page=${page}`;
+    }
 
     // Fetch page with retry logic
     const html = await fetchWithRetry(url, finalConfig.maxRetries, finalConfig.timeout);
