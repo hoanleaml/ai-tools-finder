@@ -68,9 +68,9 @@ PAGE_RESPONSE=$(curl -s -w "\n%{http_code}" "${PAGE_URL}" 2>/dev/null || echo -e
 PAGE_HTTP_CODE=$(echo "$PAGE_RESPONSE" | tail -1)
 PAGE_BODY=$(echo "$PAGE_RESPONSE" | sed '$d')
 
-if [ "$PAGE_HTTP_CODE" = "200" ] || [ "$PAGE_HTTP_CODE" = "302" ] || [ "$PAGE_HTTP_CODE" = "401" ] || [ "$PAGE_HTTP_CODE" = "403" ]; then
+if [ "$PAGE_HTTP_CODE" = "200" ] || [ "$PAGE_HTTP_CODE" = "302" ] || [ "$PAGE_HTTP_CODE" = "307" ] || [ "$PAGE_HTTP_CODE" = "401" ] || [ "$PAGE_HTTP_CODE" = "403" ]; then
   echo -e "${GREEN}✅ PASSED: Admin page exists${NC}"
-  echo "  - HTTP Code: $PAGE_HTTP_CODE"
+  echo "  - HTTP Code: $PAGE_HTTP_CODE (redirect/auth expected)"
   ((PASSED++))
 else
   echo -e "${RED}❌ FAILED: Page not found (HTTP $PAGE_HTTP_CODE)${NC}"
@@ -89,6 +89,10 @@ if [ "$PAGE_HTTP_CODE" = "200" ]; then
     echo -e "${YELLOW}⚠️  WARNING: Page content may be different${NC}"
     ((PASSED++))
   fi
+elif [ "$PAGE_HTTP_CODE" = "302" ] || [ "$PAGE_HTTP_CODE" = "307" ]; then
+  echo -e "${GREEN}✅ PASSED: Page redirects to login (expected for protected route)${NC}"
+  echo "  - HTTP Code: $PAGE_HTTP_CODE"
+  ((PASSED++))
 else
   echo -e "${BLUE}ℹ️  INFO: Page requires authentication (HTTP $PAGE_HTTP_CODE)${NC}"
   ((PASSED++))
