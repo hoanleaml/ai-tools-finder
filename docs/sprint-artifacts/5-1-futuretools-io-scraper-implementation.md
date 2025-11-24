@@ -1,6 +1,6 @@
 # Story 5.1: FutureTools.io Scraper Implementation
 
-**Status:** in-progress  
+**Status:** done  
 **Epic:** Epic 5 - Scraping & Sync System  
 **Prerequisites:** Story 1.2
 
@@ -67,5 +67,22 @@ So that **I can discover new AI tools automatically**.
 
 ## Completion Notes
 
-_To be filled after completion_
+**Completed:** 2025-11-24
+
+- ✅ Scraper utility created with Cheerio
+- ✅ Multiple HTML selector strategies with fallbacks
+- ✅ Tool data extraction (name, description, URL, logo, category, date)
+- ✅ Pagination support
+- ✅ Rate limiting (2 seconds between requests)
+- ✅ Retry logic with exponential backoff
+- ✅ API route created (/api/scraper/futuretools)
+- ✅ Database integration
+- ✅ Duplicate detection (by name or URL)
+- ✅ Category matching with fuzzy search
+- ✅ Slug generation with uniqueness check
+- ✅ Feature extraction from description
+- ✅ Status set to 'pending' for admin review
+- ✅ Comprehensive error handling and logging
+- ✅ Test script created
+- ✅ All acceptance criteria met
 
