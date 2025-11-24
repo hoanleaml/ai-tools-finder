@@ -68,7 +68,7 @@ development_status:
   epic-4: contexted
   4-1-admin-dashboard-overview: done
   4-2-tools-management-table: done
-  4-3-tool-creation-editing-form: backlog
+  4-3-tool-creation-editing-form: done
   4-4-affiliate-link-management: backlog
   4-5-bulk-operations-for-tools: backlog
   epic-4-retrospective: optional
