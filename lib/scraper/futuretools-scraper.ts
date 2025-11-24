@@ -140,8 +140,8 @@ export async function scrapeFutureTools(
 /**
  * Extract tool data from a single tool element
  */
-function extractToolData($: cheerio.CheerioAPI, element: cheerio.AnyNode, baseUrl: string = "https://www.futuretools.io"): FutureToolsTool | null {
-  const $element = $(element);
+function extractToolData(cheerioApi: cheerio.CheerioAPI, element: cheerio.AnyNode, baseUrl: string = "https://www.futuretools.io"): FutureToolsTool | null {
+  const $element = cheerioApi(element);
   try {
     // Tool name - try multiple selectors
     const name = 
@@ -265,7 +265,7 @@ function extractToolData($: cheerio.CheerioAPI, element: cheerio.AnyNode, baseUr
 function extractTotalPages($: cheerio.CheerioAPI): number {
   try {
     // Try to find pagination element
-    const paginationText = cheerioApi(".pagination, .page-numbers, [data-pages]").text();
+    const paginationText = $(".pagination, .page-numbers, [data-pages]").text();
     const pageMatches = paginationText.match(/(\d+)\s*(?:of|total|pages?)/i);
     
     if (pageMatches) {
@@ -273,7 +273,7 @@ function extractTotalPages($: cheerio.CheerioAPI): number {
     }
 
     // Try to find last page number
-    const lastPageLink = cheerioApi(".pagination a, .page-numbers a").last().text();
+    const lastPageLink = $(".pagination a, .page-numbers a").last().text();
     const lastPage = parseInt(lastPageLink, 10);
     
     if (!isNaN(lastPage)) {
