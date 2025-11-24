@@ -1,6 +1,6 @@
 # Story 2.1: Tool Listing Page with Pagination
 
-Status: in-progress
+**Status:** done
 
 ## Story
 

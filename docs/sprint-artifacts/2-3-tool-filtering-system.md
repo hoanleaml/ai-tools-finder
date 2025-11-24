@@ -1,6 +1,6 @@
 # Story 2.3: Tool Filtering System
 
-**Status:** in-progress  
+**Status:** done  
 **Epic:** Epic 2 - Tool Discovery & Browsing  
 **Prerequisites:** Story 2.1
 

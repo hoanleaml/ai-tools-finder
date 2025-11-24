@@ -1,6 +1,6 @@
 # Story 2.4: Tool Detail Page
 
-**Status:** in-progress  
+**Status:** done  
 **Epic:** Epic 2 - Tool Discovery & Browsing  
 **Prerequisites:** Story 2.1, Story 1.4
 

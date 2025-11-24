@@ -1,6 +1,6 @@
 # Story 2.5: Affiliate Link Tracking & Redirect
 
-**Status:** in-progress  
+**Status:** done  
 **Epic:** Epic 2 - Tool Discovery & Browsing  
 **Prerequisites:** Story 2.4, Story 1.2
 

@@ -1,6 +1,6 @@
 # Story 2.2: Tool Search Functionality
 
-**Status:** in-progress  
+**Status:** done  
 **Epic:** Epic 2 - Tool Discovery & Browsing  
 **Prerequisites:** Story 2.1
 
