@@ -85,7 +85,7 @@ export async function scrapeFutureTools(
         console.log(`Found ${elements.length} tools using selector: ${selector}`);
         elements.each((index, element) => {
           try {
-            const tool = extractToolData($, $(element), finalConfig.baseUrl);
+            const tool = extractToolData($, element, finalConfig.baseUrl);
             if (tool) {
               tools.push(tool);
             }
@@ -106,7 +106,8 @@ export async function scrapeFutureTools(
         try {
           const $link = $(element);
           const $parent = $link.closest("div, article, section, li");
-          const tool = extractToolData($, $parent.length > 0 ? $parent : $link, finalConfig.baseUrl);
+          const parentElement = $parent.length > 0 ? $parent[0] : element;
+          const tool = extractToolData($, parentElement, finalConfig.baseUrl);
           if (tool) {
             tools.push(tool);
           }
@@ -139,7 +140,8 @@ export async function scrapeFutureTools(
 /**
  * Extract tool data from a single tool element
  */
-function extractToolData($: cheerio.CheerioAPI, $element: cheerio.Cheerio<cheerio.Element>, baseUrl: string = "https://www.futuretools.io"): FutureToolsTool | null {
+function extractToolData($: cheerio.CheerioAPI, element: cheerio.Element, baseUrl: string = "https://www.futuretools.io"): FutureToolsTool | null {
+  const $element = $(element);
   try {
     // Tool name - try multiple selectors
     const name = 
