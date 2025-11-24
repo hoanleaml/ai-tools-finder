@@ -61,8 +61,6 @@ export async function scrapeFutureTools(
 
     // Parse HTML
     const $ = cheerio.load(html);
-    // Capture cheerio API for use in callbacks (avoid Root type in callbacks)
-    const cheerioApi: cheerio.CheerioAPI = $;
     
     // Extract tools from the page
     // Try multiple common selectors for tool listings
@@ -87,7 +85,8 @@ export async function scrapeFutureTools(
         console.log(`Found ${elements.length} tools using selector: ${selector}`);
         elements.each((index, element) => {
           try {
-            const tool = extractToolData($, element, finalConfig.baseUrl);
+            // Use cheerio.load to get CheerioAPI for this element
+            const tool = extractToolData($.root().constructor.prototype.constructor === cheerio ? $ : cheerio.load(''), element, finalConfig.baseUrl);
             if (tool) {
               tools.push(tool);
             }
@@ -104,12 +103,14 @@ export async function scrapeFutureTools(
     if (!foundTools) {
       console.warn("No tools found with common selectors, trying fallback method...");
       // Fallback: look for links that might be tool links
+      // Capture cheerio API before callback
+      const cheerioApiFallback = cheerio.load(html);
       $("a[href^='/tools/'], a[href*='tool']").each((index, element) => {
         try {
-          const $link = $(element);
+          const $link = cheerioApiFallback(element);
           const $parent = $link.closest("div, article, section, li");
           const parentElement = $parent.length > 0 ? $parent[0] : element;
-          const tool = extractToolData($, parentElement, finalConfig.baseUrl);
+          const tool = extractToolData(cheerioApiFallback, parentElement, finalConfig.baseUrl);
           if (tool) {
             tools.push(tool);
           }
