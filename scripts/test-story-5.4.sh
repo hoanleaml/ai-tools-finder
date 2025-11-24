@@ -40,7 +40,7 @@ echo "Test 1: Check API endpoint structure"
 echo "------------------------------------------"
 RESPONSE=$(curl -s -w "\n%{http_code}" "${API_URL}" 2>/dev/null || echo -e "\n000")
 HTTP_CODE=$(echo "$RESPONSE" | tail -1)
-BODY=$(echo "$RESPONSE" | head -n -1)
+BODY=$(echo "$RESPONSE" | sed '$d')
 
 if [ "$HTTP_CODE" = "401" ] || [ "$HTTP_CODE" = "403" ]; then
   echo -e "${GREEN}✅ PASSED: API endpoint exists and requires authentication${NC}"
@@ -66,7 +66,7 @@ echo "Test 2: Check admin page exists"
 echo "------------------------------------------"
 PAGE_RESPONSE=$(curl -s -w "\n%{http_code}" "${PAGE_URL}" 2>/dev/null || echo -e "\n000")
 PAGE_HTTP_CODE=$(echo "$PAGE_RESPONSE" | tail -1)
-PAGE_BODY=$(echo "$PAGE_RESPONSE" | head -n -1)
+PAGE_BODY=$(echo "$PAGE_RESPONSE" | sed '$d')
 
 if [ "$PAGE_HTTP_CODE" = "200" ] || [ "$PAGE_HTTP_CODE" = "302" ] || [ "$PAGE_HTTP_CODE" = "401" ] || [ "$PAGE_HTTP_CODE" = "403" ]; then
   echo -e "${GREEN}✅ PASSED: Admin page exists${NC}"
@@ -123,6 +123,7 @@ echo "------------------------------------------"
 TRIGGER_URL="http://localhost:3000/api/cron/sync-tools"
 TRIGGER_RESPONSE=$(curl -s -w "\n%{http_code}" "${TRIGGER_URL}?secret=test" 2>/dev/null || echo -e "\n000")
 TRIGGER_HTTP_CODE=$(echo "$TRIGGER_RESPONSE" | tail -1)
+TRIGGER_BODY=$(echo "$TRIGGER_RESPONSE" | sed '$d')
 
 if [ "$TRIGGER_HTTP_CODE" = "200" ] || [ "$TRIGGER_HTTP_CODE" = "401" ] || [ "$TRIGGER_HTTP_CODE" = "403" ]; then
   echo -e "${GREEN}✅ PASSED: Manual trigger endpoint exists${NC}"
