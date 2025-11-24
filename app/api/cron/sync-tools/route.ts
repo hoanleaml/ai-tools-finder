@@ -53,7 +53,7 @@ export async function POST(request: NextRequest) {
     let saveResult = null;
     if (scrapeResult.tools.length > 0) {
       console.log(`[${jobId}] Saving ${scrapeResult.tools.length} tools to database...`);
-      saveResult = await saveScrapedTools(scrapeResult.tools, true); // skipDuplicates = true
+      saveResult = await saveScrapedTools(scrapeResult.tools, { skipDuplicates: true });
     } else {
       saveResult = {
         saved: 0,
