@@ -49,8 +49,8 @@ development_status:
   epic-1-retrospective: optional
 
   # Epic 2: Tool Discovery & Browsing
-  epic-2: backlog
-  2-1-tool-listing-page-with-pagination: backlog
+  epic-2: contexted
+  2-1-tool-listing-page-with-pagination: in-progress
   2-2-tool-search-functionality: backlog
   2-3-tool-filtering-system: backlog
   2-4-tool-detail-page: backlog
