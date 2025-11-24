@@ -10,6 +10,8 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { ExternalLink, ArrowLeft, Share2 } from "lucide-react";
 import { ToolCard } from "@/components/tools/tool-card";
+import { SocialShare } from "@/components/tools/social-share";
+import { PricingBreakdown } from "@/components/tools/pricing-breakdown";
 import type { Metadata } from "next";
 
 interface ToolDetailPageProps {
@@ -266,7 +268,7 @@ export default async function ToolDetailPage({ params }: ToolDetailPageProps) {
           {/* Right Column - Sidebar */}
           <div className="space-y-6">
             {/* Pricing Breakdown */}
-              {/* PricingBreakdown component - to be implemented */}
+              <PricingBreakdown pricingModel={tool.pricing_model} />
           </div>
         </div>
 
