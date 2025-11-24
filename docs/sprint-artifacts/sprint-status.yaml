@@ -65,8 +65,8 @@ development_status:
   epic-3-retrospective: optional
 
   # Epic 4: Admin Dashboard
-  epic-4: backlog
-  4-1-admin-dashboard-overview: backlog
+  epic-4: contexted
+  4-1-admin-dashboard-overview: in-progress
   4-2-tools-management-table: backlog
   4-3-tool-creation-editing-form: backlog
   4-4-affiliate-link-management: backlog
