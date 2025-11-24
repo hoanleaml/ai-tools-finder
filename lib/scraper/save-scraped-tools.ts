@@ -21,7 +21,7 @@ async function toolExists(name: string, websiteUrl: string): Promise<boolean> {
     .select("id")
     .ilike("name", name)
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (byName) {
     return true;
@@ -33,7 +33,7 @@ async function toolExists(name: string, websiteUrl: string): Promise<boolean> {
     .select("id")
     .eq("website_url", websiteUrl)
     .limit(1)
-    .single();
+    .maybeSingle();
 
   return !!byUrl;
 }
@@ -54,7 +54,7 @@ async function findCategoryId(categoryName: string | null): Promise<string | nul
     .select("id")
     .ilike("name", categoryName)
     .limit(1)
-    .single();
+    .maybeSingle();
 
   if (exactMatch) {
     return exactMatch.id;
@@ -66,7 +66,7 @@ async function findCategoryId(categoryName: string | null): Promise<string | nul
     .select("id")
     .ilike("name", `%${categoryName}%`)
     .limit(1)
-    .single();
+    .maybeSingle();
 
   return fuzzyMatch?.id || null;
 }
@@ -182,7 +182,7 @@ export async function saveScrapedTools(
           .select("id")
           .eq("slug", finalSlug)
           .limit(1)
-          .single();
+          .maybeSingle();
 
         if (!existingSlug) {
           break; // Slug is unique
